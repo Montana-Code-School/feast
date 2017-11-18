@@ -1,0 +1,7 @@
+{
+  "db": {
+    "url": "mongodb://admin:admin@ds113626.mlab.com:13626/feast",
+    "name": "db",
+    "connector": "mongodb"
+  }
+}
