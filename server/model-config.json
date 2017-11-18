@@ -42,5 +42,17 @@
   "profile": {
     "dataSource": "db",
     "public": true
+  },
+  "events": {
+    "dataSource": "db",
+    "public": true
+  },
+  "courses": {
+    "dataSource": "db",
+    "public": true
+  },
+  "dish": {
+    "dataSource": "db",
+    "public": true
   }
 }
