@@ -19,13 +19,13 @@ class App extends Component {
     
   }
   render() {
-    console.log(this.userId);
+    // console.log(this.userId);
     return (
       <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login}/> 
         <Route exact path="/signUp" onLogin= {this.setAccessToken} component={SignUp}/> 
-        <Route exact path="/editProfile/" component={EditProfile}/> 
+        <Route exact path="/editProfile/:id" component={EditProfile}/> 
         <Route exact path="/profile/:id" component={Profile}/> 
 
       </Switch>

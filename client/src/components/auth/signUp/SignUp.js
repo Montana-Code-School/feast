@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Form} from 'semantic-ui-react';
 import "./SignUp.css";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 class SignUp extends Component {
@@ -39,7 +39,7 @@ class SignUp extends Component {
       state: this.state.state,
       zip: this.state.zip,
       phone: this.state.phone,
-      allergies: this.state.alergies
+      allergies: this.state.allergies
     }
     
     axios.post('/api/profiles', userSignUp) 
@@ -48,6 +48,7 @@ class SignUp extends Component {
           console.log(this.props.history)
          // this.props.onLogin(res.data.id);          
           this.props.history.push("/profile/" + res.data.id)
+
         })
         .catch((error) => {
           console.log(error);

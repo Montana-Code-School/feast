@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
+import { Button} from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -61,8 +61,7 @@ class Profile extends Component {
           PHONE: {this.state.phone}<br/>
           ALLERGIES: {this.state.allergies}
         </p>
-        <Button type='submit'>EDIT</Button>
-
+        <Link to={"/editProfile/" + this.props.match.params.id}><Button>Edit</Button></Link>
       </div>
     );
   }
