@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "axios": "^0.17.1",
     "react": "^16.1.1",
@@ -11,6 +12,7 @@
     "semantic-ui": "^2.2.13",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.76.0"
+    
   },
   "scripts": {
     "start": "react-scripts start",

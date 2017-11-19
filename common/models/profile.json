@@ -30,7 +30,7 @@
     "zipcode": {
       "type": "string"
     },
-    "alergies": {
+    "allergies": {
       "type": "string"
     },
     "tools": {
