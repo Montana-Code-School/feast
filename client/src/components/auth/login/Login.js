@@ -30,23 +30,23 @@ class Login extends Component {
     axios.post('/api/Users/login', userLogin) 
         .then((res) => {
           console.log(res);
-          this.setAccessToken(res.data.id);
+          // this.setAccessToken(res.data.id);
         })
         .catch((error) => {
           console.log(error);
         })
   }
 
-  setAccessToken(accessToken){
-    axios.post('/api/Users/' + accessToken + '/accessTokens' )
-      .then((res) => {
-        console.log(res);
-        // this.props.history.push('/') 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // setAccessToken(accessToken){
+  //   axios.post('/api/Users/' + accessToken + '/accessTokens' )
+  //     .then((res) => {
+  //       console.log(res);
+  //       // this.props.history.push('/') 
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
 
 
@@ -77,7 +77,7 @@ class Login extends Component {
           <Image src='/logo.png' />
           {' '}Log-in to Feast
         </Header>
-        <Form size='large'>
+        <Form size='large' onSubmit={(e) => this.handleSubmit(e)}>
           <Segment stacked>
             <Form.Input
               fluid
@@ -97,7 +97,7 @@ class Login extends Component {
           </Segment>
         </Form>
         <Message>
-          New to Feast? <a href='#'>Sign Up</a>
+          New to Feast? <a href='./SignUp'>Sign Up</a>
         </Message>
       </Grid.Column>
     </Grid>
