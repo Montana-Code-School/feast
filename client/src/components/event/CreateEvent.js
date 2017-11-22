@@ -31,7 +31,8 @@ class CreateEvent extends Component {
       place: this.state.place,
       time: this.state.time,
       date: this.state.date,
-      theme: this.state.theme
+      theme: this.state.theme,
+      profileId: this.props.match.params.hid
     }
     
     axios.post('/api/events', createEvent) 

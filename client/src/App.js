@@ -28,7 +28,7 @@ class App extends Component {
         <Route exact path="/signup" onLogin= {this.setAccessToken} component={SignUp}/> 
         <Route exact path="/profile/edit/:id" component={EditProfile}/> 
         <Route exact path="/profile/:id" component={Profile}/> 
-        <Route exact path="/event/create" component={CreateEvent}/> 
+        <Route exact path="/event/create/:hid" component={CreateEvent}/> 
 
       </Switch>
       
