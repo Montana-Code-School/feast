@@ -97,7 +97,7 @@ class Login extends Component {
           </Segment>
         </Form>
         <Message>
-          New to Feast? <a href='./SignUp'>Sign Up</a>
+          New to Feast? <a href='./signup'>Sign Up</a>
         </Message>
       </Grid.Column>
     </Grid>

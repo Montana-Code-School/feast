@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+// import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Button} from 'semantic-ui-react';
+import { Button, Form} from 'semantic-ui-react';
 
 
 class EditProfile extends Component {
@@ -19,10 +19,11 @@ class EditProfile extends Component {
         newPhone:"",
         newAllergies:""
     };
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeName = this.handleChangeName.bind(this);    
-    this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+  }
+    handleChange(event) {
+      console.log(event.target.value);
+      this.setState({[event.target.name]: event.target.value});
     }
   componentWillMount() {
     axios.get('/api/profiles/' + this.props.match.params.id)
@@ -44,15 +45,15 @@ class EditProfile extends Component {
       console.log(error);
     });
   }
-  handleChangeEmail(event) {
-    this.setState({newEmail: event.target.value});
-  }
-  handleChangePassword(event) {
-    this.setState({newPassword: event.target.value});
-  }
-  handleChangeName(event) {
-    this.setState({newName: event.target.value});
-  }
+  // handleChangeEmail(event) {
+  //   this.setState({newEmail: event.target.value});
+  // }
+  // handleChangePassword(event) {
+  //   this.setState({newPassword: event.target.value});
+  // }
+  // handleChangeName(event) {
+  //   this.setState({newName: event.target.value});
+  // }
   handleSubmit(event) {
     event.preventDefault();
     var updateProfile = this.state;
@@ -61,7 +62,14 @@ class EditProfile extends Component {
           id: this.state.id,
           email: this.state.newEmail,
           password: this.state.newPassword,
-          name: this.state.newName
+          name: this.state.newName,
+          street: this.state.newStreet,
+          city: this.state.newCity,
+          state: this.state.newState,
+          zip: this.state.newZip,
+          phone: this.state.newPhone,
+          allergies: this.state.newAllergies
+
       
     })
     .then((response) => {
@@ -85,33 +93,30 @@ class EditProfile extends Component {
         <h1>
           Profile
         </h1>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          EMAIL:<br/>
-          <input type="text" onChange={this.handleChangeEmail} value={this.state.newEmail}/><br/>
-          PASSWORD:<br/>
-          <input type="text" onChange={this.handleChangePassword} value={this.state.newPassword}/><br/>
-          NAME:<br/>
-          <input type="text" onChange={this.handleChangeName} value={this.state.newName}/><br/>
-          {/* EMAIL:<br/>
-          <input type="text" onChange={this.handleChangeEmail} value={this.state.newEmail}/><br/>
-          EMAIL:<br/>
-          <input type="text" onChange={this.handleChangeEmail} value={this.state.newEmail}/><br/>
-          EMAIL:<br/>
-          <input type="text" onChange={this.handleChangeEmail} value={this.state.newEmail}/><br/> */}
-         <Button type='submit'>Submit</Button>
-
-        </form>
-        <p>
-          {/* EMAIL: {this.state.email} <br/>
-          PASSWORD: {this.state.password}<br/>
-          NAME: {this.state.name}<br/>
-          STREET: {this.state.street}<br/>
-          CITY: {this.state.city}<br/>
-          STATE: {this.state.state}<br/>
-          ZIP: {this.state.zip}<br/>
-          PHONE: {this.state.phone}<br/>
-          ALLERGIES: {this.state.allergies} */}
-        </p>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+      <Form.Group unstackable widths={2}>
+        <Form.Input label='Email' placeholder='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
+        <Form.Input label='Password' placeholder='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
+      </Form.Group>
+      <Form.Group unstackable widths={1}>
+        <Form.Input label='Name' placeholder='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='Street' placeholder='Street' name="newStreet" onChange={this.handleChange} value={this.state.newStreet}/>
+        <Form.Input label='City' placeholder='City' name="newCity" onChange={this.handleChange} value={this.state.newCity}/>
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='State' placeholder='State' name="newState" onChange={this.handleChange} value={this.state.newState}/>
+        <Form.Input label='Zip' placeholder='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='Phone' placeholder='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
+        <Form.Input label='Allergies' placeholder='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>
+      </Form.Group>
+      <Button type='submit'>Submit</Button>
+    </Form>
+  
+       
 
       </div>
     );

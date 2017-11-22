@@ -46,7 +46,7 @@ class Profile extends Component {
     return (
       <div>
         <Button type='submit'>JOIN IT</Button>
-        <Button type='submit'>MAKE IT</Button>
+        <Link to="/event/create"><Button type='submit'>MAKE IT</Button></Link>
         <h1>
           Profile
         </h1>
@@ -61,7 +61,7 @@ class Profile extends Component {
           PHONE: {this.state.phone}<br/>
           ALLERGIES: {this.state.allergies}
         </p>
-        <Link to={"/editProfile/" + this.props.match.params.id}><Button>Edit</Button></Link>
+        <Link to={"/profile/edit" + this.props.match.params.id}><Button>Edit</Button></Link>
       </div>
     );
   }

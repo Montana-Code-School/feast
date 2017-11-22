@@ -4,6 +4,7 @@ import Login from './components/auth/login/Login';
 import SignUp from './components/auth/signUp/SignUp';
 import Profile from './components/auth/profile/Profile';
 import EditProfile from './components/auth/editProfile/EditProfile';
+import CreateEvent from './components/event/CreateEvent';
 
 import './App.css';
 
@@ -24,9 +25,10 @@ class App extends Component {
       <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login}/> 
-        <Route exact path="/signUp" onLogin= {this.setAccessToken} component={SignUp}/> 
-        <Route exact path="/editProfile/:id" component={EditProfile}/> 
+        <Route exact path="/signup" onLogin= {this.setAccessToken} component={SignUp}/> 
+        <Route exact path="/profile/edit/:id" component={EditProfile}/> 
         <Route exact path="/profile/:id" component={Profile}/> 
+        <Route exact path="/event/create" component={CreateEvent}/> 
 
       </Switch>
       
