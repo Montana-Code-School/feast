@@ -6,6 +6,7 @@ import Profile from './components/auth/profile/Profile';
 import EditProfile from './components/auth/editProfile/EditProfile';
 import CreateEvent from './components/event/CreateEvent';
 import Event from './components/event/Event';
+import EditEvent from './components/event/EditEvent';
 
 import './App.css';
 
@@ -30,7 +31,9 @@ class App extends Component {
         <Route exact path="/profile/edit/:id" component={EditProfile}/> 
         <Route exact path="/profile/:id" component={Profile}/> 
         <Route exact path="/event/create/:hid" component={CreateEvent}/> 
-        {/* <Route exact path="/event" component={Event}/>  */}
+        <Route exact path="/event/:eid" component={Event}/>
+        <Route exact path="/event/edit/:eid" component={EditEvent}/> 
+ 
 
       </Switch>
       

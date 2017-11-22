@@ -8,27 +8,29 @@ class Event extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    event: "",
-    time: "",
-    place: "",
-
-      
+      host: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      time: "",
+      date: "",
+      theme: ""      
     };
     }
   componentWillMount() {
-    axios.get('/api/events/' + this.props.match.params.id)
+    axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
       console.log(response);
       this.setState({
-        email: response.data.email, 
-        password: response.data.password,
-        name: response.data.name,
+        host: response.data.host,
         street: response.data.street,
         city: response.data.city,
         state: response.data.state,
         zip: response.data.zip,
-        phone: response.data.phone,
-        allergies: response.data.allergies
+        time: response.data.time,
+        date: response.data.date,
+        theme: response.data.theme      
       })
     })
     .catch((error) => {
@@ -39,23 +41,22 @@ class Event extends Component {
   render() {
     return (
       <div>
-        <Button type='submit'>JOIN IT</Button>
-        <Link to={"/event/create/"+this.props.match.params.id}><Button type='submit'>MAKE IT</Button></Link>
+        {/* <Button type='submit'>JOIN IT</Button>
+        <Link to={"/event/create/"+this.props.match.params.id}><Button type='submit'>MAKE IT</Button></Link> */}
         <h1>
-          Profile
+          EVENT
         </h1>
         <p>
-          EMAIL: {this.state.email} <br/>
-          PASSWORD: {this.state.password}<br/>
-          NAME: {this.state.name}<br/>
+          HOST: {this.state.host} <br/>
+          DATE: {this.state.date}<br/>
+          TIME: {this.state.time}<br/>
+          THEME: {this.state.theme}<br/>
           STREET: {this.state.street}<br/>
           CITY: {this.state.city}<br/>
           STATE: {this.state.state}<br/>
           ZIP: {this.state.zip}<br/>
-          PHONE: {this.state.phone}<br/>
-          ALLERGIES: {this.state.allergies}
         </p>
-        <Link to={"/profile/edit/" + this.props.match.params.id}><Button>Edit</Button></Link>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button>Edit</Button></Link>
       </div>
     );
   }
