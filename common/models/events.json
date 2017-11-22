@@ -10,9 +10,17 @@
       "type": "string",
       "required": true
     },
-    "place": {
-      "type": "string",
-      "required": true
+    "street": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zip": {
+      "type": "string"
     },
     "time": {
       "type": "string"
