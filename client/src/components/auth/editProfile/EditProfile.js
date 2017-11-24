@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./EditProfile.css";
 // import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Button, Form} from 'semantic-ui-react';
+import { Header, Image, Grid, Message, Button, Form} from 'semantic-ui-react';
 
 
 class EditProfile extends Component {
@@ -96,7 +96,19 @@ class EditProfile extends Component {
         Edit Profile
         </Header> 
         {/* We're gonna have to figure out how to import profile pic to the edit profile page  */}
-        <Image src='https://placeimg.com/640/480/people' size='small' circular centered/>
+        <Image src='https://placeimg.com/640/480/people' size='small' rounded centered/>
+        <Grid
+      textAlign='center'
+      style={{ height: '100%' }}
+      verticalAlign='middle'
+    >
+      <Grid.Column style={{ maxWidth: 180 }}>
+        <Message>
+          Add <a href=''>Image</a>
+        </Message>
+        </Grid.Column>
+    </Grid>
+    <div className='text'>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
       <Form.Group unstackable widths={2}>
         <Form.Input label='Email' placeholder='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
@@ -119,10 +131,8 @@ class EditProfile extends Component {
       </Form.Group>
       <Button type='submit' color='teal'>Submit</Button>
     </Form>
-  
-       
-
-      </div>
+    </div>
+    </div>
     );
   }
 }

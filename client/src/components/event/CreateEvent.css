@@ -1,5 +1,5 @@
-#profile-overlay {
-    background-image: url('./profile.jpg');
+#event-overlay {
+    background-image: url('./event.jpg');
     background-size: cover;
     background-position: center center;
     position:absolute;

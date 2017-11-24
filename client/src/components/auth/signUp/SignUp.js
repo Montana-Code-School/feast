@@ -9,15 +9,15 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        email: "",
-        password: "",
-        name: "",
-        street:"",
-        city:"",
-        state: "",
-        zip:"",
-        phone:"",
-        allergies:""
+      email: "",
+      password: "",
+      name: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      phone: "",
+      allergies: ""
 
     }
     console.log(props);
@@ -25,10 +25,10 @@ class SignUp extends Component {
   }
   handleChange(event) {
     console.log(event.target.value);
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
     const userSignUp = {
       email: this.state.email,
@@ -41,22 +41,22 @@ class SignUp extends Component {
       phone: this.state.phone,
       allergies: this.state.allergies
     }
-    
-    axios.post('/api/profiles', userSignUp) 
-        .then((res) => {
-          console.log(res);
-          console.log(this.props.history)
-         // this.props.onLogin(res.data.id);          
-          this.props.history.push("/profile/" + res.data.id)
 
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-          // this.setAccessToken(res.data.id);
-       
+    axios.post('/api/profiles', userSignUp)
+      .then((res) => {
+        console.log(res);
+        console.log(this.props.history)
+        // this.props.onLogin(res.data.id);          
+        this.props.history.push("/profile/" + res.data.id)
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // this.setAccessToken(res.data.id);
+
   }
-  
+
 
   render() {
     return (
@@ -69,39 +69,39 @@ class SignUp extends Component {
         height: 100%;
       }
     `}</style>
-      <Header as='h1' color='green' textAlign='center'>
-        Sign UP TO FEAST
-      </Header>   
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={2}>
-        <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
-        <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group unstackable widths={2}>
-        <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
-        <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
-        <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} />
-        <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
-      </Form.Group>
-      <Button type='submit'>Submit</Button>
-      <Grid textAlign='center'style={{ height: '100%' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-      <Message>
-          Already signed up? <a href='./'>Log In</a>
-      </Message>
-      </Grid.Column>
-    </Grid>
-    </Form>
-    </div>
+        <Header as='h1' color='green' textAlign='center'>
+          Sign UP TO FEAST
+      </Header>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group unstackable widths={2}>
+            <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
+            <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group unstackable widths={2}>
+            <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
+            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} />
+            <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
+          </Form.Group>
+          <Button type='submit'>Submit</Button>
+          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Message>
+                Already signed up? <a href='./'>Log In</a>
+              </Message>
+            </Grid.Column>
+          </Grid>
+        </Form>
+      </div>
     );
   }
 }
