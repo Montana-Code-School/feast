@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './Event.css';
 import axios from 'axios';
-import { Image, Button } from 'semantic-ui-react';
+import { Header, Image, Form, List } from 'semantic-ui-react';
 
 
 class Event extends Component {
@@ -40,24 +40,48 @@ class Event extends Component {
   render() {
     return (
       <div id='event-overlay'>
+        <Header as='h1' color='green' textAlign='center'>
+          WELCOME TO THE FEAST!
+        </Header>
         <Image src='https://placeimg.com/640/480/people' size='medium' rounded centered />
-        <Button type='submit'>JOIN IT</Button>
-        <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit'>MAKE IT</Button></Link>
-        <h1>
-          Profile
-        </h1>
-        <p>
-          EMAIL: {this.state.email} <br />
-          PASSWORD: {this.state.password}<br />
-          NAME: {this.state.name}<br />
-          STREET: {this.state.street}<br />
-          CITY: {this.state.city}<br />
-          STATE: {this.state.state}<br />
-          ZIP: {this.state.zip}<br />
-          PHONE: {this.state.phone}<br />
-          ALLERGIES: {this.state.allergies}
-        </p>
-        <Link to={"/profile/edit/" + this.props.match.params.id}><Button>Edit</Button></Link>
+        <Header as='h1' color='green' textAlign='center'>
+          YOUR HOST
+        </Header>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group unstackable widths={2}>
+            <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />
+            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group unstackable widths={1}>
+            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} />
+            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
+            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+          </Form.Group>
+        </Form>
+        <List>
+          <List.Item>
+            <List.Header>Appetizer</List.Header>
+            Pass in our apps
+          </List.Item>
+          <List.Item>
+            <List.Header>Salad</List.Header>
+            Pass in our salads
+          </List.Item>
+          <List.Item>
+            <List.Header>Entree</List.Header>
+            Pass in our entrees
+          </List.Item>
+          <List.Item>
+            <List.Header>Dessert</List.Header>
+            Pass in our desserts
+          </List.Item>
+        </List>
+
       </div>
     );
   }

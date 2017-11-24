@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CreateEvent.css';
 import axios from 'axios';
-import { Header, Button, Form, Menu } from 'semantic-ui-react';
+import { Header, Button, Form, List, Dropdown } from 'semantic-ui-react';
 // import { Link } from 'react-router-dom';
 
 
@@ -16,8 +16,7 @@ class CreateEvent extends Component {
       zip: "",
       time: "",
       date: "",
-      theme: "",
-      activeItem: ""
+      theme: ""
     }
     console.log(props);
     this.handleChange = this.handleChange.bind(this);
@@ -26,8 +25,6 @@ class CreateEvent extends Component {
     console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })  
 
   handleSubmit(event) {
     event.preventDefault();
@@ -78,10 +75,14 @@ class CreateEvent extends Component {
 
   }
 
-
   render() {
 
-    const { activeItem } = this.state;    
+    const options = [
+      { key: 1, text: 'Appetizer', value: 1 },
+      { key: 2, text: 'Salad', value: 2 },
+      { key: 3, text: 'Entree', value: 3 },
+      { key: 4, text: 'Desert', value: 4 },
+    ]
 
     return (
       <div id='event-overlay'>
@@ -103,15 +104,15 @@ class CreateEvent extends Component {
             <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
             <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
           </Form.Group>
-          <Button type='submit' color='teal'>Submit</Button>
         </Form>
-        <Menu pointing secondary>
-          <Menu.Item name='appatizer' active={activeItem === 'appatizer'} onClick={this.handleItemClick} />
-          <Menu.Item name='salad' active={activeItem === 'salad'} onClick={this.handleItemClick} />
-          <Menu.Item name='entree' active={activeItem === 'entree'} onClick={this.handleItemClick} />
-          <Menu.Item name='dessert' active={activeItem === 'dessert'} onClick={this.handleItemClick} />
-        </Menu>
-
+        <List link>
+          <List.Item active>Appetizer</List.Item>
+          <List.Item as='a'>Salad</List.Item>
+          <List.Item as='a'>Entree</List.Item>
+          <List.Item as='a'>Dessert</List.Item>
+        </List>
+          <Button type='submit' color='teal'>Submit</Button>
+        <Dropdown text='Dropdown' options={options} open />
       </div>
     );
   }
