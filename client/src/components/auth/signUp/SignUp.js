@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
+import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import { Link } from 'react-router-dom';
 
@@ -62,15 +62,22 @@ class SignUp extends Component {
     return (
       <div>
         <div id="signup-overlay"></div>
-        <h1>
-          Sign Up
-          </h1>
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+      <Header as='h1' color='green' textAlign='center'>
+        Sign UP TO FEAST
+      </Header>   
       <Form onSubmit={(e) => this.handleSubmit(e)}>
       <Form.Group unstackable widths={2}>
         <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
         <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} />
       </Form.Group>
-      <Form.Group unstackable widths={1}>
+      <Form.Group unstackable widths={2}>
         <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} />
       </Form.Group>
       <Form.Group widths={2}>
@@ -86,14 +93,17 @@ class SignUp extends Component {
         <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
       </Form.Group>
       <Button type='submit'>Submit</Button>
+      <Grid textAlign='center'style={{ height: '100%' }} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 450 }}>
+      <Message>
+          Already signed up? <a href='./'>Log In</a>
+      </Message>
+      </Grid.Column>
+    </Grid>
     </Form>
-  
-    
     </div>
     );
   }
-
-
 }
 
 

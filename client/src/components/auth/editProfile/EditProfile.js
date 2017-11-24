@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import "./EditProfile.css";
 // import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
+import { Header, Image, Button, Form} from 'semantic-ui-react';
 
 
 class EditProfile extends Component {
@@ -90,15 +91,18 @@ class EditProfile extends Component {
   render() {
     return (
       <div>
-        <h1>
-          Profile
-        </h1>
+        <div id="profile-overlay"></div>
+        <Header as='h1' color='green' textAlign='center'>
+        Edit Profile
+        </Header> 
+        {/* We're gonna have to figure out how to import profile pic to the edit profile page  */}
+        <Image src='https://placeimg.com/640/480/people' size='small' circular centered/>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
       <Form.Group unstackable widths={2}>
         <Form.Input label='Email' placeholder='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
         <Form.Input label='Password' placeholder='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
       </Form.Group>
-      <Form.Group unstackable widths={1}>
+      <Form.Group unstackable widths={2}>
         <Form.Input label='Name' placeholder='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
       </Form.Group>
       <Form.Group widths={2}>
@@ -113,7 +117,7 @@ class EditProfile extends Component {
         <Form.Input label='Phone' placeholder='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
         <Form.Input label='Allergies' placeholder='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>
       </Form.Group>
-      <Button type='submit'>Submit</Button>
+      <Button type='submit' color='teal'>Submit</Button>
     </Form>
   
        

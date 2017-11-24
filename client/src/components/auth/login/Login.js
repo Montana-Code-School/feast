@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Login.css";
 import axios from 'axios';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 
 
@@ -73,8 +73,7 @@ class Login extends Component {
       verticalAlign='middle'
     >
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          <Image src='/logo.png' />
+        <Header as='h1' color='green' textAlign='center'>
           {' '}Log-in to Feast
         </Header>
         <Form size='large' onSubmit={(e) => this.handleSubmit(e)}>

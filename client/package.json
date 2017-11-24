@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3000",
   "dependencies": {
     "axios": "^0.17.1",
+    "loopback-connector-mongodb": "^3.3.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
@@ -12,7 +13,6 @@
     "semantic-ui": "^2.2.13",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.76.0"
-    
   },
   "scripts": {
     "start": "react-scripts start",

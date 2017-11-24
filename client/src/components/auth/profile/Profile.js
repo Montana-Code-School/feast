@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button} from 'semantic-ui-react';
+import { Header, Image, Form, Grid, Button} from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -45,23 +46,49 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <Button type='submit'>JOIN IT</Button>
-        <Link to={"/event/create/"+this.props.match.params.id}><Button type='submit'>MAKE IT</Button></Link>
-        <h1>
-          Profile
-        </h1>
-        <p>
-          EMAIL: {this.state.email} <br/>
-          PASSWORD: {this.state.password}<br/>
-          NAME: {this.state.name}<br/>
-          STREET: {this.state.street}<br/>
-          CITY: {this.state.city}<br/>
-          STATE: {this.state.state}<br/>
-          ZIP: {this.state.zip}<br/>
-          PHONE: {this.state.phone}<br/>
-          ALLERGIES: {this.state.allergies}
-        </p>
-        <Link to={"/profile/edit/" + this.props.match.params.id}><Button>Edit</Button></Link>
+          <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+          <div id="profile-overlay"></div>
+        <Header as='h1' color='green' textAlign='center'>
+        Profile
+        </Header>  
+        <Button.Group fluid>
+        <Button type='submit' color='teal'>JOIN A FEAST</Button>
+        <Button.Or />
+        <Link to={"/event/create/"+this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
+        </Button.Group>
+        <Image src='https://placeimg.com/640/480/people' size='small' circular centered/>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+      <Form.Group unstackable widths={2}>
+        <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} value={this.state.email} />
+        <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} value={this.state.password} />
+      </Form.Group>
+      <Form.Group unstackable widths={2}>
+        <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} value={this.state.name} />
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} value={this.state.street} />
+        <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} value={this.state.city} />
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} value={this.state.state} />
+        <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
+      </Form.Group>
+      <Form.Group widths={2}>
+        <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} value={this.state.phone} />
+        <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies} />
+      </Form.Group>
+      <Grid textAlign='center'style={{ height: '100%' }} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 450 }}>
+      </Grid.Column>
+    </Grid>
+    </Form>
+        <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
       </div>
     );
   }

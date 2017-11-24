@@ -1,8 +1,6 @@
-// import React, { React } from 'react';
-
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 // import { Link } from 'react-router-dom';
 
 
