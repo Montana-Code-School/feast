@@ -41,7 +41,7 @@ class SignUp extends Component {
       phone: this.state.phone,
       allergies: this.state.allergies
     }
-
+console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
         console.log(res);
@@ -92,10 +92,10 @@ class SignUp extends Component {
             <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} />
             <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
           </Form.Group>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' color='teal'>Submit</Button>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Message>
+              <Message color='teal'>
                 Already signed up? <a href='./'>Log In</a>
               </Message>
             </Grid.Column>

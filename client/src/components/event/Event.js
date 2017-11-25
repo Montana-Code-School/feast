@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import './Event.css';
 import axios from 'axios';
-import { Header, Image, Form, List } from 'semantic-ui-react';
+import { Header, Image, Form, Grid, List } from 'semantic-ui-react';
 
 
 class Event extends Component {
@@ -63,25 +63,31 @@ class Event extends Component {
             <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
           </Form.Group>
         </Form>
-        <List>
-          <List.Item>
-            <List.Header>Appetizer</List.Header>
-            Pass in our apps
-          </List.Item>
-          <List.Item>
-            <List.Header>Salad</List.Header>
-            Pass in our salads
-          </List.Item>
-          <List.Item>
-            <List.Header>Entree</List.Header>
-            Pass in our entrees
-          </List.Item>
-          <List.Item>
-            <List.Header>Dessert</List.Header>
-            Pass in our desserts
-          </List.Item>
-        </List>
-
+        <Grid columns={4} divided>
+          <Grid.Row> 
+            <Grid.Column>
+            <List>
+              <List.Item>
+                <List.Header as='h4'>COURSES</List.Header>
+                Import our courses with the number of fields per course we have created.
+              </List.Item>
+            </List> 
+            </Grid.Column>
+            <Grid.Column>  
+              <h4>TOOLS</h4>
+              import list of tools offered <br/>
+              display feild for reservation of tool
+            </Grid.Column>
+            <Grid.Column>
+              <h4>GUESTS</h4>
+              import list of guest as the confirm that they are coming
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Allergies</h4>
+              import a list of allergies from the list of confirmed guests
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>  
       </div>
     );
   }

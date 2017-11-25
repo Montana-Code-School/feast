@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './CreateEvent.css';
 import axios from 'axios';
-import { Header, Button, Form, List, Dropdown } from 'semantic-ui-react';
+import { Header, Button, Form, Grid, Dropdown, Checkbox } from 'semantic-ui-react';
 // import { Link } from 'react-router-dom';
 
 
@@ -81,7 +81,7 @@ class CreateEvent extends Component {
       { key: 1, text: 'Appetizer', value: 1 },
       { key: 2, text: 'Salad', value: 2 },
       { key: 3, text: 'Entree', value: 3 },
-      { key: 4, text: 'Desert', value: 4 },
+      { key: 4, text: 'Dessert', value: 4 },
     ]
 
     return (
@@ -105,19 +105,35 @@ class CreateEvent extends Component {
             <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
           </Form.Group>
         </Form>
-        <List link>
-          <List.Item active>Appetizer</List.Item>
-          <List.Item as='a'>Salad</List.Item>
-          <List.Item as='a'>Entree</List.Item>
-          <List.Item as='a'>Dessert</List.Item>
-        </List>
+        <Grid columns={4} divided>
+          <Grid.Row> 
+            <Grid.Column>
+              <h4>Courses</h4>
+              <Dropdown text='Dropdown' options={options} open />
+            </Grid.Column>
+            <Grid.Column>  
+              <h4>TOOLS</h4>
+              <Checkbox label='Oven' /> <br/>
+              <Checkbox label='Fridge' /> <br/>
+              <Checkbox label='Range' /> <br/>
+              <Checkbox label='Mixer' /> <br/>
+              <Checkbox label='Blender' /> <br/>
+              <Checkbox label='Food Processor' /> <br/>
+            </Grid.Column>
+            <Grid.Column>
+              <h4>GUESTS</h4>
+              import list of guest as the confirm that they are coming
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Allergies</h4>
+              import a list of allergies from the list of confirmed guests
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>        
           <Button type='submit' color='teal'>Submit</Button>
-        <Dropdown text='Dropdown' options={options} open />
       </div>
     );
   }
-
-
 }
 
 
