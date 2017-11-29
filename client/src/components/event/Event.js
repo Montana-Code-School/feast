@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button} from 'semantic-ui-react';
+import { Header, Image, Form, Grid,List,Button} from 'semantic-ui-react';
 
 
 class Event extends Component {
@@ -18,6 +18,8 @@ class Event extends Component {
       theme: ""      
     };
     }
+
+
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
@@ -38,6 +40,8 @@ class Event extends Component {
     });
   }
 
+  
+
   render() {
     return (
       <div id='event-overlay'>
@@ -55,29 +59,29 @@ class Event extends Component {
         </Header>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />
-            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+            <Form.Input label='Host' name="host" onChange={this.handleChange} value={this.state.host} />
+            <Form.Input label='Date'  name="date" onChange={this.handleChange} value={this.state.date}/>
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
-            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+            <Form.Input label='Time'  name="time" onChange={this.handleChange} value={this.state.time}/>
+            <Form.Input label='Theme'  name="theme" onChange={this.handleChange} value={this.state.theme}/>
           </Form.Group>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
-            <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} />
-            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
-            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+            <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
+            <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
+            <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
+            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
-        </Form>
+        </Form> 
         <Grid columns={4} divided>
           <Grid.Row> 
             <Grid.Column>
-            <List>
-              <List.Item>
-                <List.Header as='h4'>COURSES</List.Header>
-                Import our courses with the number of fields per course we have created.
-              </List.Item>
-            </List> 
+              <List>
+                <List.Item>
+                  <List.Header as='h4'>COURSES</List.Header>
+                  Import our courses with the number of fields per course we have created.
+                </List.Item>
+              </List> 
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -93,7 +97,9 @@ class Event extends Component {
               import a list of allergies from the list of confirmed guests
             </Grid.Column>
           </Grid.Row>
-        </Grid>  
+        </Grid>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
+       
       </div>
     );
   }

@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
-// import { Link } from 'react-router-dom';
+import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
+//import { Link } from 'react-router-dom';
 
 
 class CreateEvent extends Component {
@@ -41,11 +41,11 @@ class CreateEvent extends Component {
       profileId: this.props.match.params.hid
     };
     axios.post('/api/events', createEvent) 
-    .then((res) => {
-      console.log(res);
+    .then((response) => {
+      console.log(response);
       console.log(this.props.history)
       // this.props.onLogin(res.data.id);          
-      this.props.history.push("/event/" + res.data.id)
+      this.props.history.push("/event/" + response.data.id)
 
     })
     .catch((error) => {
@@ -55,7 +55,7 @@ class CreateEvent extends Component {
     componentWillMount() {
       axios.get('/api/profiles/' + this.props.match.params.hid)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         this.setState({
           
           host: response.data.name,
@@ -90,7 +90,7 @@ class CreateEvent extends Component {
           />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />
+            <Form.Input label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
             <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group widths={2}>
@@ -98,17 +98,17 @@ class CreateEvent extends Component {
             <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
-            <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} />
-            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
-            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+            <Form.Input label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
+            <Form.Input label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
+            <Form.Input label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
+            <Form.Input label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
-        </Form>
+        
         <Grid columns={4} divided>
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
-              <Dropdown text='Dropdown' options={options} open />
+              <Dropdown text='Dropdown'  open />
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -129,7 +129,8 @@ class CreateEvent extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>        
-          <Button type='submit' color='teal'>Submit</Button>
+         <Button type='submit' color='teal'>Submit</Button>
+         </Form>
       </div>
     );
   }

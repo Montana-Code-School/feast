@@ -17,7 +17,7 @@ class ProfileList extends Component {
   handleChange(event) {
     console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value});
-    var friendEmail = this.setState({[event.target.name]: event.target.value});
+    //var friendEmail = this.setState({[event.target.name]: event.target.value});
     
   }
  

@@ -80,23 +80,23 @@ class Profile extends Component {
     </Grid>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} value={this.state.email} />
-            <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} value={this.state.password} />
+            <Form.Input label='Email' name="email" onChange={this.handleChange} value={this.state.email} />
+            <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password} />
           </Form.Group>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} value={this.state.name} />
+            <Form.Input label='Name' name="name" onChange={this.handleChange} value={this.state.name} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} value={this.state.street} />
-            <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} value={this.state.city} />
+            <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street} />
+            <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} value={this.state.state} />
-            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
+            <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state} />
+            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} value={this.state.phone} />
-            <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies} />
+            <Form.Input label='Phone'name="phone" onChange={this.handleChange} value={this.state.phone} />
+            <Form.Input label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies} />
           </Form.Group>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
