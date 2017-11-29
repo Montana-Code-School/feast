@@ -86,9 +86,14 @@ class CreateEvent extends Component {
 
     return (
       <div id='event-overlay'>
-        <Header as='h1' color='green' textAlign='center'>
-          CREATE A FEAST!
-        </Header>
+       <Header
+            as='h1'
+            content='CREATE A FEAST'
+            color='green'
+            textAlign='center'
+            verticalAlign='middle'            
+            style={{ fontSize: '4em', fontWeight: 'bold' }}
+          />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
             <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />

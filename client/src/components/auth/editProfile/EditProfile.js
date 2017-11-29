@@ -92,9 +92,14 @@ class EditProfile extends Component {
     return (
       <div>
         <div id="profile-overlay"></div>
-        <Header as='h1' color='green' textAlign='center'>
-        Edit Profile
-        </Header> 
+        <Header
+        as='h1'
+        content='EDIT PROFILE'
+        color='green'
+        textAlign='center'
+        verticalAlign='middle'            
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+      />
         {/* We're gonna have to figure out how to import profile pic to the edit profile page  */}
         <Image src='https://placeimg.com/640/480/people' size='small' rounded centered/>
         <Grid
@@ -104,7 +109,7 @@ class EditProfile extends Component {
     >
       <Grid.Column style={{ maxWidth: 180 }}>
         <Message>
-          Add <a href=''>Image</a>
+          Edit <a href=''>Image</a>
         </Message>
         </Grid.Column>
     </Grid>

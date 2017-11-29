@@ -69,9 +69,14 @@ console.log(event);
         height: 100%;
       }
     `}</style>
-        <Header as='h1' color='green' textAlign='center'>
-          Sign UP TO FEAST
-      </Header>
+       <Header
+       as='h1'
+       content='SIGN UP TO FEAST'
+       color='green'
+       textAlign='center'
+       verticalAlign='middle'            
+       style={{ fontSize: '4em', fontWeight: 'bold' }}
+     />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
             <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />

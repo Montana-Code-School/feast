@@ -40,9 +40,14 @@ class Event extends Component {
   render() {
     return (
       <div id='event-overlay'>
-        <Header as='h1' color='green' textAlign='center'>
-          WELCOME TO THE FEAST!
-        </Header>
+        <Header
+        as='h1'
+        content='WELCOME TO THE FEAST'
+        color='green'
+        textAlign='center'
+        verticalAlign='middle'            
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+      />
         <Image src='https://placeimg.com/640/480/people' size='medium' rounded centered />
         <Header as='h1' color='green' textAlign='center'>
           YOUR HOST
