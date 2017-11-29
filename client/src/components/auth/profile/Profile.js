@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Form, Grid, Button } from 'semantic-ui-react';
+import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -54,15 +54,30 @@ class Profile extends Component {
       }
     `}</style>
         <div id="profile-overlay"></div>
-        <Header as='h1' color='green' textAlign='center'>
-          Profile
-        </Header>
+        <Header
+        as='h1'
+        content='PROFILE'
+        color='green'
+        textAlign='center'
+        verticalAlign='middle'            
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+      />
         <Button.Group fluid>
           <Button type='submit' color='teal'>JOIN A FEAST</Button>
           <Button.Or />
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
         </Button.Group>
-        <Image src='https://placeimg.com/640/480/people' size='small' rounded centered />
+        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+        <Grid
+      textAlign='center'
+      verticalAlign='middle'
+    >
+      <Grid.Column style={{ maxWidth: 180 }}>
+        <Message>
+          Add <a href=''>Image</a>
+        </Message>
+        </Grid.Column>
+    </Grid>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
             <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} value={this.state.email} />

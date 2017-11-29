@@ -67,6 +67,14 @@ class Login extends Component {
         height: 100%;
       }
     `}</style>
+          <Header
+            as='h1'
+            content='WELCOME TO FEAST'
+            inverted
+            textAlign='center'
+            verticalAlign='middle'            
+            style={{ fontSize: '6em', fontWeight: 'bold' }}
+          />
           <Grid
             textAlign='center'
             style={{ height: '100%' }}
@@ -96,7 +104,7 @@ class Login extends Component {
                 </Segment>
               </Form>
               <Message>
-                New to Feast? <a href='./signup'>Sign Up</a>
+                Need to Feast? <a href='./signup'>Sign Up</a>
               </Message>
             </Grid.Column>
           </Grid>

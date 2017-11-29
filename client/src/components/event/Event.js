@@ -40,25 +40,60 @@ class Event extends Component {
 
   render() {
     return (
-      <div>
-        {/* <Button type='submit'>JOIN IT</Button>
-        <Link to={"/event/create/"+this.props.match.params.id}><Button type='submit'>MAKE IT</Button></Link> */}
-        <h1>
-          EVENT
-        </h1>
-        <p>
-          HOST: {this.state.host} <br/>
-          DATE: {this.state.date}<br/>
-          TIME: {this.state.time}<br/>
-          THEME: {this.state.theme}<br/>
-          STREET: {this.state.street}<br/>
-          CITY: {this.state.city}<br/>
-          STATE: {this.state.state}<br/>
-          ZIP: {this.state.zip}<br/>
-        </p>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button>Edit</Button></Link>
-        <Link to={"/profile/list/"}><Button>Add Friends</Button></Link>
-
+      <div id='event-overlay'>
+        <Header
+        as='h1'
+        content='WELCOME TO THE FEAST'
+        color='green'
+        textAlign='center'
+        verticalAlign='middle'            
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+      />
+        <Image src='https://placeimg.com/640/480/people' size='medium' rounded centered />
+        <Header as='h1' color='green' textAlign='center'>
+          YOUR HOST
+        </Header>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group unstackable widths={2}>
+            <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />
+            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group unstackable widths={1}>
+            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} />
+            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
+            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+          </Form.Group>
+        </Form>
+        <Grid columns={4} divided>
+          <Grid.Row> 
+            <Grid.Column>
+            <List>
+              <List.Item>
+                <List.Header as='h4'>COURSES</List.Header>
+                Import our courses with the number of fields per course we have created.
+              </List.Item>
+            </List> 
+            </Grid.Column>
+            <Grid.Column>  
+              <h4>TOOLS</h4>
+              import list of tools offered <br/>
+              display feild for reservation of tool
+            </Grid.Column>
+            <Grid.Column>
+              <h4>GUESTS</h4>
+              import list of guest as the confirm that they are coming
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Allergies</h4>
+              import a list of allergies from the list of confirmed guests
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>  
       </div>
     );
   }

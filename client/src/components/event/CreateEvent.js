@@ -79,35 +79,58 @@ class CreateEvent extends Component {
 
   render() {
     return (
-      <div>
-        {/* <div id="signup-overlay"></div> */}
-        <h1>
-          Create Event
-          </h1>
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={2}>
-        <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value= {this.state.host}/>
-        <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
-        <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group unstackable widths={1}>
-        <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} value = {this.state.street}/>
-        <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} value= {this.state.city}/>
-        <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} value= {this.state.state}/>
-        <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} value= {this.state.zip}/>
-
-
-      </Form.Group>
-     
-      
-      <Button type='submit'>Submit</Button>
-    </Form>
-  
-    
-    </div>
+      <div id='event-overlay'>
+       <Header
+            as='h1'
+            content='CREATE A FEAST'
+            color='green'
+            textAlign='center'
+            verticalAlign='middle'            
+            style={{ fontSize: '4em', fontWeight: 'bold' }}
+          />
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group unstackable widths={2}>
+            <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value={this.state.name} />
+            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group widths={2}>
+            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group unstackable widths={1}>
+            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} />
+            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
+            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+          </Form.Group>
+        </Form>
+        <Grid columns={4} divided>
+          <Grid.Row> 
+            <Grid.Column>
+              <h4>Courses</h4>
+              <Dropdown text='Dropdown' options={options} open />
+            </Grid.Column>
+            <Grid.Column>  
+              <h4>TOOLS</h4>
+              <Checkbox label='Oven' /> <br/>
+              <Checkbox label='Fridge' /> <br/>
+              <Checkbox label='Range' /> <br/>
+              <Checkbox label='Mixer' /> <br/>
+              <Checkbox label='Blender' /> <br/>
+              <Checkbox label='Food Processor' /> <br/>
+            </Grid.Column>
+            <Grid.Column>
+              <h4>GUESTS</h4>
+              import list of guest as the confirm that they are coming
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Allergies</h4>
+              import a list of allergies from the list of confirmed guests
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>        
+          <Button type='submit' color='teal'>Submit</Button>
+      </div>
     );
   }
 
