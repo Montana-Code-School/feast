@@ -38,13 +38,7 @@
     }
   },
   "validations": [],
-  "relations": {
-    "events": {
-      "type": "hasMany",
-      "model": "events",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }

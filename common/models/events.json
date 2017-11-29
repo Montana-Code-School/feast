@@ -33,7 +33,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "profiles": {
+      "type": "hasMany",
+      "model": "profile",
+      "foreignKey": ""
+    },
+    "courses": {
+      "type": "hasMany",
+      "model": "courses",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

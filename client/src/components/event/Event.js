@@ -57,6 +57,8 @@ class Event extends Component {
           ZIP: {this.state.zip}<br/>
         </p>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button>Edit</Button></Link>
+        <Link to={"/profile/list/"}><Button>Add Friends</Button></Link>
+
       </div>
     );
   }

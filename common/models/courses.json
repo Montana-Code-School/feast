@@ -12,7 +12,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "dishes": {
+      "type": "hasMany",
+      "model": "dish",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
