@@ -1,7 +1,8 @@
+// import React, { React } from 'react';
+
 import React, { Component } from 'react';
-import './CreateEvent.css';
 import axios from 'axios';
-import { Header, Button, Form, Grid, Dropdown, Checkbox } from 'semantic-ui-react';
+import { Button, Form} from 'semantic-ui-react';
 // import { Link } from 'react-router-dom';
 
 
@@ -9,24 +10,24 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "",
-      street: "",
-      city: "",
-      state: "",
-      zip: "",
-      time: "",
-      date: "",
-      theme: ""
+        host: "",
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+        time: "",
+        date: "",
+        theme: ""
     }
     console.log(props);
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
     console.log(event.target.value);
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit(event){
     event.preventDefault();
     const createEvent = {
       host: this.state.host,
@@ -39,51 +40,44 @@ class CreateEvent extends Component {
       theme: this.state.theme,
       profileId: this.props.match.params.hid
     };
-    axios.post('/api/events', createEvent)
-      .then((res) => {
-        console.log(res);
-        console.log(this.props.history)
-        // this.props.onLogin(res.data.id);          
-        this.props.history.push("/profile/" + res.data.id)
+    axios.post('/api/events', createEvent) 
+    .then((res) => {
+      console.log(res);
+      console.log(this.props.history)
+      // this.props.onLogin(res.data.id);          
+      this.props.history.push("/event/" + res.data.id)
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
-  componentWillMount() {
-    axios.get('/api/profiles/' + this.props.match.params.id)
+    componentWillMount() {
+      axios.get('/api/profiles/' + this.props.match.params.hid)
       .then((response) => {
         // console.log(response);
         this.setState({
-
+          
           host: response.data.name,
           street: response.data.street,
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
-
+          
         })
       })
       .catch((error) => {
         console.log(error);
       });
-
-
-
-    // this.setAccessToken(res.data.id);
-
+    
+    
+    
+        // this.setAccessToken(res.data.id);
+       
   }
+  
 
   render() {
-
-    const options = [
-      { key: 1, text: 'Appetizer', value: 1 },
-      { key: 2, text: 'Salad', value: 2 },
-      { key: 3, text: 'Entree', value: 3 },
-      { key: 4, text: 'Dessert', value: 4 },
-    ]
-
     return (
       <div id='event-overlay'>
        <Header
@@ -139,6 +133,8 @@ class CreateEvent extends Component {
       </div>
     );
   }
+
+
 }
 
 

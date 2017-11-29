@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import './Event.css';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Form, Grid, List } from 'semantic-ui-react';
+import { Button} from 'semantic-ui-react';
 
 
 class Event extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      event: "",
+      host: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
       time: "",
-      place: "",
-
-
+      date: "",
+      theme: ""      
     };
-  }
+    }
   componentWillMount() {
-    axios.get('/api/events/' + this.props.match.params.id)
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          email: response.data.email,
-          password: response.data.password,
-          name: response.data.name,
-          street: response.data.street,
-          city: response.data.city,
-          state: response.data.state,
-          zip: response.data.zip,
-          phone: response.data.phone,
-          allergies: response.data.allergies
-        })
+    axios.get('/api/events/' + this.props.match.params.eid)
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        host: response.data.host,
+        street: response.data.street,
+        city: response.data.city,
+        state: response.data.state,
+        zip: response.data.zip,
+        time: response.data.time,
+        date: response.data.date,
+        theme: response.data.theme      
       })
-      .catch((error) => {
-        console.log(error);
-      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
