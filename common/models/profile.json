@@ -38,7 +38,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "friends": {
+      "type": "hasMany",
+      "model": "profile",
+      "foreignKey": "",
+      "through": "friends"
+    }
+  },
   "acls": [],
   "methods": {}
 }

@@ -99,7 +99,8 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
-       
+        <Link to={"/profile/list/"}><Button type='submit' color='teal'>Add Friends</Button></Link>
+
       </div>
     );
   }
