@@ -72,7 +72,6 @@ class Login extends Component {
             content='WELCOME TO FEAST'
             inverted
             textAlign='center'
-            verticalAlign='middle'            
             style={{ fontSize: '6em', fontWeight: 'bold' }}
           />
           <Grid

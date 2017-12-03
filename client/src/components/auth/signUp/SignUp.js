@@ -76,26 +76,27 @@ console.log(event);
        textAlign='center'
        verticalAlign='middle'            
        style={{ fontSize: '4em', fontWeight: 'bold' }}
-     />
+     /> <br/>
+        <br/>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
-            <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} />
+            <Form.Input placeholder='Email' name="email" onChange={this.handleChange} />
+            <Form.Input placeholder='Password' name="password" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} />
+            <Form.Input placeholder='Name' name="name" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
-            <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} />
+            <Form.Input placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input placeholder='City' name="city" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
-            <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
+            <Form.Input placeholder='State' name="state" onChange={this.handleChange} />
+            <Form.Input placeholder='Zip' name="zip" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group widths={2}>
-            <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} />
-            <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
+            <Form.Input placeholder='Phone' name="phone" onChange={this.handleChange} />
+            <Form.Input placeholder='Allergies' name="allergies" onChange={this.handleChange} />
           </Form.Group>
           <Button type='submit' color='teal'>Submit</Button>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>

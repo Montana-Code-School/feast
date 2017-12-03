@@ -53,7 +53,8 @@ class Event extends Component {
         verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Image src='https://placeimg.com/640/480/people' size='medium' rounded centered />
+        <Image src='http://fillmurray.com/200/300' size='medium' rounded centered />
+        {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo */}
         <Header as='h1' color='green' textAlign='center'>
           YOUR HOST
         </Header>

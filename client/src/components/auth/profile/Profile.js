@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "./Profile.css";
+// import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
@@ -53,13 +53,12 @@ class Profile extends Component {
         height: 100%;
       }
     `}</style>
-        <div id="profile-overlay"></div>
+        {/* <div id="profile-overlay"></div> */}
         <Header
         as='h1'
         content='PROFILE'
         color='green'
         textAlign='center'
-        verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
         <Button.Group fluid>
