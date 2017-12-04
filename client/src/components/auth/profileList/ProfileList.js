@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Header, Form, Button } from 'semantic-ui-react';
 
-// var friendEmail;
 class ProfileList extends Component {
   constructor(props) {
     super(props);
@@ -33,29 +32,34 @@ class ProfileList extends Component {
         friendId: response.data.id
       })
       
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-    const createFriendship = {
-      host: this.props.match.params.id,
-      friend: this.state.friendId
-    }
+      const createFriendship = {
+        host: this.props.match.params.pid,
+        friend: this.state.friendId
+      }
 
-
-    axios.post('/api/friends', createFriendship)
-    .then((response) => {
-       console.log(response);
-      this.setState({
-        friendId: response.data.id
+      console.log(createFriendship);
+      axios.post('/api/friends', createFriendship)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          //friendId: response.data.pid
+        })
       })
+      .catch((error) => {
+        console.log(error);
+      });
+
     })
     .catch((error) => {
       console.log(error);
     });
+  
+    
+      
+
+      
+      
     }
-  
-  
 
   render() {
     return (
@@ -71,6 +75,7 @@ class ProfileList extends Component {
           </Form.Group>
           <Button color='teal'>Find Friend</Button>
         </Form>
+
       </div> 
       
     );

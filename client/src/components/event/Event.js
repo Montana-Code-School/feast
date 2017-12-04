@@ -9,6 +9,7 @@ class Event extends Component {
     super(props);
     this.state = {
       host: "",
+      profileId: "",
       street: "",
       city: "",
       state: "",
@@ -26,6 +27,7 @@ class Event extends Component {
       console.log(response);
       this.setState({
         host: response.data.host,
+        profileId: response.data.profileId,
         street: response.data.street,
         city: response.data.city,
         state: response.data.state,
@@ -40,11 +42,11 @@ class Event extends Component {
     });
   }
 
-  
 
   render() {
     return (
       <div id='event-overlay'>
+      
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
@@ -99,7 +101,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
-        <Link to={"/profile/list/"}><Button type='submit' color='teal'>Add Friends</Button></Link>
+        <Link to={"/friends/list/" +this.state.profileId}><Button color='teal'>Add Friends</Button></Link>
 
       </div>
     );
