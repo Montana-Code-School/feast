@@ -1,8 +1,6 @@
-// import React, { React } from 'react';
-
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Checkbox, Card } from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 
 const options = [
@@ -11,6 +9,18 @@ const options = [
   { key: 'soup', text: 'Soup', value: 'soup' },
   { key: 'entree', text: 'Entree', value: 'entree' },
   { key: 'dessert', text: 'Dessert', value: 'dessert' },
+]
+
+const items = [
+  {
+    header: 'Jim Bob',
+  },
+  {
+    header: 'Mary Sue',
+  },
+  {
+    header: 'Elliot Brood',
+  },
 ]
 
 class CreateEvent extends Component {
@@ -82,7 +92,7 @@ class CreateEvent extends Component {
 
   render() {
     return (
-      <div id='event-overlay'>
+      <div>
        <Header
             as='h1'
             content='CREATE A FEAST'
@@ -122,7 +132,7 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              import list of friends
+              <Button><Card.Group items={items} /></Button>
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>

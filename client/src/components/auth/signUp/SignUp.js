@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
+import { Header, Button, Form, Message, Grid, Card } from 'semantic-ui-react';
 import "./SignUp.css";
+import two from "./two.jpg";
+import footer from "./footer.jpg";
+import party from "./party.jpg";
 // import { Link } from 'react-router-dom';
 
 
@@ -103,6 +106,16 @@ console.log(event);
             </Grid.Column>
           </Grid>
         </Form>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <Card.Group className='footer' itemsPerRow={3}>
+        <Card color='red' image={two} />
+        <Card color='orange' image={footer} />
+        <Card color='yellow' image={party} />
+        </Card.Group>
       </div>
     );
   }

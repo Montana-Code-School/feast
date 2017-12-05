@@ -8,6 +8,7 @@
     "loopback-connector-mongodb": "^3.3.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-google-maps": "^9.4.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "semantic-ui": "^2.2.13",

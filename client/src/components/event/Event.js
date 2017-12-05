@@ -3,7 +3,25 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css'
 import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+} from "react-google-maps";
 
+// https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
+
+const MapWithAMarker = withScriptjs(withGoogleMap(props =>
+  <GoogleMap
+    defaultZoom={15}
+    defaultCenter={{ lat: 45.683, lng: -111.079 }}
+  >
+    <Marker
+      position={{ lat: 45.683, lng: -111.079 }}
+    />
+  </GoogleMap>
+));
 
 class Event extends Component {
   constructor(props) {
@@ -32,7 +50,7 @@ class Event extends Component {
         zip: response.data.zip,
         time: response.data.time,
         date: response.data.date,
-        theme: response.data.theme      
+        theme: response.data.theme,     
       })
     })
     .catch((error) => {
@@ -51,7 +69,6 @@ class Event extends Component {
         verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo */}
         <Card.Group itemsPerRow={2}>
         <Card>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
@@ -86,7 +103,13 @@ class Event extends Component {
           </Card.Content>
         </Card>
         <Card float='right'>
-        Map
+        {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo  */}
+        <MapWithAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
         </Card>
         </Card.Group>
         <Grid columns={4} divided>
