@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Form, Grid,List,Button} from 'semantic-ui-react';
+import './Event.css'
+import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
 
 
 class Event extends Component {
@@ -18,7 +19,6 @@ class Event extends Component {
       theme: ""      
     };
     }
-
 
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
@@ -40,8 +40,6 @@ class Event extends Component {
     });
   }
 
-  
-
   render() {
     return (
       <div id='event-overlay'>
@@ -53,27 +51,44 @@ class Event extends Component {
         verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Image src='http://fillmurray.com/200/300' size='medium' rounded centered />
         {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo */}
-        <Header as='h1' color='green' textAlign='center'>
-          YOUR HOST
-        </Header>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={2}>
-            <Form.Input label='Host' name="host" onChange={this.handleChange} value={this.state.host} />
-            <Form.Input label='Date'  name="date" onChange={this.handleChange} value={this.state.date}/>
-          </Form.Group>
-          <Form.Group widths={2}>
-            <Form.Input label='Time'  name="time" onChange={this.handleChange} value={this.state.time}/>
-            <Form.Input label='Theme'  name="theme" onChange={this.handleChange} value={this.state.theme}/>
-          </Form.Group>
-          <Form.Group unstackable widths={1}>
-            <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
-            <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
-            <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
-            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
-          </Form.Group>
-        </Form> 
+        <Card.Group itemsPerRow={2}>
+        <Card>
+        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+          <Card.Content>
+            <Card.Header>
+              Your Host
+            </Card.Header>
+            <Card.Content>
+              Host: {this.state.host} 
+            </Card.Content>
+            <Card.Content>
+              Date: {this.state.date} 
+            </Card.Content> 
+            <Card.Content>
+              Time: {this.state.time} 
+            </Card.Content>
+            <Card.Content> 
+              Theme: {this.state.theme} 
+            </Card.Content>
+            <Card.Content> 
+              Street: {this.state.street} 
+            </Card.Content>
+            <Card.Content>    
+              City: {this.state.city} 
+            </Card.Content>
+            <Card.Content>
+              State: {this.state.state} 
+            </Card.Content>
+            <Card.Content>
+              Zip: {this.state.zip} 
+          </Card.Content>
+          </Card.Content>
+        </Card>
+        <Card float='right'>
+        Map
+        </Card>
+        </Card.Group>
         <Grid columns={4} divided>
           <Grid.Row> 
             <Grid.Column>

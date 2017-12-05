@@ -5,6 +5,13 @@ import axios from 'axios';
 import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 
+const options = [
+  { key: 'appatizer', text: 'Appatizer', value: 'appatizer' },
+  { key: 'salad', text: 'Salad', value: 'salad' },
+  { key: 'soup', text: 'Soup', value: 'soup' },
+  { key: 'entree', text: 'Entree', value: 'entree' },
+  { key: 'dessert', text: 'Dessert', value: 'dessert' },
+]
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -69,11 +76,7 @@ class CreateEvent extends Component {
       .catch((error) => {
         console.log(error);
       });
-    
-    
-    
-        // this.setAccessToken(res.data.id);
-       
+        // this.setAccessToken(res.data.id); 
   }
   
 
@@ -87,28 +90,26 @@ class CreateEvent extends Component {
             textAlign='center'
             verticalAlign='middle'            
             style={{ fontSize: '4em', fontWeight: 'bold' }}
-          />
+        />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={2}>
+          <Form.Group unstackable widths={1}>
             <Form.Input label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
             <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group widths={2}>
             <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
-            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group unstackable widths={1}>
+            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
             <Form.Input label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
             <Form.Input label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
             <Form.Input label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
             <Form.Input label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
         
-        <Grid columns={4} divided>
+        <Grid columns={4} stackable divided>
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
-              <Dropdown text='Dropdown'  open />
+              <Dropdown placeholder='Courses' fluid multiple selection options={options} />
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -120,15 +121,15 @@ class CreateEvent extends Component {
               <Checkbox label='Food Processor' /> <br/>
             </Grid.Column>
             <Grid.Column>
-              <h4>GUESTS</h4>
-              import list of guest as the confirm that they are coming
+              <h4>Invite Your Friends!</h4>
+              import list of friends
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>
               import a list of allergies from the list of confirmed guests
             </Grid.Column>
           </Grid.Row>
-        </Grid>        
+        </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
       </div>

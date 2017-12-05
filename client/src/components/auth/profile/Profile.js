@@ -46,13 +46,6 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}</style>
         {/* <div id="profile-overlay"></div> */}
         <Header
         as='h1'
@@ -78,31 +71,29 @@ class Profile extends Component {
         </Grid.Column>
     </Grid>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={2}>
+          <Form.Group widths={1}>
             <Form.Input label='Email' name="email" onChange={this.handleChange} value={this.state.email} />
             <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password} />
-          </Form.Group>
-          <Form.Group unstackable widths={2}>
             <Form.Input label='Name' name="name" onChange={this.handleChange} value={this.state.name} />
           </Form.Group>
-          <Form.Group widths={2}>
+          <Form.Group widths={1}>
             <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street} />
             <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city} />
-          </Form.Group>
-          <Form.Group widths={2}>
             <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state} />
-            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
           </Form.Group>
-          <Form.Group widths={2}>
+          <Form.Group widths={1}>
+            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
             <Form.Input label='Phone'name="phone" onChange={this.handleChange} value={this.state.phone} />
             <Form.Input label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies} />
           </Form.Group>
+          <Form.Group widths={2}>
+          </Form.Group><br/>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
             </Grid.Column>
           </Grid>
-        </Form>
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
+        </Form>
       </div>
     );
   }

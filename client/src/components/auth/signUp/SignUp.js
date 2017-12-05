@@ -78,26 +78,22 @@ console.log(event);
        style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={2}>
+        <Form align="center" onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group widths={1}>
             <Form.Input placeholder='Email' name="email" onChange={this.handleChange} />
             <Form.Input placeholder='Password' name="password" onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group unstackable widths={2}>
             <Form.Input placeholder='Name' name="name" onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group widths={2}>
+          </Form.Group><br/>
+          <Form.Group widths={1}>
             <Form.Input placeholder='Street' name="street" onChange={this.handleChange} />
             <Form.Input placeholder='City' name="city" onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group widths={2}>
             <Form.Input placeholder='State' name="state" onChange={this.handleChange} />
+          </Form.Group><br/>
+          <Form.Group widths={1}>
             <Form.Input placeholder='Zip' name="zip" onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group widths={2}>
             <Form.Input placeholder='Phone' name="phone" onChange={this.handleChange} />
             <Form.Input placeholder='Allergies' name="allergies" onChange={this.handleChange} />
-          </Form.Group>
+          </Form.Group><br/>
           <Button type='submit' color='teal'>Submit</Button>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>

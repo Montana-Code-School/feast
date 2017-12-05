@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import "./EditProfile.css";
-// import { Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Message, Button, Form} from 'semantic-ui-react';
 
@@ -90,8 +89,7 @@ class EditProfile extends Component {
 
   render() {
     return (
-      <div>
-        <div id="profile-overlay"></div>
+      <div background="teal" >
         <Header
         as='h1'
         content='EDIT PROFILE'
@@ -100,8 +98,9 @@ class EditProfile extends Component {
         verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
+        <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>
         {/* We're gonna have to figure out how to import profile pic to the edit profile page  */}
-        <Image src='https://placeimg.com/640/480/people' size='small' rounded centered/>
+        <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
         <Grid
       textAlign='center'
       style={{ height: '100%' }}
@@ -112,28 +111,24 @@ class EditProfile extends Component {
           Edit <a href=''>Image</a>
         </Message>
         </Grid.Column>
-    </Grid>
+    </Grid><br/>
     <div className='text'>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={2}>
+      <Form.Group unstackable widths={1}>
         <Form.Input label='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
         <Form.Input label='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
-      </Form.Group>
-      <Form.Group unstackable widths={2}>
         <Form.Input label='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
       </Form.Group>
-      <Form.Group widths={2}>
+      <Form.Group widths={1}>
         <Form.Input label='Street' name="newStreet" onChange={this.handleChange} value={this.state.newStreet}/>
         <Form.Input label='City' name="newCity" onChange={this.handleChange} value={this.state.newCity}/>
-      </Form.Group>
-      <Form.Group widths={2}>
         <Form.Input label='State' name="newState" onChange={this.handleChange} value={this.state.newState}/>
-        <Form.Input label='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
       </Form.Group>
-      <Form.Group widths={2}>
+      <Form.Group widths={1}>
+        <Form.Input label='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
         <Form.Input label='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
         <Form.Input label='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>
-      </Form.Group>
+      </Form.Group><br />
       <Button type='submit' color='teal'>Submit</Button>
     </Form>
     </div>
