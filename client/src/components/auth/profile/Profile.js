@@ -41,6 +41,16 @@ class Profile extends Component {
       .catch((error) => {
         console.log(error);
       });
+      axios.get('/api/friends?filter={"include":["profile"],"where":{"host":'+ this.props.match.params.id + '}}')
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          // name: response.data.name
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -94,6 +104,9 @@ class Profile extends Component {
           </Grid>
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
         </Form>
+        <br/>
+       <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
+
       </div>
     );
   }

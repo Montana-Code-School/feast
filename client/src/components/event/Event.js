@@ -141,8 +141,6 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
-        <Link to={"/friends/list/" +this.state.profileId}><Button color='teal'>Add Friends</Button></Link>
-
       </div>
     );
   }
