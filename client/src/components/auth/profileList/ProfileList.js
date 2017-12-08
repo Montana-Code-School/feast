@@ -33,8 +33,8 @@ class ProfileList extends Component {
       })
       
       const createFriendship = {
-        host: this.props.match.params.pid,
-        friend: this.state.friendId
+        profileId: this.props.match.params.pid,
+        friendId: this.state.friendId
       }
 
       console.log(createFriendship);

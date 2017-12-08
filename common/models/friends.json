@@ -6,11 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "host": {
+    "profileId": {
       "type": "string",
       "required": true
     },
-    "friend": {
+    "friendId": {
       "type": "string",
       "required": true
     }

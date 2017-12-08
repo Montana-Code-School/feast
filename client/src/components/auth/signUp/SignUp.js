@@ -77,7 +77,6 @@ console.log(event);
        content='SIGN UP TO FEAST'
        color='green'
        textAlign='center'
-       verticalAlign='middle'            
        style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>

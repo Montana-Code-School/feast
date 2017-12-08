@@ -41,7 +41,7 @@ class Profile extends Component {
       .catch((error) => {
         console.log(error);
       });
-      axios.get('/api/friends?filter={"include":["profile"],"where":{"host":'+ this.props.match.params.id + '}}')
+      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
         console.log(response);
         this.setState({
