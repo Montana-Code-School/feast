@@ -8,7 +8,9 @@ class ProfileList extends Component {
     super(props);
     this.state = {
     friendEmail:'',
-    friendId: ''
+    friendId: '',
+    friendName: '',
+    friendAllergies: ''
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -29,21 +31,24 @@ class ProfileList extends Component {
     .then((response) => {
        console.log(response);
       this.setState({
-        friendId: response.data.id
+        friendId: response.data.id,
+        friendName: response.data.name,
+        friendAllergies: response.data.allergies
       })
       
       const createFriendship = {
         profileId: this.props.match.params.pid,
-        friendId: this.state.friendId
+        friendId: this.state.friendId,
+        friendName: this.state.friendName,
+        friendAllergies: this.state.friendAllergies
       }
 
       console.log(createFriendship);
       axios.post('/api/friends', createFriendship)
       .then((response) => {
         console.log(response);
-        this.setState({
-          //friendId: response.data.pid
-        })
+       
+        this.props.history.push("/profile/" + this.props.match.params.pid)        
       })
       .catch((error) => {
         console.log(error);

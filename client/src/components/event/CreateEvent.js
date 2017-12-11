@@ -34,7 +34,9 @@ class CreateEvent extends Component {
         zip: "",
         time: "",
         date: "",
-        theme: ""
+        theme: "",
+        friends: [],
+        friendAllergies: []
     }
     console.log(props);
     this.handleChange = this.handleChange.bind(this);

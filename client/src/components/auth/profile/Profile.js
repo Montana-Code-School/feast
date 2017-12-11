@@ -18,7 +18,8 @@ class Profile extends Component {
       state: "",
       zip: "",
       phone: "",
-      allergies: ""
+      allergies: "",
+      friends: []
 
     };
   }
@@ -36,6 +37,7 @@ class Profile extends Component {
           zip: response.data.zip,
           phone: response.data.phone,
           allergies: response.data.allergies
+
         })
       })
       .catch((error) => {
@@ -43,9 +45,10 @@ class Profile extends Component {
       });
       axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         this.setState({
-          // name: response.data.name
+          friends: response.data
+          
         })
       })
       .catch((error) => {
@@ -54,6 +57,13 @@ class Profile extends Component {
   }
 
   render() {
+    const friendsList = this.state.friends.map((friend) => {
+      return(
+        <div key={friend.id}> 
+          {friend.friendName} 
+        </div>
+      )
+    })
     return (
       <div>
         {/* <div id="profile-overlay"></div> */}
@@ -106,7 +116,7 @@ class Profile extends Component {
         </Form>
         <br/>
        <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-
+      {friendsList}
       </div>
     );
   }
