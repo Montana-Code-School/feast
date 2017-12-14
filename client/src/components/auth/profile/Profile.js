@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
+import './photo';
 
 
 class Profile extends Component {
