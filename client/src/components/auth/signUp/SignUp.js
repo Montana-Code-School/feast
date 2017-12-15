@@ -42,7 +42,9 @@ class SignUp extends Component {
       state: this.state.state,
       zip: this.state.zip,
       phone: this.state.phone,
-      allergies: this.state.allergies
+      allergies: this.state.allergies,
+      emailVerified: true
+
     }
 console.log(event);
     axios.post('/api/profiles', userSignUp)
