@@ -22,7 +22,15 @@ class Profile extends Component {
       friends: []
 
     };
+    this.handleClick = this.handleClick.bind(this);
   }
+  
+  handleClick(event){
+    event.preventDefault();
+    localStorage.removeItem('feastAT');
+    this.props.history.push("/");    
+  };
+
   componentWillMount() {
     if(localStorage.getItem("feastAT") !== null){
       axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
@@ -86,7 +94,6 @@ class Profile extends Component {
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
         <Grid
       textAlign='center'
-      verticalAlign='middle'
     >
       <Grid.Column style={{ maxWidth: 180 }}>
         <Message>
@@ -127,6 +134,7 @@ class Profile extends Component {
         </Card>
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
         <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
+        <Button onClick={this.handleClick} name='logout' color='teal'>Log Out</Button>
         {friendsList}
         
       </div>

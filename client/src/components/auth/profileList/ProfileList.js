@@ -58,11 +58,6 @@ class ProfileList extends Component {
     .catch((error) => {
       console.log(error);
     });
-  
-    
-      
-
-      
       
     }
 
