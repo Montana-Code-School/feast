@@ -9,7 +9,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: ""
     }
     this.handleChange = this.handleChange.bind(this);
@@ -23,32 +23,19 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const userLogin = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
 
-    axios.post('/api/Users/login', userLogin)
+    axios.post('/api/profiles/login', userLogin)
       .then((res) => {
         console.log(res);
-        // this.setAccessToken(res.data.id);
+        localStorage.setItem("feastAT", res.data.id)
       })
       .catch((error) => {
         console.log(error);
       })
   }
-
-  // setAccessToken(accessToken){
-  //   axios.post('/api/Users/' + accessToken + '/accessTokens' )
-  //     .then((res) => {
-  //       console.log(res);
-  //       // this.props.history.push('/') 
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-
 
   render() {
     return (
@@ -86,17 +73,21 @@ class Login extends Component {
               <Form size='large' onSubmit={(e) => this.handleSubmit(e)}>
                 <Segment stacked>
                   <Form.Input
+                    name='email'
                     fluid
                     icon='user'
                     iconPosition='left'
                     placeholder='E-mail address'
+                    onChange={this.handleChange}
                   />
                   <Form.Input
+                    name='password'
                     fluid
                     icon='lock'
                     iconPosition='left'
                     placeholder='Password'
                     type='password'
+                    onChange={this.handleChange}
                   />
 
                   <Button color='teal' fluid size='large'>Login</Button>
