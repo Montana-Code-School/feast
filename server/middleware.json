@@ -44,7 +44,13 @@
   "final": {
     "loopback#urlNotFound": {}
   },
+  
   "final:after": {
-    "strong-error-handler": {}
+    "./middleware/error-logger": {},
+    "strong-error-handler": {
+      "params": {
+        "log": false
+      }
+    }
   }
 }

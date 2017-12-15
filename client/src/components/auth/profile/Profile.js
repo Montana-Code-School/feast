@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
+import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -24,9 +24,9 @@ class Profile extends Component {
     };
   }
   componentWillMount() {
-    axios.get('/api/profiles/' + this.props.match.params.id)
+    if(localStorage.getItem("feastAT") !== null){
+      axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response);
         this.setState({
           email: response.data.email,
           password: response.data.password,
@@ -41,8 +41,12 @@ class Profile extends Component {
         })
       })
       .catch((error) => {
-        console.log(error);
+        if(error.response.data.error.statusCode === 401){
+          this.props.history.push("/")          
+        }
       });
+    }
+    
       axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
         console.log(response.data);
@@ -90,33 +94,41 @@ class Profile extends Component {
         </Message>
         </Grid.Column>
     </Grid>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group widths={1}>
-            <Form.Input label='Email' name="email" onChange={this.handleChange} value={this.state.email} />
-            <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password} />
-            <Form.Input label='Name' name="name" onChange={this.handleChange} value={this.state.name} />
-          </Form.Group>
-          <Form.Group widths={1}>
-            <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street} />
-            <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city} />
-            <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state} />
-          </Form.Group>
-          <Form.Group widths={1}>
-            <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip} />
-            <Form.Input label='Phone'name="phone" onChange={this.handleChange} value={this.state.phone} />
-            <Form.Input label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies} />
-          </Form.Group>
-          <Form.Group widths={2}>
-          </Form.Group><br/>
-          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
-            <Grid.Column style={{ maxWidth: 450 }}>
-            </Grid.Column>
-          </Grid>
+    <Card>
+          <Card.Content>
+            <Card.Header>
+              Profile
+            </Card.Header>
+            <Card.Content>
+              Email: {this.state.email} 
+            </Card.Content>
+            <Card.Content>
+              Name: {this.state.name} 
+            </Card.Content>
+            <Card.Content> 
+              Street: {this.state.street} 
+            </Card.Content>
+            <Card.Content>    
+              City: {this.state.city} 
+            </Card.Content>
+            <Card.Content>
+              State: {this.state.state} 
+            </Card.Content>
+            <Card.Content>
+              Zip: {this.state.zip} 
+          </Card.Content>
+          <Card.Content>
+              Phone: {this.state.phone} 
+          </Card.Content>
+          <Card.Content>
+              Allergies: {this.state.allergies} 
+          </Card.Content>
+          </Card.Content>
+        </Card>
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
-        </Form>
-        <br/>
-       <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-      {friendsList}
+        <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
+        {friendsList}
+        
       </div>
     );
   }

@@ -31,6 +31,8 @@ class Login extends Component {
       .then((res) => {
         console.log(res);
         localStorage.setItem("feastAT", res.data.id)
+        this.props.history.push("/profile/" + res.data.userId)
+        
       })
       .catch((error) => {
         console.log(error);
