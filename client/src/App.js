@@ -8,6 +8,7 @@ import CreateEvent from './components/event/CreateEvent';
 import Event from './components/event/Event';
 import EditEvent from './components/event/EditEvent';
 import ProfileList from './components/auth/profileList/ProfileList';
+import Photo from './components/auth/photo/Photo';
 
 import './App.css';
 
@@ -34,7 +35,9 @@ class App extends Component {
         <Route exact path="/profile/:id" component={Profile}/> 
         <Route exact path="/event/create/:hid" component={CreateEvent}/> 
         <Route exact path="/event/:eid" component={Event}/>
-        <Route exact path="/event/edit/:eid" component={EditEvent}/> 
+        <Route exact path="/event/edit/:eid" component={EditEvent}/>
+        <Route exact path="/profile/photo/:id" component={Photo}/> 
+
 
 
       </Switch>

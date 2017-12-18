@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
-import './photo';
+// import './photo';
 
 
 class Profile extends Component {
@@ -70,7 +70,7 @@ class Profile extends Component {
           <Button.Or />
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
         </Button.Group>
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+        <Link to={"/photo/Photo" +this.props.match.params.id}><Button color='teal'>Add Photo</Button></Link>
         <Grid
       textAlign='center'
       verticalAlign='middle'

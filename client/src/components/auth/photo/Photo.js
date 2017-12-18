@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import "./Profile"
+import {Image} from 'cloudinary-react';
 
-const CLOUDINARY_UPLOAD_PRESET = 'your_upload_preset_id';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/your_cloudinary_app_name/upload';
+const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload';
   
 class Photo extends React.Component {
   constructor(props) {
@@ -48,6 +50,8 @@ class Photo extends React.Component {
         onDrop={this.onImageDrop.bind(this)}>
         <p>Drop an image or click to select a file to upload.</p>
       </Dropzone>
+
+      Hi 
       </div>
       );}}
 
