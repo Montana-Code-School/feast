@@ -9,19 +9,26 @@ import {
   GoogleMap,
   Marker,
 } from "react-google-maps";
+import { compose, withProps } from "recompose";
 
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
 
-const MapWithAMarker = withScriptjs(withGoogleMap(props =>
+const MyMapComponent = compose(
+  withProps({
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `400px` }} />,
+    mapElement: <div style={{ height: `100%` }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)((props) =>
   <GoogleMap
-    defaultZoom={15}
-    defaultCenter={{ lat: 45.683, lng: -111.079 }}
+    defaultZoom={8}
+    defaultCenter={{ lat: 45.683, lng: -111.077 }}
   >
-    <Marker
-      position={{ lat: 45.683, lng: -111.079 }}
-    />
+    {props.isMarkerShown && <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
   </GoogleMap>
-));
+);
 
 class Event extends Component {
   constructor(props) {
@@ -35,9 +42,25 @@ class Event extends Component {
       zip: "",
       time: "",
       date: "",
-      theme: ""      
+      theme: "",
+      isMarkerShown: false      
     };
     }
+
+  componentDidMount() {
+    this.delayedShowMarker()
+  }
+  
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true })
+    }, 3000)
+  }
+  
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false })
+    this.delayedShowMarker()
+  }
 
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
@@ -69,7 +92,6 @@ class Event extends Component {
         content='WELCOME TO THE FEAST'
         color='green'
         textAlign='center'
-        verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
         <Card.Group itemsPerRow={2}>
@@ -107,11 +129,11 @@ class Event extends Component {
         </Card>
         <Card float='right'>
         {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo  */}
-        <MapWithAMarker
+        {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
+        <MyMapComponent
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          isMarkerShown={this.state.isMarkerShown}
+          onMarkerClick={this.handleMarkerClick}
         />
         </Card>
         </Card.Group>
