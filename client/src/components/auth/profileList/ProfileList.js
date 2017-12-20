@@ -27,7 +27,7 @@ class ProfileList extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.get('/api/profiles/findOne?filter[where][email]=' + this.state.friendEmail)
+    axios.get('/api/profiles/findOne?filter[where][email]=' + this.state.friendEmail + '?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
        console.log(response);
       this.setState({

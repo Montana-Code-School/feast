@@ -5,6 +5,10 @@
   "options": {
     "validateUpsert": true
   },
+  "friendAllergies": {
+    "type": "string",
+    "required": true
+  },
   "properties": {
     "profileId": {
       "type": "string",
@@ -14,14 +18,10 @@
       "type": "string",
       "required": true
     },
-  "friendName": {
-    "type": "string",
-    "required": true
-  }
-  },
-  "friendAllergies": {
-  "type": "string",
-  "required": true
+    "friendName": {
+      "type": "string",
+      "required": true
+    }
   },
   "validations": [],
   "relations": {},
