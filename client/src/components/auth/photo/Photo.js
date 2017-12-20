@@ -12,7 +12,7 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
 
-    return this.state = {
+    this.state = {
       uploadedFileCloudinaryUrl: ''
     };
   }
