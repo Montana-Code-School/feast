@@ -1,0 +1,25 @@
+{
+  "name": "invite",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "required": true
+    },
+    "inviteProfileId": {
+      "type": "string",
+      "required": true
+    },
+    "rsvp": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

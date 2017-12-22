@@ -69,7 +69,6 @@ class Event extends Component {
         content='WELCOME TO THE FEAST'
         color='green'
         textAlign='center'
-        verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
         <Card.Group itemsPerRow={2}>

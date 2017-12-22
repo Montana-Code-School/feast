@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox, Card } from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Checkbox, Card, List} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 
 const options = [
@@ -11,17 +11,17 @@ const options = [
   { key: 'dessert', text: 'Dessert', value: 'dessert' },
 ]
 
-const items = [
-  {
-    header: 'Jim Bob',
-  },
-  {
-    header: 'Mary Sue',
-  },
-  {
-    header: 'Elliot Brood',
-  },
-]
+// const items = [
+//   {
+//     header: 'Jim Bob',
+//   },
+//   {
+//     header: 'Mary Sue',
+//   },
+//   {
+//     header: 'Elliot Brood',
+//   },
+// ]
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -35,14 +35,13 @@ class CreateEvent extends Component {
         time: "",
         date: "",
         theme: "",
-        friends: [],
-        friendAllergies: []
+        friends: []
     }
     console.log(props);
+
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value});
   }
 
@@ -61,9 +60,7 @@ class CreateEvent extends Component {
     };
     axios.post('/api/events', createEvent) 
     .then((response) => {
-      console.log(response);
-      console.log(this.props.history)
-      // this.props.onLogin(res.data.id);          
+      // console.log(response);
       this.props.history.push("/event/" + response.data.id)
 
     })
@@ -72,9 +69,9 @@ class CreateEvent extends Component {
     });
   }
     componentWillMount() {
-      axios.get('/api/profiles/' + this.props.match.params.hid)
+      axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           
           host: response.data.name,
@@ -88,11 +85,30 @@ class CreateEvent extends Component {
       .catch((error) => {
         console.log(error);
       });
-        // this.setAccessToken(res.data.id); 
+
+      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.hid)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          friends: response.data
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   
 
   render() {
+    const friendsList = this.state.friends.map((friend) => {
+      return(
+        // <div key={friend.id}> 
+        //   {friend.friendName} 
+        <div key={friend.id}>
+        <List.Header as='a'>{friend.friendName}</List.Header>
+        </div>
+      )
+    })
     return (
       <div>
        <Header
@@ -100,7 +116,6 @@ class CreateEvent extends Component {
             content='CREATE A FEAST'
             color='green'
             textAlign='center'
-            verticalAlign='middle'            
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -134,7 +149,7 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              <Button><Card.Group items={items} /></Button>
+              <List.Content>{friendsList}</List.Content> 
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>

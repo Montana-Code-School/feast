@@ -58,5 +58,9 @@
   "friends": {
     "dataSource": "db",
     "public": true
+  },
+  "invite": {
+    "dataSource": "db",
+    "public": true
   }
 }

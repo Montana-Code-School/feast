@@ -58,7 +58,6 @@ console.log(event);
       .catch((error) => {
         console.log(error);
       });
-    // this.setAccessToken(res.data.id);
 
   }
 
