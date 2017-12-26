@@ -139,7 +139,7 @@ class Event extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
       </div>
     );
   }

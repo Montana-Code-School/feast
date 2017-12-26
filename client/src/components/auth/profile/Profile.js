@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
+import { Header, Image, Grid, Button, Message, Card, List } from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -19,16 +19,28 @@ class Profile extends Component {
       zip: "",
       phone: "",
       allergies: "",
-      friends: []
+      friends: [],
+      events: []
 
     };
     this.handleClick = this.handleClick.bind(this);
   }
   
   handleClick(event){
-    event.preventDefault();
-    localStorage.removeItem('feastAT');
-    this.props.history.push("/");    
+    if (event.target.name === 'logout') {
+      event.preventDefault();
+      localStorage.removeItem('feastAT');
+      this.props.history.push("/");
+      console.log(event.target.name); 
+    } 
+
+    if (event.target.name === 'event') {
+      event.preventDefault();
+      console.log(event.target.value);
+      this.props.history.push("/event/" + event.target.value)
+    } 
+    
+    
   };
 
   componentWillMount() {
@@ -45,19 +57,23 @@ class Profile extends Component {
           zip: response.data.zip,
           phone: response.data.phone,
           allergies: response.data.allergies
+        
 
         })
+        // console.log(response)
       })
       .catch((error) => {
         if(error.response.data.error.statusCode === 401){
           this.props.history.push("/")          
         }
       });
+
+   
     }
     
       axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({
           friends: response.data
           
@@ -66,6 +82,21 @@ class Profile extends Component {
       .catch((error) => {
         console.log(error);
       });
+
+      axios.get('/api/events?filter[where][profileId][like]=' + this.props.match.params.id)
+      .then((response) => {
+        this.setState({
+          events: response.data
+        })
+        console.log(response)
+      })
+      .catch((error) => {
+        
+      });
+
+      
+
+
   }
 
   render() {
@@ -74,6 +105,13 @@ class Profile extends Component {
         <div key={friend.id}> 
           {friend.friendName} 
         </div>
+      )
+    })
+
+    const eventList = this.state.events.map((event) => {
+      return(
+        // <List.Item key={event.id} content={event.theme} onClick={this.handleClick} name='event' />
+        <Button onClick={this.handleClick} name='event' value={event.id} key={event.id}>{event.theme}</Button>
       )
     })
     return (
@@ -132,10 +170,20 @@ class Profile extends Component {
           </Card.Content>
           </Card.Content>
         </Card>
+        
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
         <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
         <Button onClick={this.handleClick} name='logout' color='teal'>Log Out</Button>
+        
         {friendsList}
+
+        <h4>Your Events!</h4>
+        {/* <List selection items={eventList} >
+          {eventList}
+        </List>  */}
+        {eventList}
+
+            
         
       </div>
     );

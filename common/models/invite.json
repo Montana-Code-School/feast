@@ -7,8 +7,7 @@
   },
   "properties": {
     "eventId": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "inviteProfileId": {
       "type": "string",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox, Card, List} from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Checkbox, List} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 
 const options = [
@@ -11,17 +11,6 @@ const options = [
   { key: 'dessert', text: 'Dessert', value: 'dessert' },
 ]
 
-// const items = [
-//   {
-//     header: 'Jim Bob',
-//   },
-//   {
-//     header: 'Mary Sue',
-//   },
-//   {
-//     header: 'Elliot Brood',
-//   },
-// ]
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -35,16 +24,44 @@ class CreateEvent extends Component {
         time: "",
         date: "",
         theme: "",
-        friends: []
+        friends: [],
+        friend: "",
+        events:[]
     }
     console.log(props);
-
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    // this.onClick = this.onClick.bind(this);
+
   }
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  handleClick(e) {
+    this.setState({ friend: e.target.key })
+    
+    const friendInvite= {
+      inviteProfileId: this.state.friends.friendId
+    }
+    
+    axios.post('/api/invites', friendInvite) 
+    .then((response) => {
+      console.log(response);
+      // this.props.history.push("/event/" + response.data.id)
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+  }
+  // handleClick = (e) => this.setState({ friend: e.target.innerText }
+    
+  
+  // );
+  
   handleSubmit(event){
     event.preventDefault();
     const createEvent = {
@@ -57,6 +74,7 @@ class CreateEvent extends Component {
       date: this.state.date,
       theme: this.state.theme,
       profileId: this.props.match.params.hid
+      
     };
     axios.post('/api/events', createEvent) 
     .then((response) => {
@@ -100,13 +118,11 @@ class CreateEvent extends Component {
   
 
   render() {
+    console.log(this.state.friend)
+
     const friendsList = this.state.friends.map((friend) => {
       return(
-        // <div key={friend.id}> 
-        //   {friend.friendName} 
-        <div key={friend.id}>
-        <List.Header as='a'>{friend.friendName}</List.Header>
-        </div>
+        <List.Item key={friend.id} content={friend.friendName} />
       )
     })
     return (
@@ -149,7 +165,9 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              <List.Content>{friendsList}</List.Content> 
+              <List selection onClick={this.handleClick}>
+                {friendsList}
+              </List> 
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>
