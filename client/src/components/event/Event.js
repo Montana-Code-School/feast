@@ -8,10 +8,21 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
+  // DirectionsRenderer
 } from "react-google-maps";
-import { compose, withProps } from "recompose";
+import { 
+  compose, 
+  withProps, 
+  // lifecycle 
+} from "recompose";
+
+// const google = window.google;
+// const maps = google.maps;
+// const DirectionsService = new google.maps.DirectionsService();
 
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
+
+// coordinates for directions 45.8174, -110.8966
 
 const MyMapComponent = compose(
   withProps({
@@ -20,13 +31,15 @@ const MyMapComponent = compose(
     mapElement: <div style={{ height: `100%` }} />,
   }),
   withScriptjs,
-  withGoogleMap
+  withGoogleMap,
+  // lifecycle
 )((props) =>
   <GoogleMap
-    defaultZoom={8}
+    defaultZoom={15}
     defaultCenter={{ lat: 45.683, lng: -111.077 }}
   >
     {props.isMarkerShown && <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
+    {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
   </GoogleMap>
 );
 
@@ -43,18 +56,31 @@ class Event extends Component {
       time: "",
       date: "",
       theme: "",
-      isMarkerShown: false      
+      isMarkerShown: ""      
     };
     }
 
   componentDidMount() {
     this.delayedShowMarker()
+    // DirectionsService.route({
+    //   origin: new google.maps.LatLng(45.683, -111.079),
+    //   destination: new google.maps.LatLng(45.8174, -110.8966),
+    //   travelMode: google.maps.TravelMode.DRIVING,
+    // }, (result, status) => {
+    //   if (status === google.maps.DirectionsStatus.OK) {
+    //     this.setState({
+    //       directions: result,
+    //     });
+    //   } else {
+    //     console.error(`error fetching directions ${result}`);
+    //   }
+    // });
   }
   
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
-    }, 3000)
+    }, 3)
   }
   
   handleMarkerClick = () => {
@@ -128,11 +154,11 @@ class Event extends Component {
           </Card.Content>
         </Card>
         <Card float='right'>
-        {/* GoogleMap API KEY AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo  */}
         {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
         <MyMapComponent
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           isMarkerShown={this.state.isMarkerShown}
+          // directions={this.state.directions}
           onMarkerClick={this.handleMarkerClick}
         />
         </Card>
