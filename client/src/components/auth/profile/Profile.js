@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Grid, Button, Message, Card, List } from 'semantic-ui-react';
+import { Header, Image, Grid, Button, Message, Card} from 'semantic-ui-react';
 
 
 class Profile extends Component {
@@ -20,7 +20,8 @@ class Profile extends Component {
       phone: "",
       allergies: "",
       friends: [],
-      events: []
+      events: [],
+      invites: []
 
     };
     this.handleClick = this.handleClick.bind(this);
@@ -38,7 +39,27 @@ class Profile extends Component {
       event.preventDefault();
       console.log(event.target.value);
       this.props.history.push("/event/" + event.target.value)
-    } 
+    }
+
+    if (event.target.name === 'invite') {
+      event.preventDefault();
+      const inviteRsvp = {
+        inviteProfileId: event.target.value,
+        rsvp: true
+      }
+      axios.put('/api/invites/' + event.target.value, inviteRsvp)
+      .then((response) => {
+        // this.setState({
+        //   rsvp: true
+        // })
+        console.log(response)
+      })
+      .catch((error) => {
+        
+      });
+    }
+    
+    
     
     
   };
@@ -94,6 +115,17 @@ class Profile extends Component {
         
       });
 
+      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&[where][rsvp]=' + false)
+      .then((response) => {
+        this.setState({
+          invites: response.data
+        })
+        console.log(response)
+      })
+      .catch((error) => {
+        
+      });
+
       
 
 
@@ -111,7 +143,14 @@ class Profile extends Component {
     const eventList = this.state.events.map((event) => {
       return(
         // <List.Item key={event.id} content={event.theme} onClick={this.handleClick} name='event' />
-        <Button onClick={this.handleClick} name='event' value={event.id} key={event.id}>{event.theme}</Button>
+        
+        <Button onClick={this.handleClick} name='event' value={event.id} key={event.id} color='purple'>{event.theme}</Button>
+      )
+    })
+
+    const inviteList = this.state.invites.map((invite) => {
+      return(        
+        <Button onClick={this.handleClick} name='invite' value={invite.inviteProfileId} key={invite.id} color='yellow'>{invite.id}</Button>
       )
     })
     return (
@@ -177,11 +216,15 @@ class Profile extends Component {
         
         {friendsList}
 
-        <h4>Your Events!</h4>
+        <h4>Your the Host of these Events!</h4>
         {/* <List selection items={eventList} >
           {eventList}
         </List>  */}
         {eventList}
+
+        <h4>You Need to RSVP to these Invites!</h4>
+
+        {inviteList}
 
             
         

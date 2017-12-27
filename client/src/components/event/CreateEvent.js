@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox, List} from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 
 const options = [
@@ -26,43 +26,41 @@ class CreateEvent extends Component {
         theme: "",
         friends: [],
         friend: "",
-        events:[]
+        events:[],
+        eventHost: {
+          host: this.props.match.params.hid
+        },
+        eventId: ""
     }
-    console.log(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.onClick = this.onClick.bind(this);
 
   }
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleClick(e) {
-    this.setState({ friend: e.target.key })
-    
-    const friendInvite= {
-      inviteProfileId: this.state.friends.friendId
+  handleClick(event) {
+    event.preventDefault();
+    // console.log()
+    const createInvite = {
+      eventId: this.state.EventId,
+      inviteProfileId: event.target.value,
+      rsvp: 'false'
     }
-    
-    axios.post('/api/invites', friendInvite) 
+    axios.post('/api/invites', createInvite)
     .then((response) => {
-      console.log(response);
-      // this.props.history.push("/event/" + response.data.id)
-
+      console.log(response)
     })
     .catch((error) => {
       console.log(error);
     });
+   
 
 
   }
-  // handleClick = (e) => this.setState({ friend: e.target.innerText }
-    
   
-  // );
-  
-  handleSubmit(event){
+  handleSubmit(event){     
     event.preventDefault();
     const createEvent = {
       host: this.state.host,
@@ -76,17 +74,28 @@ class CreateEvent extends Component {
       profileId: this.props.match.params.hid
       
     };
-    axios.post('/api/events', createEvent) 
+    axios.put('/api/events/' + this.state.eventId, createEvent) 
     .then((response) => {
-      // console.log(response);
-      this.props.history.push("/event/" + response.data.id)
+       console.log(response);
+       this.props.history.push("/event/" + response.data.id)
 
     })
     .catch((error) => {
       console.log(error);
     });
+    
   }
     componentWillMount() {
+        axios.post('/api/events/', this.state.eventHost) 
+      .then((response) => {
+        this.setState({
+          eventId: response.data.id
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
       axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
         // console.log(response);
@@ -106,10 +115,12 @@ class CreateEvent extends Component {
 
       axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.hid)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           friends: response.data
         })
+        //console.log(this.state)
+
       })
       .catch((error) => {
         console.log(error);
@@ -118,11 +129,12 @@ class CreateEvent extends Component {
   
 
   render() {
-    console.log(this.state.friend)
+     //console.log(this.state.friends)
 
     const friendsList = this.state.friends.map((friend) => {
       return(
-        <List.Item key={friend.id} content={friend.friendName} />
+        
+        <Button onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
       )
     })
     return (
@@ -165,9 +177,10 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              <List selection onClick={this.handleClick}>
+              {/* <List selection onClick={this.handleClick}> */}
                 {friendsList}
-              </List> 
+                {/* <Button color='teal'>Invite</Button>
+              </List>  */}
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>
