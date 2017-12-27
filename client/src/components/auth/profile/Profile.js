@@ -47,7 +47,7 @@ class Profile extends Component {
         inviteProfileId: event.target.value,
         rsvp: true
       }
-      axios.put('/api/invites/' + event.target.value, inviteRsvp)
+      axios.put('/api/invites/' + event.target.x, inviteRsvp)
       .then((response) => {
         // this.setState({
         //   rsvp: true
@@ -115,7 +115,7 @@ class Profile extends Component {
         
       });
 
-      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&[where][rsvp]=' + false)
+      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=false')
       .then((response) => {
         this.setState({
           invites: response.data
@@ -150,7 +150,7 @@ class Profile extends Component {
 
     const inviteList = this.state.invites.map((invite) => {
       return(        
-        <Button onClick={this.handleClick} name='invite' value={invite.inviteProfileId} key={invite.id} color='yellow'>{invite.id}</Button>
+        <Button onClick={this.handleClick} name='invite' x={invite.id} value={invite.inviteProfileId} key={invite.id} color='yellow'>{invite.id}</Button>
       )
     })
     return (
