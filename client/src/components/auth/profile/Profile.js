@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Button, Message, Card} from 'semantic-ui-react';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -22,52 +21,38 @@ class Profile extends Component {
       friends: [],
       events: [],
       invites: []
-
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickEvent = this.handleClickEvent.bind(this);
+    this.handleClickLogout = this.handleClickLogout.bind(this);
+    this.handleClickInvite = this.handleClickInvite.bind(this);
   }
-  
-  handleClick(event){
-    if (event.target.name === 'logout') {
-      event.preventDefault();
-      localStorage.removeItem('feastAT');
-      this.props.history.push("/");
-      console.log(event.target.name); 
-    } 
 
-    if (event.target.name === 'event') {
-      event.preventDefault();
-      // console.log(event.target.value);
-      this.props.history.push("/event/" + event.target.value)
+  handleClickInvite(event){
+    const inviteRsvp = {
+      id: event.target.dataset.invite,
+      eventId: event.target.dataset.event,
+      inviteProfileId: event.target.dataset.profile,
+      inviteName: event.target.dataset.name,
+      rsvp: event.target.name       
     }
 
-    if (event.target.name === '1' || event.target.name === '2') {
-      // event.preventDefault();
-      // console.log(event.target.dataset.event)
-      const inviteRsvp = {
-        id: event.target.dataset.invite,
-        eventId: event.target.dataset.event,
-        inviteProfileId: event.target.dataset.profile,
-        inviteName: event.target.dataset.name,
-        rsvp: event.target.name
-        
-      }
+    axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {     
+    });   
+  }
 
-      axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
-      .then((response) => {
-        // this.setState({
-        //   rsvp: true
-        // })
-        console.log(response)
-      })
-      .catch((error) => {
-        
-      });
-    }
-    
-    
-    
-    
+  handleClickLogout(event){
+    event.preventDefault();
+    localStorage.removeItem('feastAT');
+    this.props.history.push("/");
+  }
+
+  handleClickEvent(event){
+    event.preventDefault();
+    this.props.history.push("/event/" + event.target.value)
   };
 
   componentWillMount() {
@@ -84,57 +69,42 @@ class Profile extends Component {
           zip: response.data.zip,
           phone: response.data.phone,
           allergies: response.data.allergies
-        
-
         })
-        // console.log(response)
       })
       .catch((error) => {
         if(error.response.data.error.statusCode === 401){
           this.props.history.push("/")          
         }
       });
-
-   
     }
     
-      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
+    axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
-        // console.log(response.data);
         this.setState({
           friends: response.data
-          
         })
       })
       .catch((error) => {
         console.log(error);
-      });
+    });
 
-      axios.get('/api/events?filter[where][profileId][like]=' + this.props.match.params.id)
+    axios.get('/api/events?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
         this.setState({
           events: response.data
         })
-        // console.log(response)
+    })
+    .catch((error) => {
+    });
+
+    axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=0')
+    .then((response) => {
+      this.setState({
+        invites: response.data
       })
-      .catch((error) => {
-        
-      });
-
-      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=0')
-      .then((response) => {
-        this.setState({
-          invites: response.data
-        })
-         console.log(response)
-      })
-      .catch((error) => {
-        
-      });
-
-      
-
-
+    })
+    .catch((error) => {
+    });
   }
 
   render() {
@@ -147,11 +117,8 @@ class Profile extends Component {
     })
 
     const eventList = this.state.events.map((event) => {
-      return(
-        // <List.Item key={event.id} content={event.theme} onClick={this.handleClick} name='event' />
-        
-        <Button onClick={this.handleClick} name='event' value={event.id} key={event.id} color='purple'>{event.theme}</Button>
-        
+      return(        
+        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'>{event.theme}</Button>
       )
     })
 
@@ -159,8 +126,8 @@ class Profile extends Component {
       return( 
         <div key={invite.id}>
           <h4>{invite.eventId}</h4>       
-          <Button onClick={this.handleClick} name='1'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>ACCEPT</Button>
-          <Button onClick={this.handleClick} name='2'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>DECLINE</Button>
+          <Button onClick={this.handleClickInvite} name='1'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>ACCEPT</Button>
+          <Button onClick={this.handleClickInvite} name='2'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>DECLINE</Button>
         </div>
       )
     })
@@ -173,7 +140,7 @@ class Profile extends Component {
         color='green'
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
-      />
+        />
         <Button.Group fluid>
           <Button type='submit' color='teal'>JOIN A FEAST</Button>
           <Button.Or />
@@ -220,25 +187,14 @@ class Profile extends Component {
           </Card.Content>
           </Card.Content>
         </Card>
-        
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
         <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-        <Button onClick={this.handleClick} name='logout' color='teal'>Log Out</Button>
-        
+        <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button>
         {friendsList}
-
         <h4>Your the Host of these Events!</h4>
-        {/* <List selection items={eventList} >
-          {eventList}
-        </List>  */}
         {eventList}
-
         <h4>You Need to RSVP to these Invites!</h4>
-
-        {inviteList}
-
-            
-        
+        {inviteList}   
       </div>
     );
   }
