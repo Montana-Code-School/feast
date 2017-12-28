@@ -100,7 +100,6 @@ class CreateEvent extends Component {
             content='CREATE A FEAST'
             color='green'
             textAlign='center'
-            verticalAlign='middle'            
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>

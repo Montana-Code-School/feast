@@ -183,7 +183,7 @@ class Event extends Component {
               import list of guest as the confirm that they are coming
             </Grid.Column>
             <Grid.Column>
-              <h4>Allergies</h4>
+              <h4>ALLERGIES</h4>
               import a list of allergies from the list of confirmed guests
             </Grid.Column>
           </Grid.Row>
