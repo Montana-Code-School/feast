@@ -42,11 +42,11 @@ class CreateEvent extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    // console.log()
+     console.log(this.state.eventId)
     const createInvite = {
-      eventId: this.state.EventId,
+      eventId: this.state.eventId,
       inviteProfileId: event.target.value,
-      rsvp: 'false'
+      inviteName: event.target.id
     }
     axios.post('/api/invites', createInvite)
     .then((response) => {
@@ -134,7 +134,7 @@ class CreateEvent extends Component {
     const friendsList = this.state.friends.map((friend) => {
       return(
         
-        <Button onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+        <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
       )
     })
     return (

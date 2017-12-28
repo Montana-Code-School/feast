@@ -35,14 +35,15 @@ class Event extends Component {
       zip: "",
       time: "",
       date: "",
-      theme: ""      
+      theme: "",
+      invites: []      
     };
     }
 
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -58,9 +59,28 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
+    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=1')
+    .then((response) => {
+      console.log(response);
+      this.setState({
+      invites: response.data      
+        
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
+    const inviteList = this.state.invites.map((invite) => {
+      return(
+        <div key={invite.id}> 
+          {invite.inviteName} 
+        </div>
+      )
+    })
+
     return (
       <div id='event-overlay'>
       
@@ -131,7 +151,7 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>GUESTS</h4>
-              import list of guest as the confirm that they are coming
+              {inviteList}
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>

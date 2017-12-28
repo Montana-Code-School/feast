@@ -10,11 +10,14 @@
       "type": "string"
     },
     "inviteProfileId": {
-      "type": "string",
-      "required": true
+      "type": "string"
+    },
+    "inviteName": {
+      "type": "string"
     },
     "rsvp": {
-      "type": "boolean"
+      "type": "number",
+      "default": 0
     }
   },
   "validations": [],

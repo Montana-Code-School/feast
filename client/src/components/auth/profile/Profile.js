@@ -37,17 +37,23 @@ class Profile extends Component {
 
     if (event.target.name === 'event') {
       event.preventDefault();
-      console.log(event.target.value);
+      // console.log(event.target.value);
       this.props.history.push("/event/" + event.target.value)
     }
 
-    if (event.target.name === 'invite') {
-      event.preventDefault();
+    if (event.target.name === '1' || event.target.name === '2') {
+      // event.preventDefault();
+      // console.log(event.target.dataset.event)
       const inviteRsvp = {
-        inviteProfileId: event.target.value,
-        rsvp: true
+        id: event.target.dataset.invite,
+        eventId: event.target.dataset.event,
+        inviteProfileId: event.target.dataset.profile,
+        inviteName: event.target.dataset.name,
+        rsvp: event.target.name
+        
       }
-      axios.put('/api/invites/' + event.target.x, inviteRsvp)
+
+      axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
       .then((response) => {
         // this.setState({
         //   rsvp: true
@@ -109,18 +115,18 @@ class Profile extends Component {
         this.setState({
           events: response.data
         })
-        console.log(response)
+        // console.log(response)
       })
       .catch((error) => {
         
       });
 
-      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=false')
+      axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=0')
       .then((response) => {
         this.setState({
           invites: response.data
         })
-        console.log(response)
+         console.log(response)
       })
       .catch((error) => {
         
@@ -145,12 +151,17 @@ class Profile extends Component {
         // <List.Item key={event.id} content={event.theme} onClick={this.handleClick} name='event' />
         
         <Button onClick={this.handleClick} name='event' value={event.id} key={event.id} color='purple'>{event.theme}</Button>
+        
       )
     })
 
     const inviteList = this.state.invites.map((invite) => {
-      return(        
-        <Button onClick={this.handleClick} name='invite' x={invite.id} value={invite.inviteProfileId} key={invite.id} color='yellow'>{invite.id}</Button>
+      return( 
+        <div key={invite.id}>
+          <h4>{invite.eventId}</h4>       
+          <Button onClick={this.handleClick} name='1'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>ACCEPT</Button>
+          <Button onClick={this.handleClick} name='2'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>DECLINE</Button>
+        </div>
       )
     })
     return (
