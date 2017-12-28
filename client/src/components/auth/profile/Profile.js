@@ -97,7 +97,7 @@ class Profile extends Component {
     .catch((error) => {
     });
 
-    axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=0')
+    axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=invited')
     .then((response) => {
       this.setState({
         invites: response.data
@@ -126,8 +126,8 @@ class Profile extends Component {
       return( 
         <div key={invite.id}>
           <h4>{invite.eventId}</h4>       
-          <Button onClick={this.handleClickInvite} name='1'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>ACCEPT</Button>
-          <Button onClick={this.handleClickInvite} name='2'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>DECLINE</Button>
+          <Button onClick={this.handleClickInvite} name='accepted'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>ACCEPT</Button>
+          <Button onClick={this.handleClickInvite} name='delicned'  data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='yellow'>DECLINE</Button>
         </div>
       )
     })
