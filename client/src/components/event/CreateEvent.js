@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Form, Header, Grid, Dropdown, Checkbox, Card } from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
+import Navbar from '../navbar/Navbar';
 
 const options = [
   { key: 'appatizer', text: 'Appatizer', value: 'appatizer' },
@@ -72,7 +73,7 @@ class CreateEvent extends Component {
     });
   }
     componentWillMount() {
-      axios.get('/api/profiles/' + this.props.match.params.hid)
+      axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
         console.log(response);
         this.setState({
@@ -95,6 +96,7 @@ class CreateEvent extends Component {
   render() {
     return (
       <div>
+        <Navbar />
        <Header
             as='h1'
             content='CREATE A FEAST'

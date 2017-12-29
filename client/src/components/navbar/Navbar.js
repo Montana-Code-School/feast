@@ -1,38 +1,20 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
 import { Menu, Container } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 
 class Navbar extends Component{
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {profileId: ""}
-  // }
 
-  // componentWillMount() {
-  //   axios.get('/api/profiles/' + this.props.match.params.id)
-  //   .then((response) => {
-  //     this.setState({
-  //       profileId: response.data
-  //     })
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);        
-  //     }
-  //   );
-  // }
-  
-    render(){
+
+     render(){
         return (
-          <Menu fixed='top' stackable>
+          <Menu fixed='top'>
             <Container>
               <Menu.Item header>
                 FEAST
                </Menu.Item>
-              <Menu.Item>Profile</Menu.Item>
-              {/* <Link to={"/profiles/" + this.props.match.params.id}><Menu.Item>Profile</Menu.Item></Link> */}
-              <Menu.Item>Event</Menu.Item>
+              {/* <Menu.Item>Profile</Menu.Item> */}
+              <Link to={'/profile/' + localStorage.getItem('userId') + '?access_token=' + localStorage.getItem("feastAT")}><Menu.Item>Profile</Menu.Item></Link>
               <Menu.Item>Sign Out</Menu.Item>
             </Container>
           </Menu>

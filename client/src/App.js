@@ -8,16 +8,17 @@ import CreateEvent from './components/event/CreateEvent';
 import Event from './components/event/Event';
 import EditEvent from './components/event/EditEvent';
 import ProfileList from './components/auth/profileList/ProfileList';
+// import Test from './components/navbar/Test';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {userId: ""}
+    this.state={userId:""}
   }
 
   setAccessToken(newAccessToken) {
     this.setState({
-      userId: newAccessToken
+      userId:newAccessToken
     })
   }
 
@@ -26,6 +27,7 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Login} />
+            {/* <Route exact path="/test" component={Test} /> */}
             <Route exact path="/signup" onLogin={this.setAccessToken} component={SignUp} />
             <Route exact path="/friends/list/:pid" component={ProfileList} />
             <Route exact path="/profile/edit/:id" component={EditProfile} />

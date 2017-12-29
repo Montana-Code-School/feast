@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
-import Navbar from './components/navbar/Navbar';
+import Navbar from '../../navbar/Navbar';
 
 class Profile extends Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class Profile extends Component {
     })
     return (
       <div>
-        {/* <Navbar /> */}
+        <Navbar />
         {/* <div id="profile-overlay"></div> */}
         <Header
           as='h1'

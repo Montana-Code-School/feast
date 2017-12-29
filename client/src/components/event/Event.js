@@ -15,6 +15,7 @@ import {
   withProps, 
   // lifecycle 
 } from "recompose";
+import Navbar from '../navbar/Navbar';
 
 // const google = window.google;
 // const maps = google.maps;
@@ -112,7 +113,7 @@ class Event extends Component {
   render() {
     return (
       <div id='event-overlay'>
-      
+        <Navbar />
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
