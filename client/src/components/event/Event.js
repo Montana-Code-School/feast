@@ -132,8 +132,10 @@ class Event extends Component {
     })
 
     return (
-      <div id='event-overlay'>
-        <Navbar />
+      <div>
+        <div id='event-overlay'>
+        </div>
+        <Navbar profileId={this.state.profileId}/>
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
