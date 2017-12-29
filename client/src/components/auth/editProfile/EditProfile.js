@@ -95,7 +95,6 @@ class EditProfile extends Component {
         content='EDIT PROFILE'
         color='green'
         textAlign='center'
-        verticalAlign='middle'            
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
         <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>

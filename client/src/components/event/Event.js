@@ -57,7 +57,8 @@ class Event extends Component {
       time: "",
       date: "",
       theme: "",
-      isMarkerShown: ""      
+      isMarkerShown: "",      
+      invites: []      
     };
     }
 
@@ -92,7 +93,7 @@ class Event extends Component {
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -108,9 +109,28 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
+    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=accepted')
+    .then((response) => {
+      console.log(response);
+      this.setState({
+      invites: response.data      
+        
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
+    const inviteList = this.state.invites.map((invite) => {
+      return(
+        <div key={invite.id}> 
+          {invite.inviteName} 
+        </div>
+      )
+    })
+
     return (
       <div id='event-overlay'>
         <Navbar />
@@ -181,7 +201,7 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>GUESTS</h4>
-              import list of guest as the confirm that they are coming
+              {inviteList}
             </Grid.Column>
             <Grid.Column>
               <h4>ALLERGIES</h4>
@@ -189,7 +209,7 @@ class Event extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button type='submit' color='teal'>Edit</Button></Link>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
       </div>
     );
   }
