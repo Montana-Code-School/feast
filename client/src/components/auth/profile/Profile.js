@@ -45,11 +45,17 @@ class Profile extends Component {
     });   
   }
 
-  handleClick(event) {
+  handleClickLogout(event) {
     event.preventDefault();
     localStorage.removeItem('feastAT');
     this.props.history.push("/");
   };
+
+  handleClickEvent(event){
+    event.preventDefault();
+    this.props.history.push("/event/" + event.target.value)
+  };
+
 
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
