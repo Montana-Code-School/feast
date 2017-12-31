@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Form, Grid, Button, Message } from 'semantic-ui-react';
 // import './photo';
 
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
@@ -147,63 +146,63 @@ class Profile extends Component {
           textAlign='center'
           style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        {<Button.Group fluid>
+        {/* {<Button.Group fluid>
           <Button type='submit' color='teal'>JOIN A FEAST</Button>
-          <Button.Or />
+          <Button.Or /> */}
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
           <Link to={"/photo/Photo" +this.props.match.params.id}><Button color='teal'>Add Photo</Button></Link>
-        </Button.Group>
-        
-//         // // <Grid
-//         //   textAlign='center'
-//         // >
-//           <Grid.Column style={{ maxWidth: 180 }}>
-//             <Message>
-//               Add <a href=''>Image</a>
-//             </Message>
-//           </Grid.Column>
-//         </Grid>
-//         <Card>
-//           <Card.Content>
-//             <Card.Header>
-//               Profile
-//             </Card.Header>
-//             <Card.Content>
-//               Email: {this.state.email}
-//             </Card.Content>
-//             <Card.Content>
-//               Name: {this.state.name}
-//             </Card.Content>
-//             <Card.Content>
-//               Street: {this.state.street}
-//             </Card.Content>
-//             <Card.Content>
-//               City: {this.state.city}
-//             </Card.Content>
-//             <Card.Content>
-//               State: {this.state.state}
-//             </Card.Content>
-//             <Card.Content>
-//               Zip: {this.state.zip}
-//             </Card.Content>
-//             <Card.Content>
-//               Phone: {this.state.phone}
-//             </Card.Content>
-//             <Card.Content>
-//               Allergies: {this.state.allergies}
-//             </Card.Content>
-//           </Card.Content>
-//         </Card>
-//         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
-//         <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-//         <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button>
-//         {friendsList}
-//         <h4>Your the Host of these Events!</h4>
-//         {eventList}
-//         <h4>You Need to RSVP to these Invites!</h4>
-//         {inviteList}   
-//       </div>
-//     );
+        {/* </Button.Group> */}
+   
+        <Grid
+          textAlign='center'
+        >
+          <Grid.Column style={{ maxWidth: 180 }}>
+            <Message>
+              Add <a href=''>Image</a>
+            </Message>
+          </Grid.Column>
+        </Grid>
+        <Card>
+          <Card.Content>
+            <Card.Header>
+              Profile
+            </Card.Header>
+            <Card.Content>
+              Email: {this.state.email}
+            </Card.Content>
+            <Card.Content>
+              Name: {this.state.name}
+            </Card.Content>
+            <Card.Content>
+              Street: {this.state.street}
+            </Card.Content>
+            <Card.Content>
+              City: {this.state.city}
+            </Card.Content>
+            <Card.Content>
+              State: {this.state.state}
+            </Card.Content>
+            <Card.Content>
+              Zip: {this.state.zip}
+            </Card.Content>
+            <Card.Content>
+              Phone: {this.state.phone}
+            </Card.Content>
+            <Card.Content>
+              Allergies: {this.state.allergies}
+            </Card.Content>
+          </Card.Content>
+        </Card>
+        <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
+        <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
+        <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button>
+        {friendsList}
+        <h4>Your the Host of these Events!</h4>
+        {eventList}
+        <h4>You Need to RSVP to these Invites!</h4>
+        {inviteList}   
+      </div>
+    );
   }
 }
 
