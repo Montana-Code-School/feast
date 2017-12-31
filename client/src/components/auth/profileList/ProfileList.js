@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button } from 'semantic-ui-react';
+import Navbar from '../../navbar/Navbar';
+
 
 class ProfileList extends Component {
   constructor(props) {
@@ -10,7 +12,8 @@ class ProfileList extends Component {
     friendEmail:'',
     friendId: '',
     friendName: '',
-    friendAllergies: ''
+    friendAllergies: '',
+    profileId: this.props.match.params.pid
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -64,7 +67,7 @@ class ProfileList extends Component {
   render() {
     return (
       <div>
-       
+        <Navbar profileId={this.state.profileId}/>
         <Header as='h1' color='green' textAlign='center'>
           Profile List
         </Header>
