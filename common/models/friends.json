@@ -5,12 +5,20 @@
   "options": {
     "validateUpsert": true
   },
+  "friendAllergies": {
+    "type": "string",
+    "required": true
+  },
   "properties": {
-    "host": {
+    "profileId": {
       "type": "string",
       "required": true
     },
-    "friend": {
+    "friendId": {
+      "type": "string",
+      "required": true
+    },
+    "friendName": {
       "type": "string",
       "required": true
     }

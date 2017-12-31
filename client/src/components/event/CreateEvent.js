@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox, Card } from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
+import Navbar from '../navbar/Navbar';
 
 const options = [
   { key: 'appatizer', text: 'Appatizer', value: 'appatizer' },
@@ -11,17 +12,6 @@ const options = [
   { key: 'dessert', text: 'Dessert', value: 'dessert' },
 ]
 
-const items = [
-  {
-    header: 'Jim Bob',
-  },
-  {
-    header: 'Mary Sue',
-  },
-  {
-    header: 'Elliot Brood',
-  },
-]
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -34,17 +24,44 @@ class CreateEvent extends Component {
         zip: "",
         time: "",
         date: "",
-        theme: ""
+        theme: "",
+        friends: [],
+        friend: "",
+        events:[],
+        eventHost: {
+          host: this.props.match.params.hid
+        },
+        eventId: ""
     }
-    console.log(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+
   }
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleSubmit(event){
+  handleClick(event) {
+    event.preventDefault();
+     console.log(this.state.eventId)
+    const createInvite = {
+      eventId: this.state.eventId,
+      inviteProfileId: event.target.value,
+      inviteName: event.target.id
+    }
+    axios.post('/api/invites', createInvite)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+   
+
+
+  }
+  
+  handleSubmit(event){     
     event.preventDefault();
     const createEvent = {
       host: this.state.host,
@@ -56,23 +73,33 @@ class CreateEvent extends Component {
       date: this.state.date,
       theme: this.state.theme,
       profileId: this.props.match.params.hid
+      
     };
-    axios.post('/api/events', createEvent) 
+    axios.put('/api/events/' + this.state.eventId, createEvent) 
     .then((response) => {
-      console.log(response);
-      console.log(this.props.history)
-      // this.props.onLogin(res.data.id);          
-      this.props.history.push("/event/" + response.data.id)
+       console.log(response);
+       this.props.history.push("/event/" + response.data.id)
 
     })
     .catch((error) => {
       console.log(error);
     });
+    
   }
     componentWillMount() {
-      axios.get('/api/profiles/' + this.props.match.params.hid)
+        axios.post('/api/events/', this.state.eventHost) 
       .then((response) => {
-        console.log(response);
+        this.setState({
+          eventId: response.data.id
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
+      .then((response) => {
+        // console.log(response);
         this.setState({
           
           host: response.data.name,
@@ -86,19 +113,39 @@ class CreateEvent extends Component {
       .catch((error) => {
         console.log(error);
       });
-        // this.setAccessToken(res.data.id); 
+
+      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.hid)
+      .then((response) => {
+        // console.log(response);
+        this.setState({
+          friends: response.data
+        })
+        //console.log(this.state)
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   
 
   render() {
+     //console.log(this.state.friends)
+
+    const friendsList = this.state.friends.map((friend) => {
+      return(
+        
+        <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+      )
+    })
     return (
       <div>
+        <Navbar />
        <Header
             as='h1'
             content='CREATE A FEAST'
             color='green'
             textAlign='center'
-            verticalAlign='middle'            
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -132,7 +179,10 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              <Button><Card.Group items={items} /></Button>
+              {/* <List selection onClick={this.handleClick}> */}
+                {friendsList}
+                {/* <Button color='teal'>Invite</Button>
+              </List>  */}
             </Grid.Column>
             <Grid.Column>
               <h4>Allergies</h4>

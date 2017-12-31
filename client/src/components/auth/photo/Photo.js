@@ -42,6 +42,7 @@ class Photo extends React.Component {
     });
   }
     render() {
+      
       return(
       <div>
       <Dropzone
@@ -50,8 +51,6 @@ class Photo extends React.Component {
         onDrop={this.onImageDrop.bind(this)}>
         <p>Drop an image or click to select a file to upload.</p>
       </Dropzone>
-
-      Hi 
       </div>
       );}}
 

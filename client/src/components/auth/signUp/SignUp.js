@@ -42,7 +42,9 @@ class SignUp extends Component {
       state: this.state.state,
       zip: this.state.zip,
       phone: this.state.phone,
-      allergies: this.state.allergies
+      allergies: this.state.allergies,
+      emailVerified: true
+
     }
 console.log(event);
     axios.post('/api/profiles', userSignUp)
@@ -56,7 +58,6 @@ console.log(event);
       .catch((error) => {
         console.log(error);
       });
-    // this.setAccessToken(res.data.id);
 
   }
 
@@ -77,7 +78,6 @@ console.log(event);
        content='SIGN UP TO FEAST'
        color='green'
        textAlign='center'
-       verticalAlign='middle'            
        style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>

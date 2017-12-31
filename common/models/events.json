@@ -37,7 +37,8 @@
     "profiles": {
       "type": "hasMany",
       "model": "profile",
-      "foreignKey": ""
+      "foreignKey": "",
+      "through": "invite"
     },
     "courses": {
       "type": "hasMany",

@@ -8,7 +8,9 @@ class ProfileList extends Component {
     super(props);
     this.state = {
     friendEmail:'',
-    friendId: ''
+    friendId: '',
+    friendName: '',
+    friendAllergies: ''
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -25,25 +27,28 @@ class ProfileList extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.get('/api/profiles/findOne?filter[where][email]=' + this.state.friendEmail)
+    axios.get('/api/profiles/findOne?filter[where][email]=' + this.state.friendEmail + '&access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
        console.log(response);
       this.setState({
-        friendId: response.data.id
+        friendId: response.data.id,
+        friendName: response.data.name,
+        friendAllergies: response.data.allergies
       })
       
       const createFriendship = {
-        host: this.props.match.params.pid,
-        friend: this.state.friendId
+        profileId: this.props.match.params.pid,
+        friendId: this.state.friendId,
+        friendName: this.state.friendName,
+        friendAllergies: this.state.friendAllergies
       }
 
       console.log(createFriendship);
       axios.post('/api/friends', createFriendship)
       .then((response) => {
         console.log(response);
-        this.setState({
-          //friendId: response.data.pid
-        })
+       
+        this.props.history.push("/profile/" + this.props.match.params.pid)        
       })
       .catch((error) => {
         console.log(error);
@@ -53,11 +58,6 @@ class ProfileList extends Component {
     .catch((error) => {
       console.log(error);
     });
-  
-    
-      
-
-      
       
     }
 
