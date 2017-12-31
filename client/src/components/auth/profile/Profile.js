@@ -147,7 +147,7 @@ class Profile extends Component {
           textAlign='center'
           style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        {/* <Button.Group fluid>
+        {<Button.Group fluid>
           <Button type='submit' color='teal'>JOIN A FEAST</Button>
           <Button.Or />
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
