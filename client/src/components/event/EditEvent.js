@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
-
+import { Button, Form, Header } from 'semantic-ui-react';
+import Navbar from '../navbar/Navbar';
 
 class EditEvent extends Component {
   constructor(props) {
@@ -77,9 +77,15 @@ class EditEvent extends Component {
   render() {
     return (
       <div>
-        <h1>
-          EVENT
-        </h1>
+        <Navbar />
+        <br />
+        <Header
+        as='h1'
+        content='EDIT EVENT'
+        color='green'
+        textAlign='center'
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+        />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
      <Form.Group unstackable widths={2}>
         <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value= {this.state.host}/>
@@ -95,7 +101,7 @@ class EditEvent extends Component {
         <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} value= {this.state.state}/>
         <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} value= {this.state.zip}/>
       </Form.Group>
-      <Button type='submit'>Submit</Button>
+      <Button type='submit' color='teal'>Submit</Button>
     </Form>
   
        

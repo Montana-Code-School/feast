@@ -7,7 +7,7 @@ class Navbar extends Component {
  
      render(){
         return (
-          <Menu fixed='top'>
+          <Menu fixed='top' inverted>
             <Container>
               <Menu.Item header>
                 FEAST

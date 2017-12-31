@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button } from 'semantic-ui-react';
+import './ProfileList.css';
+import Navbar from '../../navbar/Navbar';
 
 class ProfileList extends Component {
   constructor(props) {
@@ -64,16 +66,19 @@ class ProfileList extends Component {
   render() {
     return (
       <div>
-       
-        <Header as='h1' color='green' textAlign='center'>
-          Profile List
+       <div id='friend-overlay'>
+       </div>
+       <Navbar />
+       <br />
+        <Header as='h1' textAlign='center'>
+          FEASTS PATENTED FRIEND FINDER
         </Header>
         
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
-            <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
+            <Form.Input label='Your Friends Email Address' placeholder='Email' name="email" onChange={this.handleChange} />
           </Form.Group>
-          <Button color='teal'>Find Friend</Button>
+          <Button color='teal'>Find Your Friends</Button>
         </Form>
 
       </div> 

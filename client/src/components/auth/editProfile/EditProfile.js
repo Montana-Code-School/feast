@@ -97,8 +97,6 @@ class EditProfile extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>
-        {/* We're gonna have to figure out how to import profile pic to the edit profile page  */}
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
         <Grid
       textAlign='center'
@@ -111,23 +109,24 @@ class EditProfile extends Component {
         </Message>
         </Grid.Column>
     </Grid><br/>
-    <div className='text'>
+    <div id='text'>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={1}>
+      <Form.Group stackable widths={1}>
         <Form.Input label='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
         <Form.Input label='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
         <Form.Input label='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
       </Form.Group>
-      <Form.Group widths={1}>
+      <Form.Group stackable widths={1}>
         <Form.Input label='Street' name="newStreet" onChange={this.handleChange} value={this.state.newStreet}/>
         <Form.Input label='City' name="newCity" onChange={this.handleChange} value={this.state.newCity}/>
         <Form.Input label='State' name="newState" onChange={this.handleChange} value={this.state.newState}/>
       </Form.Group>
-      <Form.Group widths={1}>
+      <Form.Group stackable widths={1}>
         <Form.Input label='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
         <Form.Input label='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
         <Form.Input label='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>
       </Form.Group><br />
+      <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>
       <Button type='submit' color='teal'>Submit</Button>
     </Form>
     </div>

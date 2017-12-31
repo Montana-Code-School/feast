@@ -136,6 +136,7 @@ class Event extends Component {
         <div id='event-overlay'>
         </div>
         <Navbar profileId={this.state.profileId}/>
+          <br/>
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
