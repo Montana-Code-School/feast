@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Event.css'
+import './Event.css';
 import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
+import './Map.js';
 import {
   withScriptjs,
   withGoogleMap,
@@ -23,27 +24,6 @@ import Navbar from '../navbar/Navbar';
 
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
 
-// coordinates for directions 45.8174, -110.8966
-console.log()
-const MyMapComponent = compose(
-  withProps({
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
-  }),
-  withScriptjs,
-  withGoogleMap,
-  // lifecycle
-)((props) =>
-  <GoogleMap
-    defaultZoom={15}
-    defaultCenter={{ lat: 45.683, lng: -111.077 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: 46.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
-    {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
-  </GoogleMap>
-);
-
 class Event extends Component {
   constructor(props) {
     super(props);
@@ -61,34 +41,9 @@ class Event extends Component {
       invites: []   
 
     };
-    }
+  }
 
   componentDidMount() {
-    this.delayedShowMarker()
-    // DirectionsService.route({
-    //   origin: new google.maps.LatLng(45.683, -111.079),
-    //   destination: new google.maps.LatLng(45.8174, -110.8966),
-    //   travelMode: google.maps.TravelMode.DRIVING,
-    // }, (result, status) => {
-    //   if (status === google.maps.DirectionsStatus.OK) {
-    //     this.setState({
-    //       directions: result,
-    //     });
-    //   } else {
-    //     console.error(`error fetching directions ${result}`);
-    //   }
-    // });
-  }
-  
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true })
-    }, 3)
-  }
-  
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
   }
 
   componentWillMount() {
@@ -124,6 +79,24 @@ class Event extends Component {
   }
 
   render() {
+    const MyMapComponent = compose(
+      withProps({
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `400px` }} />,
+        mapElement: <div style={{ height: `100%` }} />,
+      }),
+      withScriptjs,
+      withGoogleMap,
+      // lifecycle
+    )((props) =>
+      <GoogleMap
+        defaultZoom={15}
+        defaultCenter={{ lat: 45.683, lng: -111.077 }}
+      >
+        <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />
+        {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
+      </GoogleMap>
+    );
     console.log(this.state)
     const inviteList = this.state.invites.map((invite) => {
       return(
@@ -184,7 +157,7 @@ class Event extends Component {
         {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
         <MyMapComponent
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
-          isMarkerShown={this.state.isMarkerShown}
+          isMarkerShown={true}
           // directions={this.state.directions}
           onMarkerClick={this.handleMarkerClick}
         />
