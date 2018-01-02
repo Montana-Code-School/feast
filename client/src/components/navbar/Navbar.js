@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+// import MenuItem from 'semantic-ui-react/dist/commonjs/collections/Menu/MenuItem';
 
 
 class Navbar extends Component {
@@ -11,10 +12,13 @@ class Navbar extends Component {
             <Container>
               <Menu.Item header>
                 FEAST
-               </Menu.Item>
-              {/* <Menu.Item>Profile</Menu.Item> */}
+              </Menu.Item>
+              <Menu.Item>
               <Link to={'/profile/' + this.props.profileId + '?access_token=' + localStorage.getItem("feastAT")}><Menu.Item>Profile</Menu.Item></Link>
-              <Menu.Item>Sign Out</Menu.Item>
+              </Menu.Item>
+              <Menu.Item position='right'>
+              <Button onClick={this.handleClickLogout} name='logout' position='right'>Log Out</Button>
+              </Menu.Item>
             </Container>
           </Menu>
         )

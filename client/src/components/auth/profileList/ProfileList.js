@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Card } from 'semantic-ui-react';
 import './ProfileList.css';
 import Navbar from '../../navbar/Navbar';
 
@@ -12,12 +12,14 @@ class ProfileList extends Component {
     friendEmail:'',
     friendId: '',
     friendName: '',
-    friendAllergies: ''
-
+    friendAllergies: '',
+    profileId: this.props.match.params.pid
     };
+
     this.handleChange = this.handleChange.bind(this);
-    
+    this.handleClickLogout = this.handleClickLogout.bind(this);
   }
+
   handleChange(event) {
     console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value,
@@ -26,6 +28,11 @@ class ProfileList extends Component {
     // friendEmail = event.target.value;
   }
  
+  handleClickLogout(event) {
+    event.preventDefault();
+    localStorage.removeItem('feastAT');
+    this.props.history.push("/");
+  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -60,18 +67,48 @@ class ProfileList extends Component {
     .catch((error) => {
       console.log(error);
     });
-      
-    }
+
+    // axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
+    //     .then((response) => {
+    //       this.setState({
+    //         profileId: this.props.match.params.pid          
+    //       })
+    //     })
+    //     .catch((error) => {
+    //       if (error.response.data.error.statusCode === 401) {
+    //         this.props.history.push("/")
+    //       }
+    //     });
+
+    // axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
+    // .then((response) => {
+    //   this.setState({
+    //     friends: response.data
+    //   })
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+  }
 
   render() {
+    // const friendsList = this.state.friends.map((friend) => {
+    //   return (
+    //     <div key={friend.id}>
+    //       {friend.friendName}
+    //     </div>
+    //   )
+    // })
+
     return (
       <div>
        <div id='friend-overlay'>
        </div>
-       <Navbar />
+       <Navbar profileId={this.state.profileId} />
+       <br />
        <br />
         <Header as='h1' textAlign='center'>
-          FEASTS PATENTED FRIEND FINDER
+          FEASTS' SIGNATURE FRIEND FINDER
         </Header>
         
         <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -80,7 +117,16 @@ class ProfileList extends Component {
           </Form.Group>
           <Button color='teal'>Find Your Friends</Button>
         </Form>
-
+        <Card>
+          <Card.Content>
+            <Card.Header>
+              You've Added These Friends!
+            </Card.Header>
+          </Card.Content>
+          <Card.Content>
+            {/* {friendsList} */}
+          </Card.Content>
+        </Card>  
       </div> 
       
     );

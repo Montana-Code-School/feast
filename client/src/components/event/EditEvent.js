@@ -15,7 +15,8 @@ class EditEvent extends Component {
       zip: "",
       time: "",
       date: "",
-      theme: ""
+      theme: "",
+      profileId: ""
     };
       this.handleChange = this.handleChange.bind(this);
   }
@@ -77,7 +78,8 @@ class EditEvent extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar profileId={this.state.profileId} />
+        <br />
         <br />
         <Header
         as='h1'

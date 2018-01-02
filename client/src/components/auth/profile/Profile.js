@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import "./Profile.css";
+import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
@@ -135,7 +135,7 @@ class Profile extends Component {
     })
     return (
       <div>
-        {/* <div id="profile-overlay"></div> */}
+        <div id="profile-overlay"></div>
         <Header
           as='h1'
           content='PROFILE'
@@ -169,6 +169,8 @@ class Profile extends Component {
               <Card.Header>
                 Profile
               </Card.Header>
+              </Card.Content>
+              <Card.Content>
               <Card.Content>
                 Email: {this.state.email}
               </Card.Content>
@@ -199,7 +201,9 @@ class Profile extends Component {
             <Card.Content>
             <Card.Header>
             Your Friends
-            </Card.Header>             
+            </Card.Header>
+            </Card.Content> 
+            <Card.Content>                      
              {friendsList}
             </Card.Content>
           </Card>
@@ -208,14 +212,18 @@ class Profile extends Component {
             <Card.Header>
               Your the Host of these Events!
             </Card.Header>
+            </Card.Content> 
+            <Card.Content> 
               {eventList}
             </Card.Content>
           </Card>
           <Card>
             <Card.Content>
             <Card.Header>
-              You Need to RSVP to these Invites!
+              RSVP to these Invites!
             </Card.Header>
+            </Card.Content> 
+            <Card.Content> 
               {inviteList}
             </Card.Content>
           </Card>

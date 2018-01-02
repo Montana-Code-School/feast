@@ -7,12 +7,12 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
+  Marker
   // DirectionsRenderer
 } from "react-google-maps";
 import { 
   compose, 
-  withProps, 
+  withProps 
   // lifecycle 
 } from "recompose";
 import Navbar from '../navbar/Navbar';
@@ -24,7 +24,7 @@ import Navbar from '../navbar/Navbar';
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
 
 // coordinates for directions 45.8174, -110.8966
-
+console.log()
 const MyMapComponent = compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
@@ -39,7 +39,7 @@ const MyMapComponent = compose(
     defaultZoom={15}
     defaultCenter={{ lat: 45.683, lng: -111.077 }}
   >
-    {props.isMarkerShown && <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
+    {props.isMarkerShown && <Marker position={{ lat: 46.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
     {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
   </GoogleMap>
 );
@@ -58,7 +58,8 @@ class Event extends Component {
       date: "",
       theme: "",
       isMarkerShown: "",      
-      invites: []      
+      invites: []   
+
     };
     }
 
@@ -123,6 +124,7 @@ class Event extends Component {
   }
 
   render() {
+    console.log(this.state)
     const inviteList = this.state.invites.map((invite) => {
       return(
         <div key={invite.id}> 
@@ -136,6 +138,7 @@ class Event extends Component {
         <div id='event-overlay'>
         </div>
         <Navbar profileId={this.state.profileId}/>
+          <br/>
           <br/>
         <Header
         as='h1'
@@ -204,7 +207,12 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>GUESTS</h4>
-              {inviteList}
+              <Card>
+                <Card.Content>
+                  We're Coming To The FEAST
+                  {inviteList}
+                </Card.Content>
+              </Card>  
             </Grid.Column>
             <Grid.Column>
               <h4>ALLERGIES</h4>

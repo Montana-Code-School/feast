@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Message, Button, Form} from 'semantic-ui-react';
+import "./EditProfile.css";
 
 
 class EditProfile extends Component {
@@ -26,7 +27,7 @@ class EditProfile extends Component {
       this.setState({[event.target.name]: event.target.value});
     }
   componentWillMount() {
-    axios.get('/api/profiles/' + this.props.match.params.id)
+    axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
       // console.log(response);
       this.setState({
@@ -89,7 +90,8 @@ class EditProfile extends Component {
 
   render() {
     return (
-      <div background="teal" >
+      <div>
+      <div id='background'></div>
         <Header
         as='h1'
         content='EDIT PROFILE'
@@ -111,17 +113,17 @@ class EditProfile extends Component {
     </Grid><br/>
     <div id='text'>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group stackable widths={1}>
+      <Form.Group stackable='true' widths={1}>
         <Form.Input label='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
         <Form.Input label='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
         <Form.Input label='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
       </Form.Group>
-      <Form.Group stackable widths={1}>
+      <Form.Group stackable='true' widths={1}>
         <Form.Input label='Street' name="newStreet" onChange={this.handleChange} value={this.state.newStreet}/>
         <Form.Input label='City' name="newCity" onChange={this.handleChange} value={this.state.newCity}/>
         <Form.Input label='State' name="newState" onChange={this.handleChange} value={this.state.newState}/>
       </Form.Group>
-      <Form.Group stackable widths={1}>
+      <Form.Group stackable='true' widths={1}>
         <Form.Input label='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
         <Form.Input label='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
         <Form.Input label='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>

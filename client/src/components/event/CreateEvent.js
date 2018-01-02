@@ -142,6 +142,7 @@ class CreateEvent extends Component {
       <div>
         <Navbar />
         <br />
+        <br />
        <Header
             as='h1'
             content='CREATE A FEAST'
