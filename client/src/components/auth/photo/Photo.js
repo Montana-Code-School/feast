@@ -49,7 +49,7 @@ class Photo extends React.Component {
         multiple={false}
         accept="image/*"
         onDrop={this.onImageDrop.bind(this)}>
-        <p>Drop an image or click to select a file to upload.</p>
+        <p>Click here to add your profile photo</p>
       </Dropzone>
       </div>
       );}}

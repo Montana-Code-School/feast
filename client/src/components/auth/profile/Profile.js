@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import './photo';
+import Photo from '../photo/Photo';
 
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
 import Navbar from '../../navbar/Navbar';
@@ -150,9 +150,8 @@ class Profile extends Component {
           <Button type='submit' color='teal'>JOIN A FEAST</Button>
           <Button.Or /> */}
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
-          <Link to={"/photo/Photo" +this.props.match.params.id}><Button color='teal'>Add Photo</Button></Link>
         {/* </Button.Group> */}
-   
+          <div><Photo/></div>
         <Grid
           textAlign='center'
         >
