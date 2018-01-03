@@ -29,7 +29,6 @@ class EditProfile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // var updateProfile = this.state;
     axios.put('/api/profiles/'+ this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"), {
       id: this.state.id,
       email: this.state.email,
@@ -43,12 +42,7 @@ class EditProfile extends Component {
       allergies: this.state.allergies      
     })
     .then((response) => {
-      
-      // this.setState({
-      //   newProfile: updateProfile
-      // })
-      this.props.history.push("/profile/" + response.data.id)  
-      
+      this.props.history.push("/profile/" + response.data.id)       
     })
     .catch((error) => {
       console.log(error);
@@ -58,10 +52,10 @@ class EditProfile extends Component {
   componentWillMount() {
     axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       this.setState({
         email: response.data.email, 
-        password: response.data.password,
+        // password: response.data.password,
         name: response.data.name,
         street: response.data.street,
         city: response.data.city,
@@ -104,19 +98,19 @@ class EditProfile extends Component {
         <div className='text'>
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={1}>
-              <Form.Input label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
-              <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password}/>
-              <Form.Input label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
+              <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
+              <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/>
+              <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
             <Form.Group widths={1}>
-              <Form.Input label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
-              <Form.Input label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
-              <Form.Input label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
+              <Form.Input type='text' label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
+              <Form.Input type='text' label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
+              <Form.Input type='text' label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
             </Form.Group>
             <Form.Group widths={1}>
-              <Form.Input label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
-              <Form.Input label='Phone' name="phone" onChange={this.handleChange} value={this.state.phone}/>
-              <Form.Input label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies}/>
+              <Form.Input type='text' label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
+              <Form.Input type='text' label='Phone' name="phone" onChange={this.handleChange} value={this.state.phone}/>
+              <Form.Input type='text' label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies}/>
             </Form.Group><br />
             <Button type='submit' color='teal'>Submit</Button>
           </Form>
