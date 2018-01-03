@@ -26,7 +26,7 @@ class Profile extends Component {
       invites: []
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
-    this.handleClickLogout = this.handleClickLogout.bind(this);
+    // this.handleClickLogout = this.handleClickLogout.bind(this);
     this.handleClickInvite = this.handleClickInvite.bind(this);
   }
 
@@ -47,11 +47,11 @@ class Profile extends Component {
     });   
   }
 
-  handleClickLogout(event) {
-    event.preventDefault();
-    localStorage.removeItem('feastAT');
-    this.props.history.push("/");
-  };
+  // handleClickLogout(event) {
+  //   event.preventDefault();
+  //   localStorage.removeItem('feastAT');
+  //   this.props.history.push("/");
+  // };
 
   handleClickEvent(event){
     event.preventDefault();
@@ -194,7 +194,7 @@ class Profile extends Component {
         </Card>
         <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
         <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-        <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button>
+        {/* <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button> */}
         {friendsList}
         <h4>Your the Host of these Events!</h4>
         {eventList}
