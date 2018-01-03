@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+// import ReactDOM from 'react-dom';
+// import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import {Image} from 'cloudinary-react';
@@ -8,7 +8,7 @@ import {Image} from 'cloudinary-react';
 const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload';
   
-class Photo extends React.Component {
+class Photo extends Component {
   constructor(props) {
     super(props);
 
@@ -30,6 +30,7 @@ class Photo extends React.Component {
      .field('file', file);
 
     upload.end((err, response) => {
+      console.log(response.body.public_id)
       if (err) {
         console.error(err);
       }
@@ -51,7 +52,12 @@ class Photo extends React.Component {
         onDrop={this.onImageDrop.bind(this)}>
         <p>Click here to add your profile photo</p>
       </Dropzone>
-      </div>
+      {/* <br/>
+      <Image publicId= 'mpqcxf82bceyzcyhqbuq.jpg' >
+      </Image> */}
+      <img src = 'https://res.cloudinary.com/mt-code-school/image/upload/mpqcxf82bceyzcyhqbuq.jpg'/>
+        
+    </div>
       );}}
 
     export default Photo;

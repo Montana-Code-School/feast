@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Photo from '../photo/Photo';
 
-import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
+import { Header, Grid, Button, Message, Card } from 'semantic-ui-react';
 import Navbar from '../../navbar/Navbar';
 
 class Profile extends Component {
