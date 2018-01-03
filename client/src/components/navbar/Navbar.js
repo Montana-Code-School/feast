@@ -14,7 +14,7 @@ class Navbar extends Component {
                 FEAST
               </Menu.Item>
               <Menu.Item>
-              <Link to={'/profile/' + this.props.profileId + '?access_token=' + localStorage.getItem("feastAT")}><Menu.Item>Profile</Menu.Item></Link>
+              <Link to={'/profile/' + this.props.profileId}><Menu.Item>Profile</Menu.Item></Link>
               </Menu.Item>
               <Menu.Item position='right'>
               <Button onClick={this.handleClickLogout} name='logout' position='right'>Log Out</Button>
