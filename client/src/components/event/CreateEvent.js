@@ -5,7 +5,7 @@ import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react
 import Navbar from '../navbar/Navbar';
 
 const options = [
-  { key: 'appatizer', text: 'Appatizer', value: 'appatizer' },
+  { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
   { key: 'salad', text: 'Salad', value: 'salad' },
   { key: 'soup', text: 'Soup', value: 'soup' },
   { key: 'entree', text: 'Entree', value: 'entree' },
@@ -26,53 +26,42 @@ class CreateEvent extends Component {
         date: "",
         theme: "",
         friends: [],
-        friend: "",
         events:[],
         eventHost: {
           host: this.props.match.params.hid
         },
         eventId: "",
         profileId: this.props.match.params.hid,
-        courses: []
+        courses: [],
+        friendsInvite: {}
       }
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
+    this.handleChangeCourses = this.handleChangeCourses.bind(this);
+    this.handleChangeFriends = this.handleChangeFriends.bind(this);
+
 
 
   }
-  handleChange2(event,data) {
+  handleChangeCourses(event,data) {
     this.setState({courses: data.value});
     console.log(this.state.courses);
+  }
+
+  handleChangeFriends(event,data) {
+    console.log(data.text)
+    this.setState({friendsInvite: data.value});
+    console.log(this.state.friendsInvite);
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  handleClick(event) {
-    event.preventDefault();
-     console.log(this.state.eventId)
-    const createInvite = {
-      eventId: this.state.eventId,
-      inviteProfileId: event.target.value,
-      inviteName: event.target.id
-    }
-    axios.post('/api/invites', createInvite)
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-   
-
-
-  }
+ 
   
   handleSubmit(event){     
     event.preventDefault();
-    console.log(this.state.courses);
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -86,28 +75,40 @@ class CreateEvent extends Component {
       courses: this.state.courses
       
     };
-    axios.put('/api/events/' + this.state.eventId, createEvent) 
+    axios.post('/api/events/' , createEvent) 
     .then((response) => {
-       console.log(response);
-       this.props.history.push("/event/" + response.data.id)
+      this.setState({
+        eventId: response.data.id
+      })
 
+      for (var i = 0; i < this.state.friendsInvite.length; i++) {
+        
+        const createInvite = {
+          eventId: this.state.eventId,
+          inviteProfileId: this.state.friendsInvite.profileId,
+          inviteName: this.state.friendsInvite.profileName
+        }
+        axios.post('/api/invites', createInvite)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+       
+      }
+
+       this.props.history.push("/event/" + response.data.id)
     })
     .catch((error) => {
       console.log(error);
     });
+
+   
     
   }
     componentWillMount() {
-        axios.post('/api/events/', this.state.eventHost) 
-      .then((response) => {
-        this.setState({
-          eventId: response.data.id
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    
       axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
         // console.log(response);
@@ -141,12 +142,12 @@ class CreateEvent extends Component {
   
 
   render() {
-     //console.log(this.state.friends)
 
     const friendsList = this.state.friends.map((friend) => {
       return(
-        
-        <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+       {key: friend.friendId, text: friend.friendName, value: friend.friendId}
+        // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+       
       )
     })
     return (
@@ -177,7 +178,7 @@ class CreateEvent extends Component {
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
-              <Dropdown placeholder='Courses' fluid multiple selection options={options} onChange={this.handleChange2} name='courses'/>
+              <Dropdown placeholder='Courses' fluid multiple selection options={options} onChange={this.handleChangeCourses} name='courses'/>
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -190,8 +191,10 @@ class CreateEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
+              <Dropdown placeholder='Friends' fluid multiple selection options={friendsList} onChange={this.handleChangeFriends} name='friends'/>
+
               {/* <List selection onClick={this.handleClick}> */}
-                {friendsList}
+                {/* {friendsList} */}
                 {/* <Button color='teal'>Invite</Button>
               </List>  */}
             </Grid.Column>

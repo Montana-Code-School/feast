@@ -111,7 +111,7 @@ class Event extends Component {
     });
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=accepted')
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       this.setState({
       invites: response.data      
         
