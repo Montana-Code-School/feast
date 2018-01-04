@@ -30,6 +30,11 @@
     },
     "theme": {
       "type": "string"
+    },
+    "courses": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],

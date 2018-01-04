@@ -32,12 +32,20 @@ class CreateEvent extends Component {
           host: this.props.match.params.hid
         },
         eventId: "",
-        profileId: this.props.match.params.hid
+        profileId: this.props.match.params.hid,
+        courses: []
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange2 = this.handleChange2.bind(this);
+
 
   }
+  handleChange2(event,data) {
+    this.setState({courses: data.value});
+    console.log(this.state.courses);
+  }
+
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
@@ -64,6 +72,7 @@ class CreateEvent extends Component {
   
   handleSubmit(event){     
     event.preventDefault();
+    console.log(this.state.courses);
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -73,7 +82,8 @@ class CreateEvent extends Component {
       time: this.state.time,
       date: this.state.date,
       theme: this.state.theme,
-      profileId: this.props.match.params.hid
+      profileId: this.props.match.params.hid,
+      courses: this.state.courses
       
     };
     axios.put('/api/events/' + this.state.eventId, createEvent) 
@@ -151,23 +161,23 @@ class CreateEvent extends Component {
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
-            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
-            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+            <Form.Input type='text' label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
+            <Form.Input type='date' label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+            <Form.Input type='time' label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
-            <Form.Input label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
-            <Form.Input label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
-            <Form.Input label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
-            <Form.Input label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
+            <Form.Input type='text' label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+            <Form.Input type='text' label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
+            <Form.Input type='text' label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
+            <Form.Input type='text' label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
+            <Form.Input type='number' label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
         
         <Grid columns={4} stackable divided>
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
-              <Dropdown placeholder='Courses' fluid multiple selection options={options} />
+              <Dropdown placeholder='Courses' fluid multiple selection options={options} onChange={this.handleChange2} name='courses'/>
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
