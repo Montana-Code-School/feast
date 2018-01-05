@@ -33,7 +33,8 @@ class CreateEvent extends Component {
         eventId: "",
         profileId: this.props.match.params.hid,
         courses: [],
-        friendsInvite: {}
+        friendsInvite: [],
+        allergies: []
       }
     this.handleChange = this.handleChange.bind(this);
     // this.handleClick = this.handleClick.bind(this);
@@ -43,6 +44,26 @@ class CreateEvent extends Component {
 
 
   }
+
+  addName(idList) {
+    var twoD = [];
+    var f = this.state.friends;
+    for (var i = 0; i < idList.length; i++) {
+      var id = idList[i];
+
+      for (var j = 0; j < f.length; j++) {
+        var friendId = f[j].friendId;
+
+        if (id === friendId) {
+          var adding = [id,f[j].friendName,f[j].friendAllergies];
+          twoD.push(adding);
+          this.state.allergies.push(f[j].friendAllergies);
+        }
+      }
+    }
+    return twoD;
+  }
+
   handleChangeCourses(event,data) {
     this.setState({courses: data.value});
     console.log(this.state.courses);
@@ -72,21 +93,31 @@ class CreateEvent extends Component {
       date: this.state.date,
       theme: this.state.theme,
       profileId: this.props.match.params.hid,
-      courses: this.state.courses
+      courses: this.state.courses,
+      allergies: this.state.allergies
       
     };
+    var invite = this.addName(this.state.friendsInvite);
+      console.log(invite);
+
     axios.post('/api/events/' , createEvent) 
     .then((response) => {
+      console.log(response);
       this.setState({
         eventId: response.data.id
       })
 
-      for (var i = 0; i < this.state.friendsInvite.length; i++) {
+      console.log(this.state.friendsInvite);
+
+      for (var i = 0; i < invite.length; i++) {
         
         const createInvite = {
           eventId: this.state.eventId,
-          inviteProfileId: this.state.friendsInvite.profileId,
-          inviteName: this.state.friendsInvite.profileName
+          inviteProfileId: invite[i][0],
+          inviteName: invite[i][1],
+          hostName: this.state.host,
+          theme: this.state.theme
+
         }
         axios.post('/api/invites', createInvite)
         .then((response) => {
@@ -128,7 +159,7 @@ class CreateEvent extends Component {
 
       axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.hid)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         this.setState({
           friends: response.data
         })
@@ -174,7 +205,7 @@ class CreateEvent extends Component {
             <Form.Input type='number' label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
         
-        <Grid columns={4} stackable divided>
+        <Grid columns={3} stackable divided>
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
@@ -198,10 +229,10 @@ class CreateEvent extends Component {
                 {/* <Button color='teal'>Invite</Button>
               </List>  */}
             </Grid.Column>
-            <Grid.Column>
+            {/* <Grid.Column>
               <h4>Allergies</h4>
-              import a list of allergies from the list of confirmed guests
-            </Grid.Column>
+              {f[j].friendAllergies}
+            </Grid.Column> */}
           </Grid.Row>
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>

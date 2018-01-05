@@ -33,6 +33,11 @@
     },
     "courses": {
       "type": [
+        "object"
+      ]
+    },
+    "allergies": {
+      "type": [
         "string"
       ]
     }

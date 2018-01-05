@@ -47,14 +47,6 @@
     "dataSource": "db",
     "public": true
   },
-  "courses": {
-    "dataSource": "db",
-    "public": true
-  },
-  "dish": {
-    "dataSource": "db",
-    "public": true
-  },
   "friends": {
     "dataSource": "db",
     "public": true

@@ -58,7 +58,8 @@ class Event extends Component {
       date: "",
       theme: "",
       isMarkerShown: "",      
-      invites: []      
+      invites: [],
+      allergies: []    
     };
     }
 
@@ -78,7 +79,15 @@ class Event extends Component {
     //   }
     // });
   }
-  
+
+  allergiesornot(){
+    if(this.state.allergies){
+      return this.state.allergies;
+    }else{
+      return ['No Allergies'];
+    }
+  }
+
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
@@ -93,7 +102,7 @@ class Event extends Component {
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -103,7 +112,8 @@ class Event extends Component {
         zip: response.data.zip,
         time: response.data.time,
         date: response.data.date,
-        theme: response.data.theme,     
+        theme: response.data.theme, 
+        allergies: response.data.allergies    
       })
     })
     .catch((error) => {
@@ -130,6 +140,16 @@ class Event extends Component {
         </div>
       )
     })
+
+ 
+    const allergyList = this.allergiesornot().map((a) => {
+      return(
+        <div key={a}> 
+          {a} 
+        </div>
+      )
+    })
+ 
 
     return (
       <div>
@@ -207,7 +227,7 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>ALLERGIES</h4>
-              import a list of allergies from the list of confirmed guests
+              {allergyList}
             </Grid.Column>
           </Grid.Row>
         </Grid>

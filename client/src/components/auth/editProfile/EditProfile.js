@@ -8,7 +8,7 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: [],
+      // profile: [],
         email: "",
         password: "",
         name: "",
@@ -55,7 +55,7 @@ class EditProfile extends Component {
       console.log(response);
       this.setState({
         email: response.data.email, 
-        // password: response.data.password,
+        password: response.data.password,
         name: response.data.name,
         street: response.data.street,
         city: response.data.city,
