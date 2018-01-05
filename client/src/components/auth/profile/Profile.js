@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
+import Navbar from '../../navbar/Navbar';
 
 class Profile extends Component {
   constructor(props) {
@@ -136,6 +137,8 @@ class Profile extends Component {
     return (
       <div>
         <div id="profile-overlay"></div>
+        <Navbar profileId={this.state.profileId}/>
+        <div id='content'>
         <Header
           as='h1'
           content='PROFILE'
@@ -143,14 +146,14 @@ class Profile extends Component {
           textAlign='center'
           style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        {/* <Button.Group fluid>
-          <Button type='submit' color='teal'>JOIN A FEAST</Button>
-          <Button.Or /> */}
         <div align='center'>
+        <Button.Group>
           <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
-          <Link to={"/profile/edit/" + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT")}><Button color='teal'>Edit Your Profile</Button></Link>
-          <Link to={"/friends/list/" + this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-          <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button>
+          <Button.Or />
+          <Link to={"/profile/edit/" + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT")}><Button color='teal'>EDIT YOUR PROFILE</Button></Link>
+          <Button.Or />
+          <Link to={"/friends/list/" + this.props.match.params.id}><Button color='teal'>ADD FRIENDS</Button></Link>
+        </Button.Group>
         </div>
         <br />
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
@@ -228,6 +231,7 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </CardGroup>
+      </div>
       </div>
     );
   }

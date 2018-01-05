@@ -9,18 +9,14 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker
-  // DirectionsRenderer
 } from "react-google-maps";
 import { 
   compose, 
   withProps 
-  // lifecycle 
 } from "recompose";
 import Navbar from '../navbar/Navbar';
-
-// const google = window.google;
-// const maps = google.maps;
-// const DirectionsService = new google.maps.DirectionsService();
+import party from './party.jpg';
+import two from './two.jpg';
 
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
 
@@ -43,9 +39,6 @@ class Event extends Component {
     };
   }
 
-  componentDidMount() {
-  }
-
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
@@ -65,12 +58,12 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
+
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=accepted')
     .then((response) => {
       console.log(response);
       this.setState({
       invites: response.data      
-        
       })
     })
     .catch((error) => {
@@ -87,14 +80,12 @@ class Event extends Component {
       }),
       withScriptjs,
       withGoogleMap,
-      // lifecycle
     )((props) =>
       <GoogleMap
         defaultZoom={15}
-        defaultCenter={{ lat: 45.683, lng: -111.077 }}
+        defaultCenter={{ lat: 45.683, lng: -111.079 }}
       >
         <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />
-        {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
       </GoogleMap>
     );
     console.log(this.state)
@@ -107,9 +98,9 @@ class Event extends Component {
     })
 
     return (
-      <div>
-        <div id='event-overlay'>
-        </div>
+      <div fluid>
+        {/* <div id='event-overlay'>
+        </div> */}
         <Navbar profileId={this.state.profileId}/>
           <br/>
           <br/>
@@ -120,7 +111,7 @@ class Event extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Card.Group itemsPerRow={2}>
+        <Card.Group itemPerRow={3}>
         <Card>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
           <Card.Content>
@@ -153,15 +144,23 @@ class Event extends Component {
           </Card.Content>
           </Card.Content>
         </Card>
-        <Card float='right'>
-        {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
+        <Card>
+        <Card.Content>
         <MyMapComponent
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           isMarkerShown={true}
-          // directions={this.state.directions}
           onMarkerClick={this.handleMarkerClick}
         />
+        </Card.Content>
         </Card>
+          <Card>
+          <Card.Content>
+            <Image src={party}/>
+          </Card.Content>
+          <Card.Content>
+            <Image src={two}/>
+          </Card.Content>
+          </Card> 
         </Card.Group>
         <Grid columns={4} divided>
           <Grid.Row> 

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Header, Button, Form, Message, Grid, Card } from 'semantic-ui-react';
+import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
-import two from "./two.jpg";
-import footer from "./footer.jpg";
-import party from "./party.jpg";
+// import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
 
 
@@ -81,18 +79,18 @@ console.log(event);
        style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>
-        <Form align="center" onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group widths={1}>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group align="center" widths={1}>
             <Form.Input placeholder='Email' name="email" onChange={this.handleChange} />
             <Form.Input placeholder='Password' name="password" onChange={this.handleChange} />
             <Form.Input placeholder='Name' name="name" onChange={this.handleChange} />
           </Form.Group><br/>
-          <Form.Group widths={1}>
+          <Form.Group align="center" widths={1}>
             <Form.Input placeholder='Street' name="street" onChange={this.handleChange} />
             <Form.Input placeholder='City' name="city" onChange={this.handleChange} />
             <Form.Input placeholder='State' name="state" onChange={this.handleChange} />
           </Form.Group><br/>
-          <Form.Group widths={1}>
+          <Form.Group align="center" widths={1}>
             <Form.Input placeholder='Zip' name="zip" onChange={this.handleChange} />
             <Form.Input placeholder='Phone' name="phone" onChange={this.handleChange} />
             <Form.Input placeholder='Allergies' name="allergies" onChange={this.handleChange} />
@@ -111,11 +109,11 @@ console.log(event);
         <br/>
         <br/>
         <br/>
-        <Card.Group className='footer' itemsPerRow={3}>
-        <Card color='red' image={two} />
-        <Card color='orange' image={footer} />
-        <Card color='yellow' image={party} />
-        </Card.Group>
+        {/* <Card.Group className='footer'>
+        <Card.Content>
+        <Card color='orange' fluid image={footer} />
+        </Card.Content>
+        </Card.Group> */}
       </div>
     );
   }

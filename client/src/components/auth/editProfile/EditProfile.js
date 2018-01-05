@@ -30,7 +30,6 @@ class EditProfile extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // var updateProfile = this.state;
     axios.put('/api/profiles/'+ this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"), {
       id: this.state.id,
       email: this.state.email,
@@ -44,10 +43,6 @@ class EditProfile extends Component {
       allergies: this.state.allergies      
     })
     .then((response) => {
-      
-      // this.setState({
-      //   newProfile: updateProfile
-      // })
       this.props.history.push("/profile/" + response.data.id)  
       
     })
@@ -106,7 +101,7 @@ class EditProfile extends Component {
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={1}>
               <Form.Input label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
-              <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password}/>
+              {/* <Form.Input label='Password' name="password" onChange={this.handleChange} value={this.state.password}/> */}
               <Form.Input label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
             <Form.Group widths={1}>
