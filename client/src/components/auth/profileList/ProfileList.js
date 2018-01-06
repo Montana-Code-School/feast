@@ -13,9 +13,10 @@ class ProfileList extends Component {
     friendId: '',
     friendName: '',
     friendAllergies: '',
-    profileId: this.props.match.params.pid
+    profileId: props.match.params.pid,
+    friends: []
     };
-
+    console.log(props.match.params.pid)
     this.handleChange = this.handleChange.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
   }
@@ -79,26 +80,28 @@ class ProfileList extends Component {
     //         this.props.history.push("/")
     //       }
     //     });
-
-    // axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
-    // .then((response) => {
-    //   this.setState({
-    //     friends: response.data
-    //   })
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
   }
+  componentDidMount() {
+    axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.pid)
+      .then((response) => {
+        console.log(this.props.match.params.pid)
+        this.setState({
+          friends: response.data
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }    
 
   render() {
-    // const friendsList = this.state.friends.map((friend) => {
-    //   return (
-    //     <div key={friend.id}>
-    //       {friend.friendName}
-    //     </div>
-    //   )
-    // })
+    const friendsList = this.state.friends.map((friend) => {
+      return (
+        <div key={friend.id}>
+          {friend.friendName}
+        </div>
+      )
+    })
 
     return (
       <div>
@@ -124,7 +127,7 @@ class ProfileList extends Component {
             </Card.Header>
           </Card.Content>
           <Card.Content>
-            {/* {friendsList} */}
+            {friendsList}
           </Card.Content>
         </Card>  
       </div> 

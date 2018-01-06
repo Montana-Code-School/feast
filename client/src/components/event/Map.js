@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-  class Map extends Component {
+class Map extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -22,11 +22,6 @@ import React, { Component } from 'react';
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
     }, 3)
-  }
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false })
-    this.delayedShowMarker()
   }
 
   render() {

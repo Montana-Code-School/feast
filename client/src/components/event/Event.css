@@ -10,6 +10,10 @@
     z-index: -10;
   } */
 
-  /* #content {
-    padding-left: 50px
-  } */
+  #content {
+    padding-top: 70px;
+  }
+
+  #grid{
+    padding-left: 10px
+  }

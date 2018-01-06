@@ -71,6 +71,15 @@ class Event extends Component {
     });
   }
 
+  // geocodeAddress(geocoder, resultsMap) {
+  //   let loc = {
+  //     street: this.state.street.value,
+  //     city: this.state.city.value,
+  //     state: this.state.state.value,
+  //     zip: this.state.zip.value
+  //   }
+  // }
+
   render() {
     const MyMapComponent = compose(
       withProps({
@@ -83,11 +92,14 @@ class Event extends Component {
     )((props) =>
       <GoogleMap
         defaultZoom={15}
+        // defaultCenter={geocodeAddress}
         defaultCenter={{ lat: 45.683, lng: -111.079 }}
       >
+        {/* <Marker position={geocodeAddress} onClick={props.onMarkerClick} /> */}
         <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />
       </GoogleMap>
     );
+
     console.log(this.state)
     const inviteList = this.state.invites.map((invite) => {
       return(
@@ -98,12 +110,9 @@ class Event extends Component {
     })
 
     return (
-      <div fluid>
-        {/* <div id='event-overlay'>
-        </div> */}
+      <div>
         <Navbar profileId={this.state.profileId}/>
-          <br/>
-          <br/>
+        <div id='content'>
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
@@ -111,7 +120,7 @@ class Event extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Card.Group itemPerRow={3}>
+        <Card.Group itemsPerRow={3}>
         <Card>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
           <Card.Content>
@@ -147,6 +156,7 @@ class Event extends Component {
         <Card>
         <Card.Content>
         <MyMapComponent
+          // googleMapURL="https://maps.googleapis.com/maps/api/geocode/json?address='loc'?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           isMarkerShown={true}
           onMarkerClick={this.handleMarkerClick}
@@ -162,6 +172,8 @@ class Event extends Component {
           </Card.Content>
           </Card> 
         </Card.Group>
+        </div>
+        <div id='grid'>
         <Grid columns={4} divided>
           <Grid.Row> 
             <Grid.Column>
@@ -184,6 +196,10 @@ class Event extends Component {
                   We're Coming To The FEAST
                   {inviteList}
                 </Card.Content>
+                <Card.Content floated='right'>
+                  We Can Not Make It To The FEAST
+
+                </Card.Content>  
               </Card>  
             </Grid.Column>
             <Grid.Column>
@@ -193,6 +209,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
+      </div>
       </div>
     );
   }

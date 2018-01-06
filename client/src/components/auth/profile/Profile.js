@@ -72,7 +72,6 @@ class Profile extends Component {
             zip: response.data.zip,
             phone: response.data.phone,
             allergies: response.data.allergies
-
           })
         })
         .catch((error) => {
@@ -81,6 +80,7 @@ class Profile extends Component {
           }
         });
     }
+    
     axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
       .then((response) => {
         this.setState({
