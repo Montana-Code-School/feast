@@ -34,7 +34,8 @@ class Event extends Component {
       date: "",
       theme: "",
       isMarkerShown: "",      
-      invites: []   
+      invites: [],
+      declined: []   
 
     };
   }
@@ -59,7 +60,7 @@ class Event extends Component {
       console.log(error);
     });
 
-    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=accepted')
+    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
       console.log(response);
       this.setState({
@@ -69,8 +70,19 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
-  }
 
+  }  
+  invitedPeople(status){
+    var people = this.state.invites;
+    var peoplelist = [];
+    for (var i = 0; i < people.length; i++) {
+      var person = people[i];
+      if(person.rsvp.includes(status.substring(0, 2))){
+        peoplelist.push(person.inviteName);
+      }
+    }
+    return peoplelist;
+  }
   // geocodeAddress(geocoder, resultsMap) {
   //   let loc = {
   //     street: this.state.street.value,
@@ -81,6 +93,24 @@ class Event extends Component {
   // }
 
   render() {
+    var accept = this.invitedPeople('accepted').map((invite) => {
+      return(
+        <div key={invite}> 
+          {invite} 
+        </div>
+      )
+    });
+    console.log(accept)
+
+    var decline = this.invitedPeople('declined').map((invite) => {
+      return(
+        <div key={invite}> 
+          {invite} 
+        </div>
+      )
+    });
+    console.log(decline)
+
     const MyMapComponent = compose(
       withProps({
         loadingElement: <div style={{ height: `100%` }} />,
@@ -101,13 +131,13 @@ class Event extends Component {
     );
 
     console.log(this.state)
-    const inviteList = this.state.invites.map((invite) => {
-      return(
-        <div key={invite.id}> 
-          {invite.inviteName} 
-        </div>
-      )
-    })
+    // const inviteList = this.state.invites.map((invite) => {
+    //   return(
+    //     <div key={invite.id}> 
+    //       {invite.inviteName} 
+    //     </div>
+    //   )
+    // })
 
     return (
       <div>
@@ -194,11 +224,15 @@ class Event extends Component {
               <Card>
                 <Card.Content>
                   We're Coming To The FEAST
-                  {inviteList}
+                </Card.Content> 
+                <Card.Content>   
+                  {accept}
                 </Card.Content>
-                <Card.Content floated='right'>
+                <Card.Content>
                   We Can Not Make It To The FEAST
-
+                </Card.Content> 
+                <Card.Content> 
+                  {decline}
                 </Card.Content>  
               </Card>  
             </Grid.Column>
