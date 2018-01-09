@@ -43,6 +43,13 @@ class Photo extends Component {
     });
   }
     render() {
+        const list = this.state.images.map((image, i) => {
+            return (
+                <li key = {i}>
+                  <img src = {image.secure_url} />
+                </li>
+            )
+        })
       
       return(
       <div>
@@ -55,7 +62,7 @@ class Photo extends Component {
       {/* <br/>
       <Image publicId= 'mpqcxf82bceyzcyhqbuq.jpg' >
       </Image> */}
-      <img src = 'https://res.cloudinary.com/mt-code-school/image/upload/mpqcxf82bceyzcyhqbuq.jpg'/>
+      {/* <img src = 'https://res.cloudinary.com/mt-code-school/image/upload/mpqcxf82bceyzcyhqbuq.jpg'/> */}
         
     </div>
       );}}
