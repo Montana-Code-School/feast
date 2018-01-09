@@ -59,7 +59,8 @@ class Event extends Component {
       theme: "",
       isMarkerShown: "",      
       invites: [],
-      allergies: []    
+      allergies: [],
+      courses: []   
     };
     }
 
@@ -113,7 +114,8 @@ class Event extends Component {
         time: response.data.time,
         date: response.data.date,
         theme: response.data.theme, 
-        allergies: response.data.allergies    
+        allergies: response.data.allergies, 
+        courses: response.data.courses   
       })
     })
     .catch((error) => {
@@ -146,6 +148,14 @@ class Event extends Component {
       return(
         <div key={a}> 
           {a} 
+        </div>
+      )
+    })
+
+    const coursesList = this.state.courses.map((course) => {
+      return(
+        <div key={course.course}> 
+          {course.course.toUpperCase()}<Button>Add to {course.course.toUpperCase()}</Button> 
         </div>
       )
     })
@@ -212,7 +222,7 @@ class Event extends Component {
               <List>
                 <List.Item>
                   <List.Header as='h4'>COURSES</List.Header>
-                  Import our courses with the number of fields per course we have created.
+                  {coursesList}
                 </List.Item>
               </List> 
             </Grid.Column>
@@ -232,6 +242,8 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
+        <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link>
+
       </div>
     );
   }

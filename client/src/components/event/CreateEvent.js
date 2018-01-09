@@ -33,6 +33,7 @@ class CreateEvent extends Component {
         eventId: "",
         profileId: this.props.match.params.hid,
         courses: [],
+        coursesObj:[],
         friendsInvite: [],
         allergies: []
       }
@@ -64,6 +65,8 @@ class CreateEvent extends Component {
     return twoD;
   }
 
+ 
+
   handleChangeCourses(event,data) {
     this.setState({courses: data.value});
     console.log(this.state.courses);
@@ -83,6 +86,16 @@ class CreateEvent extends Component {
   
   handleSubmit(event){     
     event.preventDefault();
+
+    for (var i = 0; i < this.state.courses.length; i ++) {
+      var obj = {
+        course: this.state.courses[i]
+      }
+
+      this.state.coursesObj.push(obj);
+
+    }
+
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -93,7 +106,7 @@ class CreateEvent extends Component {
       date: this.state.date,
       theme: this.state.theme,
       profileId: this.props.match.params.hid,
-      courses: this.state.courses,
+      courses: this.state.coursesObj,
       allergies: this.state.allergies
       
     };
