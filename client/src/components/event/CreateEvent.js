@@ -33,7 +33,7 @@ class CreateEvent extends Component {
         },
         eventId: "",
         profileId: this.props.match.params.hid
-    }
+      }
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
@@ -142,9 +142,7 @@ class CreateEvent extends Component {
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
-        <br />
-        <br />
-       <Header
+        <Header
             as='h1'
             content='CREATE A FEAST'
             color='green'

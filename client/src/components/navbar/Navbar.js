@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
-import { Menu, Container, Button } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-// import MenuItem from 'semantic-ui-react/dist/commonjs/collections/Menu/MenuItem';
+import axios from 'axios';
 
 
 class Navbar extends Component {
- 
+  constructor(props) {
+    super(props);
+    
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event){
+    event.preventDefault();
+    axios.post('/api/profiles/logout?access_token=' + localStorage.getItem("feastAT"))
+    .then((response) => {
+     console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+  });
+    localStorage.removeItem('feastAT');
+    window.location = '/';
+  }
+
      render(){
         return (
           <Menu fixed='top' inverted>
             <Container>
               <Menu.Item header>
                 FEAST
-              </Menu.Item>
-              <Menu.Item>
-              <Link to={'/profile/' + this.props.profileId}><Menu.Item>Profile</Menu.Item></Link>
-              </Menu.Item>
-              <Menu.Item position='right'>
-              <Button onClick={this.handleClickLogout} name='logout' position='right'>Log Out</Button>
-              </Menu.Item>
+               </Menu.Item>
+               <Link to={'/profile/' + this.props.profileId}><Menu.Item>Profile</Menu.Item></Link>
+               <Menu.Item position='right' onClick={this.handleClick}>Sign Out</Menu.Item>
             </Container>
           </Menu>
         )
