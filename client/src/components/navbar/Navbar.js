@@ -26,13 +26,13 @@ class Navbar extends Component {
 
      render(){
         return (
-          <Menu fixed='top'>
+          <Menu fixed='top' inverted>
             <Container>
               <Menu.Item header>
                 FEAST
                </Menu.Item>
                <Link to={'/profile/' + this.props.profileId}><Menu.Item>Profile</Menu.Item></Link>
-               <Menu.Item onClick={this.handleClick}>Sign Out</Menu.Item>
+               <Menu.Item position='right' onClick={this.handleClick}>Sign Out</Menu.Item>
             </Container>
           </Menu>
         )

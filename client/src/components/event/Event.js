@@ -1,48 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Event.css'
+import './Event.css';
 import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
+import './Map.js';
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
-  // DirectionsRenderer
+  Marker
 } from "react-google-maps";
 import { 
   compose, 
-  withProps, 
-  // lifecycle 
+  withProps 
 } from "recompose";
 import Navbar from '../navbar/Navbar';
-
-// const google = window.google;
-// const maps = google.maps;
-// const DirectionsService = new google.maps.DirectionsService();
+import party from './party.jpg';
+import two from './two.jpg';
 
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
-
-// coordinates for directions 45.8174, -110.8966
-
-const MyMapComponent = compose(
-  withProps({
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
-  }),
-  withScriptjs,
-  withGoogleMap,
-  // lifecycle
-)((props) =>
-  <GoogleMap
-    defaultZoom={15}
-    defaultCenter={{ lat: 45.683, lng: -111.077 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />}
-    {/* {props.directions && <DirectionsRenderer directions={props.directions} />} */}
-  </GoogleMap>
-);
 
 class Event extends Component {
   constructor(props) {
@@ -121,27 +97,85 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
-    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid + '&filter[where][rsvp]=accepted')
+
+    axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
       // console.log(response);
       this.setState({
       invites: response.data      
-        
       })
     })
     .catch((error) => {
       console.log(error);
     });
+
+  }  
+  invitedPeople(status){
+    var people = this.state.invites;
+    var peoplelist = [];
+    for (var i = 0; i < people.length; i++) {
+      var person = people[i];
+      if(person.rsvp.includes(status.substring(0, 2))){
+        peoplelist.push(person.inviteName);
+      }
+    }
+    return peoplelist;
   }
+  // geocodeAddress(geocoder, resultsMap) {
+  //   let loc = {
+  //     street: this.state.street.value,
+  //     city: this.state.city.value,
+  //     state: this.state.state.value,
+  //     zip: this.state.zip.value
+  //   }
+  // }
 
   render() {
-    const inviteList = this.state.invites.map((invite) => {
+    var accept = this.invitedPeople('accepted').map((invite) => {
       return(
-        <div key={invite.id}> 
-          {invite.inviteName} 
+        <div key={invite}> 
+          {invite} 
         </div>
       )
-    })
+    });
+    console.log(accept)
+
+    var decline = this.invitedPeople('declined').map((invite) => {
+      return(
+        <div key={invite}> 
+          {invite} 
+        </div>
+      )
+    });
+    console.log(decline)
+
+    const MyMapComponent = compose(
+      withProps({
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `400px` }} />,
+        mapElement: <div style={{ height: `100%` }} />,
+      }),
+      withScriptjs,
+      withGoogleMap,
+    )((props) =>
+      <GoogleMap
+        defaultZoom={15}
+        // defaultCenter={geocodeAddress}
+        defaultCenter={{ lat: 45.683, lng: -111.079 }}
+      >
+        {/* <Marker position={geocodeAddress} onClick={props.onMarkerClick} /> */}
+        <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />
+      </GoogleMap>
+    );
+
+    console.log(this.state)
+    // const inviteList = this.state.invites.map((invite) => {
+    //   return(
+    //     <div key={invite.id}> 
+    //       {invite.inviteName} 
+    //     </div>
+    //   )
+    // })
 
  
     const allergyList = this.allergiesornot().map((a) => {
@@ -163,9 +197,8 @@ class Event extends Component {
 
     return (
       <div>
-        <div id='event-overlay'>
-        </div>
         <Navbar profileId={this.state.profileId}/>
+        <div id='content'>
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
@@ -173,7 +206,7 @@ class Event extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
-        <Card.Group itemsPerRow={2}>
+        <Card.Group itemsPerRow={3}>
         <Card>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
           <Card.Content>
@@ -206,16 +239,27 @@ class Event extends Component {
           </Card.Content>
           </Card.Content>
         </Card>
-        <Card float='right'>
-        {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
+        <Card>
+        <Card.Content>
         <MyMapComponent
+          // googleMapURL="https://maps.googleapis.com/maps/api/geocode/json?address='loc'?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
-          isMarkerShown={this.state.isMarkerShown}
-          // directions={this.state.directions}
+          isMarkerShown={true}
           onMarkerClick={this.handleMarkerClick}
         />
+        </Card.Content>
         </Card>
+          <Card>
+          <Card.Content>
+            <Image src={party}/>
+          </Card.Content>
+          <Card.Content>
+            <Image src={two}/>
+          </Card.Content>
+          </Card> 
         </Card.Group>
+        </div>
+        <div id='grid'>
         <Grid columns={4} divided>
           <Grid.Row> 
             <Grid.Column>
@@ -233,7 +277,20 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>GUESTS</h4>
-              {inviteList}
+              <Card>
+                <Card.Content>
+                  We're Coming To The FEAST
+                </Card.Content> 
+                <Card.Content>   
+                  {accept}
+                </Card.Content>
+                <Card.Content>
+                  We Can Not Make It To The FEAST
+                </Card.Content> 
+                <Card.Content> 
+                  {decline}
+                </Card.Content>  
+              </Card>  
             </Grid.Column>
             <Grid.Column>
               <h4>ALLERGIES</h4>
@@ -244,6 +301,7 @@ class Event extends Component {
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
         <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link>
 
+      </div>
       </div>
     );
   }
