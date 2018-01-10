@@ -36,6 +36,7 @@ class Login extends Component {
         
       })
       .catch((error) => {
+        alert('Invalid Email or Password')
         console.log(error);
       })
   }

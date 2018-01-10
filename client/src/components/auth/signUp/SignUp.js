@@ -28,9 +28,21 @@ class SignUp extends Component {
     console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
-
+  pleasefillin(){
+    if(this.state.email === ''){
+      alert("Email Is A Required Feild")
+    }
+    if(this.state.password === ''){
+      alert("Password Is A Required Feild")
+    }
+    if(this.state.name === ''){
+      alert("Name Is A Required Feild")
+    }
+    
+  }
   handleSubmit(event) {
     event.preventDefault();
+    this.pleasefillin();
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
@@ -44,7 +56,7 @@ class SignUp extends Component {
       emailVerified: true
 
     }
-console.log(event);
+  console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
         console.log(res);

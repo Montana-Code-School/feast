@@ -29,7 +29,8 @@
       "type": "string"
     },
     "theme": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
