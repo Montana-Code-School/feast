@@ -1,4 +1,4 @@
-#event-overlay {
+/* #event-overlay {
     background-image: url('./event.jpg');
     background-size: cover;
     background-position: center center;
@@ -8,4 +8,12 @@
     bottom: 0;
     height: 100vh;
     z-index: -10;
+  } */
+
+  #content {
+    padding-top: 70px;
+  }
+
+  #grid{
+    padding-left: 10px
   }

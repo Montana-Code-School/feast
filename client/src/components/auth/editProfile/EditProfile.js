@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
 import axios from 'axios';
 import { Header, Image, Grid, Message, Button, Form} from 'semantic-ui-react';
+import "./EditProfile.css";
 
 
 class EditProfile extends Component {
@@ -70,11 +71,10 @@ class EditProfile extends Component {
     });
   }
  
-  
   render() {
     return (
       <div>
-      <div background="teal" >
+      <div id='background'></div>
         <Header
         as='h1'
         content='EDIT PROFILE'
@@ -115,7 +115,6 @@ class EditProfile extends Component {
             <Button type='submit' color='teal'>Submit</Button>
           </Form>
         </div>
-      </div>
       </div>
 
     );
