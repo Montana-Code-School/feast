@@ -10,6 +10,7 @@ const options = [
   { key: 'soup', text: 'Soup', value: 'soup' },
   { key: 'entree', text: 'Entree', value: 'entree' },
   { key: 'dessert', text: 'Dessert', value: 'dessert' },
+  { key: 'drinks', text: 'Drinks', value: 'drinks' }
 ]
 
 
@@ -33,17 +34,12 @@ class CreateEvent extends Component {
         eventId: "",
         profileId: this.props.match.params.hid,
         courses: [],
-        coursesObj:[],
         friendsInvite: [],
         allergies: []
       }
     this.handleChange = this.handleChange.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
     this.handleChangeFriends = this.handleChangeFriends.bind(this);
-
-
-
   }
 
   addName(idList) {
@@ -87,15 +83,6 @@ class CreateEvent extends Component {
   handleSubmit(event){     
     event.preventDefault();
 
-    for (var i = 0; i < this.state.courses.length; i ++) {
-      var obj = {
-        course: this.state.courses[i]
-      }
-
-      this.state.coursesObj.push(obj);
-
-    }
-
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -106,7 +93,7 @@ class CreateEvent extends Component {
       date: this.state.date,
       theme: this.state.theme,
       profileId: this.props.match.params.hid,
-      courses: this.state.coursesObj,
+      courses: this.state.courses,
       allergies: this.state.allergies
       
     };
@@ -130,7 +117,6 @@ class CreateEvent extends Component {
           inviteName: invite[i][1],
           hostName: this.state.host,
           theme: this.state.theme
-
         }
         axios.post('/api/invites', createInvite)
         .then((response) => {
@@ -138,19 +124,14 @@ class CreateEvent extends Component {
         })
         .catch((error) => {
           console.log(error);
-        });
-       
+        });      
       }
-
        this.props.history.push("/event/" + response.data.id)
     })
     .catch((error) => {
       console.log(error);
       alert("Theme is a required field")
-    });
-
-   
-    
+    });   
   }
     componentWillMount() {
    

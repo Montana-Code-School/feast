@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
+import { Header, Image, Grid, List, Button, Card} from 'semantic-ui-react';
 import './Map.js';
 import {
   withScriptjs,
@@ -36,7 +36,8 @@ class Event extends Component {
       isMarkerShown: "",      
       invites: [],
       allergies: [],
-      courses: []   
+      courses: [],
+      dish: ""   
     };
     }
 
@@ -188,8 +189,10 @@ class Event extends Component {
 
     const coursesList = this.state.courses.map((course) => {
       return(
-        <div key={course.course}> 
-          {course.course.toUpperCase()}<Button>Add to {course.course.toUpperCase()}</Button> 
+        <div key={course}> 
+          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
+          <br/>
+          <br/>
         </div>
       )
     })
@@ -266,9 +269,11 @@ class Event extends Component {
               <List>
                 <List.Item>
                   <List.Header as='h4'>COURSES</List.Header>
+                  <br/>
                   {coursesList}
                 </List.Item>
               </List> 
+           
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -299,7 +304,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
-        <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link>
+        {/* <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link> */}
 
       </div>
       </div>

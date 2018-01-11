@@ -9,76 +9,50 @@ class Courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "",
-      profileId: "",
-      street: "",
-      city: "",
-      state: "",
-      zip: "",
-      time: "",
-      date: "",
-      theme: "", 
-      allergies: [], 
-      courses: [],
-      dish: ""   
-
+      eventId: this.props.match.params.eid, 
+      course: this.props.match.params.course,
+      name: "",
+      servings: ""
+        
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
   
- 
-
   handleChange(event) {
     event.preventDefault();
     this.setState(
       {[event.target.name]: event.target.value});
+    
     console.log(this.state.dish);  
     }
 
-    componentWillMount() {
+  handleSubmit(event) {
+    event.preventDefault();
     
-      axios.get('/api/events/' + this.props.match.params.eid)
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          host: response.data.host,
-          profileId: response.data.profileId,
-          street: response.data.street,
-          city: response.data.city,
-          state: response.data.state,
-          zip: response.data.zip,
-          time: response.data.time,
-          date: response.data.date,
-          theme: response.data.theme, 
-          allergies: response.data.allergies, 
-          courses: response.data.courses   
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    const createDish = {
+      name: this.state.name,
+      course: this.state.course,
+      eventId: this.state.eventId
+    }
+    console.log(createDish);
+    axios.post('/api/dishes', createDish)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    this.props.history.push("/event/" + this.state.eventId)
 
+    }
 
+  //   componentWillMount() {
+  //
+  // }
 
   render() {
-    const coursesList = this.state.courses.map((course) => {
-      return(
-        <div key={course.course}> 
-          {/* {course.course.toUpperCase()}<Button>Add to {course.course.toUpperCase()}</Button> */}
-
-          <Form.Group unstackable widths={2}>
-            <Form.Input label={course.course.toUpperCase()} placeholder='Dish' name={course.course} onChange={this.handleChange} value={this.state.dish} />
-          </Form.Group>
-          <Button color='teal'>Add Dish</Button>
-          <br/>
-          <br/>
-
-        </div>
-      )
-    })
-
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
@@ -89,11 +63,10 @@ class Courses extends Component {
         </Header>
         
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          {/* <Form.Group unstackable widths={2}>
-            <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
+          <Form.Group unstackable widths={2}>
+            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add to the FEAST' name="name" onChange={this.handleChange} />
           </Form.Group>
-          <Button color='teal'>Find Friend</Button> */}
-        {coursesList}
+          <Button color='teal'>Add Dish</Button>
         </Form>
 
       </div> 
