@@ -14,7 +14,8 @@ class Photo extends Component {
 
     this.state = {
       uploadedFileCloudinaryUrl: '',
-      photoId: props.SuperPhoto
+      photoId: props.SuperPhoto,
+      profileId: props.SuperId
     };
     console.log(props)
   }
@@ -34,12 +35,12 @@ class Photo extends Component {
     upload.end((err, response) => {
       console.log(response.body.public_id)
       /////
-      axios.put('/api/profiles/'+ this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"), {
+      axios.put('/api/profiles/'+ this.state.profileId+ '?access_token=' + localStorage.getItem("feastAT"), {
         photoId: response.body.public_id
       })
       .then((response) => {
         // this.props.history.push("/profile/" + this.props.SuperId)  
-        window.location = "profile"     
+        window.location = '/profile/' + this.state.profileId;
       })
       .catch((error) => {
         console.log(error);
