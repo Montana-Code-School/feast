@@ -37,7 +37,7 @@ class Event extends Component {
       invites: [],
       allergies: [],
       courses: [],
-      dish: ""   
+      dishes: []   
     };
     }
 
@@ -110,6 +110,17 @@ class Event extends Component {
       console.log(error);
     });
 
+    axios.get('/api/dishes?filter[where][eventId][like]=' + this.props.match.params.eid )
+    .then((response) => {
+      console.log(response);
+      this.setState({
+      dishes: response.data      
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   }  
   invitedPeople(status){
     var people = this.state.invites;
@@ -139,7 +150,6 @@ class Event extends Component {
         </div>
       )
     });
-    console.log(accept)
 
     var decline = this.invitedPeople('declined').map((invite) => {
       return(
@@ -148,7 +158,6 @@ class Event extends Component {
         </div>
       )
     });
-    console.log(decline)
 
     const MyMapComponent = compose(
       withProps({
@@ -169,7 +178,6 @@ class Event extends Component {
       </GoogleMap>
     );
 
-    console.log(this.state)
     // const inviteList = this.state.invites.map((invite) => {
     //   return(
     //     <div key={invite.id}> 
@@ -178,7 +186,16 @@ class Event extends Component {
     //   )
     // })
 
- 
+    const dishesList = this.state.dishes.map((dish) => {
+      return(
+        <div key={dish.id}> 
+          {dish.name.toUpperCase()}
+          <br/>
+          <br/>
+        </div>
+      )
+    })
+
     const allergyList = this.allergiesornot().map((a) => {
       return(
         <div key={a}> 
@@ -197,7 +214,6 @@ class Event extends Component {
       )
     })
  
-
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
@@ -271,6 +287,7 @@ class Event extends Component {
                   <List.Header as='h4'>COURSES</List.Header>
                   <br/>
                   {coursesList}
+                  {dishesList}
                 </List.Item>
               </List> 
            
