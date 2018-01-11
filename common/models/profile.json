@@ -35,6 +35,9 @@
     },
     "tools": {
       "type": "string"
+    },
+    "photoId": {
+      "type": "string"
     }
   },
   "validations": [],

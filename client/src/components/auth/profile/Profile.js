@@ -23,7 +23,8 @@ class Profile extends Component {
       allergies: "",
       friends: [],
       events: [],
-      invites: []
+      invites: [],
+      photoId: ""
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
     // this.handleClickLogout = this.handleClickLogout.bind(this);
@@ -72,7 +73,9 @@ class Profile extends Component {
             state: response.data.state,
             zip: response.data.zip,
             phone: response.data.phone,
-            allergies: response.data.allergies
+            allergies: response.data.allergies,
+            photoId: response.data.photoId
+          
           })
         })
         .catch((error) => {
@@ -157,7 +160,10 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+      {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered /> */}
+     <div className="container">  
+     <Photo  SuperPhoto = {this.state.photoId} SuperId = {this.props.match.params.id}/>  
+     </div>
         <Grid
           textAlign='center'
         >
