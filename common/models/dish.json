@@ -10,8 +10,12 @@
       "type": "string",
       "required": true
     },
+    "course": {
+      "type": "string",
+      "required": true
+    },
     "servings": {
-      "type": "string"
+      "type": "number"
     }
   },
   "validations": [],

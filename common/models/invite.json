@@ -18,6 +18,12 @@
     "rsvp": {
       "type": "string",
       "default": "invited"
+    },
+    "hostName": {
+      "type": "string"
+    },
+    "theme": {
+      "type": "string"
     }
   },
   "validations": [],
