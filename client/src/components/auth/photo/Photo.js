@@ -14,7 +14,17 @@ class Photo extends Component {
 
     this.state = {
       uploadedFileCloudinaryUrl: '',
-      photoId: props.SuperPhoto
+      photoId: "",
+      email: '',
+      password: '',
+      name: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      phone: '',
+      allergies: ''
+          
     };
     console.log(props)
   }
@@ -34,12 +44,23 @@ class Photo extends Component {
     upload.end((err, response) => {
       console.log(response.body.public_id)
       /////
+      console.log(this.state);
       axios.put('/api/profiles/'+ this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"), {
-        photoId: response.body.public_id
+        photoId: response.body.public_id,
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+        street: this.state.street,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+        phone: this.state.phone,
+        allergies: this.state.allergies
+          
       })
       .then((response) => {
         // this.props.history.push("/profile/" + this.props.SuperId)  
-        window.location = "profile"     
+        window.location = "/profile/" + this.props.SuperId    
       })
       .catch((error) => {
         console.log(error);
@@ -56,15 +77,36 @@ class Photo extends Component {
       }
     });
   }
+
+  componentWillMount() {
+    if (localStorage.getItem("feastAT") !== null) {
+      axios.get('/api/profiles/' + this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"))
+        .then((response) => {
+          this.setState({
+            email: response.data.email,
+            password: response.data.password,
+            name: response.data.name,
+            photoId: response.data.photoId,
+            street: response.data.street,
+            city: response.data.city,
+            state: response.data.state,
+            zip: response.data.zip,
+            phone: response.data.phone,
+            allergies: response.data.allergies
+          
+          })
+        })
+        .catch((error) => {
+          if (error.response.data.error.statusCode === 401) {
+            this.props.history.push("/")
+          }
+        });
+    }
+  }
     render() {
-        // const list = this.state.images.map((image, i) => {
-        //     return (
-        //         <li key = {i}>
-        //           <img src = {image.secure_url} />
-        //         </li>
-        //     )
-        // })
-      if (this.state.photoId === ""){
+      var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.state.photoId + '.jpg';
+        console.log(this.state.photoId)
+        if (typeof(this.state.photoId) === "undefined" || this.state.photoId === '') {
         return(
           <div>
           <Dropzone
@@ -80,7 +122,12 @@ class Photo extends Component {
           )
       }else{
         return(
-      <img height="42" width="42" src = 'https://res.cloudinary.com/mt-code-school/image/upload/eroxvdu9re91s9v0qjrz.jpg'/>
+        <img height="42" width="42" src = {pic}/>
+        // <img height="42" width="42" src = {`'https://res.cloudinary.com/mt-code-school/image/upload/${this.state.photoId}.jpg'`}/>
+
+      // <img height="42" width="42" src = 'https://res.cloudinary.com/mt-code-school/image/upload/eroxvdu9re91s9v0qjrz.jpg'/>
+      //  <img height="42" width="42" src = 'https://res.cloudinary.com/mt-code-school/image/upload/eroxvdu9re91s9v0qjrz.jpg'/>
+
       );
 
 

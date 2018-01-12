@@ -64,6 +64,8 @@ class Profile extends Component {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
+          console.log(response)
+
           this.setState({
             email: response.data.email,
             password: response.data.password,
