@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form, Header } from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Checkbox, Dropdown  } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 
 class EditEvent extends Component {
@@ -77,37 +77,57 @@ class EditEvent extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar profileId={this.state.profileId} />
-        <br />
-        <br />
+        <div>
+        <Navbar profileId={this.state.profileId}/>
+        <div id='content'>
         <Header
-        as='h1'
-        content='EDIT EVENT'
-        color='green'
-        textAlign='center'
-        style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
+            as='h1'
+            content='CREATE A FEAST'
+            color='green'
+            textAlign='center'
+            style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
+        </div>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-     <Form.Group unstackable widths={2}>
-        <Form.Input label='Host' placeholder='Host' name="host" onChange={this.handleChange} value= {this.state.host}/>
-        <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} value= {this.state.date} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} value= {this.state.time} />
-        <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} value= {this.state.theme}/>
-      </Form.Group>
-      <Form.Group unstackable widths={1}>
-        <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} value = {this.state.street}/>
-        <Form.Input label='City' placeholder='City ' name="city" onChange={this.handleChange} value= {this.state.city}/>
-        <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} value= {this.state.state}/>
-        <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} value= {this.state.zip}/>
-      </Form.Group>
-      <Button type='submit' color='teal'>Submit</Button>
-    </Form>
-  
-       
-
+          <Form.Group unstackable widths={1}>
+            <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
+            <Form.Input type="date" label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+            <Form.Input type ="time" label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group unstackable widths={1}>
+            <Form.Input type="text" label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+            <Form.Input type="text" label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
+            <Form.Input type="text" label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
+            <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
+            <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
+          </Form.Group>
+        <Grid columns={4} stackable divided>
+          <Grid.Row> 
+            <Grid.Column>
+              <h4>Courses</h4>
+              <Dropdown placeholder='Courses' fluid multiple selection />
+            </Grid.Column>
+            <Grid.Column>  
+              <h4>TOOLS</h4>
+              <Checkbox label='Oven' /> <br/>
+              <Checkbox label='Fridge' /> <br/>
+              <Checkbox label='Range' /> <br/>
+              <Checkbox label='Mixer' /> <br/>
+              <Checkbox label='Blender' /> <br/>
+              <Checkbox label='Food Processor' /> <br/>
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Invite Your Friends!</h4>
+                {/* {friendsList} */}
+            </Grid.Column>
+            <Grid.Column>
+              <h4>Allergies</h4>
+              import a list of allergies from the list of confirmed guests
+            </Grid.Column>
+          </Grid.Row>
+        </Grid><br/>      
+         <Button type='submit' color='teal'>Submit</Button>
+         </Form>
       </div>
     );
   }

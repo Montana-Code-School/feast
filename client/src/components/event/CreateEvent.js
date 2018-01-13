@@ -134,6 +134,7 @@ class CreateEvent extends Component {
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
+        <div id='content'>
         <Header
             as='h1'
             content='CREATE A FEAST'
@@ -141,6 +142,7 @@ class CreateEvent extends Component {
             textAlign='center'
             style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
+        </div>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
             <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />

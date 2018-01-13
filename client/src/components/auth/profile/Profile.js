@@ -142,7 +142,6 @@ class Profile extends Component {
         <Header
           as='h1'
           content='PROFILE'
-          color='green'
           textAlign='center'
           style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
