@@ -146,7 +146,7 @@ class CreateEvent extends Component {
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
-          profileId: response.data.profileId,
+          profileId: response.data.id,
           profileListId: response.data.id
           
         })
