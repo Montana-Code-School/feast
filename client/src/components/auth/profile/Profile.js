@@ -63,10 +63,6 @@ class Profile extends Component {
       axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
           console.log(response)
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
           this.setState({
             // email: response.data.email,
             // password: response.data.password,

@@ -14,10 +14,6 @@ class Photo extends Component {
 
     this.state = {
       uploadedFileCloudinaryUrl: '',
-<<<<<<< HEAD
-      photoId: props.SuperPhoto,
-      profileId: props.SuperId
-=======
       photoId: "",
       email: '',
       password: '',
@@ -29,7 +25,6 @@ class Photo extends Component {
       phone: '',
       allergies: ''
           
->>>>>>> 70da80b1fd23ca61c2cf9289e015ca0c682d268d
     };
     console.log(props)
   }
@@ -49,14 +44,6 @@ class Photo extends Component {
     upload.end((err, response) => {
       console.log(response.body.public_id)
       /////
-<<<<<<< HEAD
-      axios.put('/api/profiles/'+ this.state.profileId+ '?access_token=' + localStorage.getItem("feastAT"), {
-        photoId: response.body.public_id
-      })
-      .then((response) => {
-        // this.props.history.push("/profile/" + this.props.SuperId)  
-        window.location = '/profile/' + this.state.profileId;
-=======
       console.log(this.state);
       axios.put('/api/profiles/'+ this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"), {
         photoId: response.body.public_id,
@@ -74,7 +61,6 @@ class Photo extends Component {
       .then((response) => {
         // this.props.history.push("/profile/" + this.props.SuperId)  
         window.location = "/profile/" + this.props.SuperId    
->>>>>>> 70da80b1fd23ca61c2cf9289e015ca0c682d268d
       })
       .catch((error) => {
         console.log(error);

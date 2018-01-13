@@ -13,30 +13,6 @@
     "password": {
       "type": "string",
       "required": true
-<<<<<<< HEAD
-    },
-    "street": {
-      "type": "string"
-    },
-    "city": {
-      "type": "string"
-    },
-    "state": {
-      "type": "string"
-    },
-    "zipcode": {
-      "type": "string"
-    },
-    "allergies": {
-      "type": "string"
-    },
-    "tools": {
-      "type": "string"
-    },
-    "photoId": {
-      "type": "string"
-=======
->>>>>>> develop
     }
   },
   "validations": [],
