@@ -82,7 +82,7 @@ class EditProfile extends Component {
         content='EDIT PROFILE'
         color='green'
         textAlign='center'
-        style={{ fontSize: '4em', fontWeight: 'bold' }}
+        style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
         <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>

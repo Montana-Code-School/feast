@@ -110,7 +110,8 @@ class ProfileList extends Component {
        <Navbar profileId={this.state.profileId} />
        <br />
        <br />
-        <Header as='h1' textAlign='center'>
+        <Header as='h1' textAlign='center'
+        style={{ fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}>
           FEASTS' SIGNATURE FRIEND FINDER
         </Header>
         

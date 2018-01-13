@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import "./Login.css";
+// import Radium from 'radium';
 import axios from 'axios';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-
-
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
 class Login extends Component {
   constructor(props) {
@@ -60,9 +59,9 @@ class Login extends Component {
           <Header
             as='h1'
             content='WELCOME TO FEAST'
-            inverted
+            // inverted
             textAlign='center'
-            style={{ fontSize: '6em', fontWeight: 'bold' }}
+            style={{ fontSize: '6em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
           />
           <Grid
             textAlign='center'
@@ -70,7 +69,7 @@ class Login extends Component {
             verticalAlign='middle'
           >
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as='h1' color='green' textAlign='center'>
+              <Header as='h1' color='green' textAlign='center' style={{fontFamily: 'Ribeye Marrow'}}>
                 {' '}Log-in to Feast
         </Header>
               <Form size='large' onSubmit={(e) => this.handleSubmit(e)}>
@@ -93,10 +92,10 @@ class Login extends Component {
                     onChange={this.handleChange}
                   />
 
-                  <Button color='teal' fluid size='large'>Login</Button>
+                  <Button color='teal' fluid size='large' style={{fontFamily: 'Ribeye Marrow'}}>Login</Button>
                 </Segment>
               </Form>
-              <Message>
+              <Message style={{fontFamily: 'Ribeye Marrow'}}>
                 Need to Feast? <a href='./signup'>Sign Up</a>
               </Message>
             </Grid.Column>

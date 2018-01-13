@@ -148,7 +148,7 @@ class Event extends Component {
         content='WELCOME TO THE FEAST'
         color='green'
         textAlign='center'
-        style={{ fontSize: '4em', fontWeight: 'bold' }}
+        style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
       />
         <Card.Group itemsPerRow={3}>
         <Card>

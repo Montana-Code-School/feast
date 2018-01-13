@@ -76,7 +76,7 @@ console.log(event);
        content='SIGN UP TO FEAST'
        color='green'
        textAlign='center'
-       style={{ fontSize: '4em', fontWeight: 'bold' }}
+       style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
      /> <br/>
         <br/>
         <Form onSubmit={(e) => this.handleSubmit(e)}>

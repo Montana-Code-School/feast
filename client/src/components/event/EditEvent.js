@@ -86,7 +86,7 @@ class EditEvent extends Component {
         content='EDIT EVENT'
         color='green'
         textAlign='center'
-        style={{ fontSize: '4em', fontWeight: 'bold' }}
+        style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
      <Form.Group unstackable widths={2}>

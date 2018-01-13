@@ -10,7 +10,7 @@ class Navbar extends Component {
         return (
           <Menu fixed='top' inverted>
             <Container>
-              <Menu.Item header>
+              <Menu.Item header style={{ fontFamily: 'Ribeye Marrow' }}>
                 FEAST
               </Menu.Item>
               <Menu.Item>

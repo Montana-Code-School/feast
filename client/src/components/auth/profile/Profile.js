@@ -144,7 +144,7 @@ class Profile extends Component {
           content='PROFILE'
           color='green'
           textAlign='center'
-          style={{ fontSize: '4em', fontWeight: 'bold' }}
+          style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
         />
         <div align='center'>
         <Button.Group>
