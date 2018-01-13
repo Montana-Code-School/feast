@@ -84,20 +84,12 @@ class CreateEvent extends Component {
     })
     .catch((error) => {
       console.log(error);
+      alert("Theme is a required field")
     });
     
   }
     componentWillMount() {
-        axios.post('/api/events/', this.state.eventHost) 
-      .then((response) => {
-        this.setState({
-          eventId: response.data.id
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+   
       axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
         // console.log(response);
@@ -151,16 +143,16 @@ class CreateEvent extends Component {
         />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
-            <Form.Input label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
-            <Form.Input label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
+            <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
+            <Form.Input type="date" label='Date' placeholder='Date' name="date" onChange={this.handleChange} />
+            <Form.Input type ="time" label='Time' placeholder='Time' name="time" onChange={this.handleChange} />
           </Form.Group>
           <Form.Group unstackable widths={1}>
-            <Form.Input label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
-            <Form.Input label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
-            <Form.Input label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
-            <Form.Input label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
-            <Form.Input label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
+            <Form.Input type="text" label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} />
+            <Form.Input type="text" label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
+            <Form.Input type="text" label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
+            <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
+            <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
         
         <Grid columns={4} stackable divided>
