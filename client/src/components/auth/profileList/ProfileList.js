@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Header, Form, Button, Card } from 'semantic-ui-react';
 import './ProfileList.css';
 import Navbar from '../../navbar/Navbar';
+import swal from 'sweetalert';
+
 
 class ProfileList extends Component {
   constructor(props) {
@@ -35,56 +37,77 @@ class ProfileList extends Component {
     this.props.history.push("/");
   };
 
+  lookingForFriendId(response) {
+    for(var i=0; i < this.state.friends.length; i++ ){
+      if(response.data.id === this.state.friends[i].friendId){
+      return true;
+      }
+    }
+    return false;
+
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     axios.get('/api/profiles/findOne?filter[where][email]=' + this.state.friendEmail + '&access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
        console.log(response);
-      this.setState({
-        friendId: response.data.id,
-        friendName: response.data.name,
-        friendAllergies: response.data.allergies
-      })
-      
-      const createFriendship = {
-        profileId: this.props.match.params.pid,
-        friendId: this.state.friendId,
-        friendName: this.state.friendName,
-        friendAllergies: this.state.friendAllergies
-      }
+       var friendFound = this.lookingForFriendId(response);
 
-      console.log(createFriendship);
-      axios.post('/api/friends', createFriendship)
-      .then((response) => {
-        console.log(response);
-       
-        this.props.history.push("/profile/" + this.props.match.params.pid)        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        if(friendFound){
+          swal({
+            text: "You have already added this friend",
+            button: "OK"
+          });
+        } else if(response.data.id === this.state.profileId) {
+          swal({
+            text: "You cannot add yourself as a friend",
+            button: "OK"
+          });
+        } else {
 
+
+          this.setState({
+            friendId: response.data.id,
+            friendName: response.data.name,
+            friendAllergies: response.data.allergies
+          })
+          
+          const createFriendship = {
+            profileId: this.props.match.params.pid,
+            friendId: this.state.friendId,
+            friendName: this.state.friendName,
+            friendAllergies: this.state.friendAllergies
+          }
+    
+          console.log(createFriendship);
+    
+          axios.post('/api/friends', createFriendship)
+          .then((response) => {
+            console.log(response);
+            window.location = "/friends/list/" + this.props.match.params.pid;
+           
+            // this.props.history.push("/friends/list/" + this.props.match.params.pid)        
+          })
+          .catch((error) => {
+           
+            console.log(error);
+          });
+        }
     })
     .catch((error) => {
       console.log(error);
+      swal({
+        text: "Friend Email Not Found",
+        button: "OK",
+      });
     });
-
-    // axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
-    //     .then((response) => {
-    //       this.setState({
-    //         profileId: this.props.match.params.pid          
-    //       })
-    //     })
-    //     .catch((error) => {
-    //       if (error.response.data.error.statusCode === 401) {
-    //         this.props.history.push("/")
-    //       }
-    //     });
   }
   componentDidMount() {
     axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.pid)
       .then((response) => {
-        console.log(this.props.match.params.pid)
+        //console.log(this.props.match.params.pid)
+        console.log(response.data)
         this.setState({
           friends: response.data
         })

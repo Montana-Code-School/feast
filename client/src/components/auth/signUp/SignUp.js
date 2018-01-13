@@ -4,6 +4,8 @@ import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 class SignUp extends Component {
@@ -28,9 +30,31 @@ class SignUp extends Component {
     console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
-
+  pleasefillin(){
+    if(this.state.email === ''){
+      swal({
+        text: "Email Is A Required Feild",
+        button: "OK"
+      });
+    }
+    if(this.state.password === ''){
+      swal({
+        text: "Password Is A Required Feild",
+        button: "OK"
+      });
+      
+    }
+    if(this.state.name === ''){
+      swal({
+        text: "Name Is A Required Feild",
+        button: "OK"
+      });
+    }
+    
+  }
   handleSubmit(event) {
     event.preventDefault();
+    this.pleasefillin();
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
@@ -44,7 +68,7 @@ class SignUp extends Component {
       emailVerified: true
 
     }
-console.log(event);
+  console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
         console.log(res);
