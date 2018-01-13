@@ -229,14 +229,7 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </CardGroup>
-        <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
-        <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-        {/* <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button> */}
-        {/* {friendsList}
-        <h4>Your the Host of these Events!</h4>
-        {eventList}
-        <h4>You Need to RSVP to these Invites!</h4>
-        {inviteList}    */}
+ 
       </div>
       </div>
     );

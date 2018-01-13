@@ -204,15 +204,15 @@ class Event extends Component {
       )
     })
 
-    const coursesList = this.state.courses.map((course) => {
-      return(
-        <div key={course}> 
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
-          <br/>
-          <br/>
-        </div>
-      )
-    })
+    // const coursesList = this.state.courses.map((course) => {
+    //   return(
+    //     <div key={course}> 
+    //       {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
+    //       <br/>
+    //       <br/>
+    //     </div>
+    //   )
+    // })
  
     return (
       <div>
@@ -279,23 +279,18 @@ class Event extends Component {
         </Card.Group>
         </div>
         <div id='grid'>
-        <Grid columns={4} divided>
+        <Grid columns={3} divided>
           <Grid.Row> 
             <Grid.Column>
               <List>
                 <List.Item>
                   <List.Header as='h4'>COURSES</List.Header>
                   <br/>
-                  {coursesList}
+                  {/* {coursesList} */}
                   {dishesList}
                 </List.Item>
               </List> 
            
-            </Grid.Column>
-            <Grid.Column>  
-              <h4>TOOLS</h4>
-              import list of tools offered <br/>
-              display feild for reservation of tool
             </Grid.Column>
             <Grid.Column>
               <h4>GUESTS</h4>
@@ -320,9 +315,8 @@ class Event extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
-        {/* <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link> */}
-
+        <br/>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal' fluid>Click Here To Edit Your Event</Button></Link>
       </div>
       </div>
     );
