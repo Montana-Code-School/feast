@@ -4,8 +4,6 @@ import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
-import swal from 'sweetalert';
-
 
 
 class SignUp extends Component {
@@ -90,7 +88,7 @@ class SignUp extends Component {
           
         })
         .catch((error) => {
-          // alert('Invalid Email or Password')
+          alert('Invalid Email or Password')
           console.log(error);
         })
 
@@ -131,7 +129,7 @@ class SignUp extends Component {
        content='SIGN UP TO FEAST'
        color='green'
        textAlign='center'
-       style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
+       style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
