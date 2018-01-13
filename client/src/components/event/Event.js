@@ -43,24 +43,13 @@ class Event extends Component {
 
   componentDidMount() {
     this.delayedShowMarker()
-    // DirectionsService.route({
-    //   origin: new google.maps.LatLng(45.683, -111.079),
-    //   destination: new google.maps.LatLng(45.8174, -110.8966),
-    //   travelMode: google.maps.TravelMode.DRIVING,
-    // }, (result, status) => {
-    //   if (status === google.maps.DirectionsStatus.OK) {
-    //     this.setState({
-    //       directions: result,
-    //     });
-    //   } else {
-    //     console.error(`error fetching directions ${result}`);
-    //   }
-    // });
   }
 
   allergiesornot(){
-    if(this.state.allergies){
-      return this.state.allergies;
+    var r = this.state.allergies.filter(function(entry) {return entry.trim() !== '';})
+    console.log(r)
+    if(r.length !== 0){
+      return r;
     }else{
       return ['No Allergies'];
     }
@@ -133,14 +122,6 @@ class Event extends Component {
     }
     return peoplelist;
   }
-  // geocodeAddress(geocoder, resultsMap) {
-  //   let loc = {
-  //     street: this.state.street.value,
-  //     city: this.state.city.value,
-  //     state: this.state.state.value,
-  //     zip: this.state.zip.value
-  //   }
-  // }
 
   render() {
     var accept = this.invitedPeople('accepted').map((invite) => {
@@ -170,21 +151,11 @@ class Event extends Component {
     )((props) =>
       <GoogleMap
         defaultZoom={15}
-        // defaultCenter={geocodeAddress}
         defaultCenter={{ lat: 45.683, lng: -111.079 }}
       >
-        {/* <Marker position={geocodeAddress} onClick={props.onMarkerClick} /> */}
         <Marker position={{ lat: 45.683, lng: -111.079 }} onClick={props.onMarkerClick} />
       </GoogleMap>
     );
-
-    // const inviteList = this.state.invites.map((invite) => {
-    //   return(
-    //     <div key={invite.id}> 
-    //       {invite.inviteName} 
-    //     </div>
-    //   )
-    // })
 
     const dishesList = this.state.dishes.map((dish) => {
       return(
@@ -204,16 +175,17 @@ class Event extends Component {
       )
     })
 
-    // const coursesList = this.state.courses.map((course) => {
-    //   return(
-    //     <div key={course}> 
-    //       {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
-    //       <br/>
-    //       <br/>
-    //     </div>
-    //   )
-    // })
+    const coursesList = this.state.courses.map((course) => {
+      return(
+        <div key={course}> 
+          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
+          <br/>
+          <br/>
+        </div>
+      )
+    })
  
+    console.log(this.state.allergies)
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
@@ -286,8 +258,16 @@ class Event extends Component {
                 <List.Item>
                   <List.Header as='h4'>COURSES</List.Header>
                   <br/>
-                  {/* {coursesList} */}
+                  <Card>
+                    <Card.Content>
+                  {coursesList}
+                    </Card.Content>
+                  </Card>
+                  <Card>
+                    <Card.Content>  
                   {dishesList}
+                    </Card.Content>
+                  </Card>  
                 </List.Item>
               </List> 
            
@@ -316,7 +296,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <br/>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal' fluid>Click Here To Edit Your Event</Button></Link>
+        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
       </div>
       </div>
     );

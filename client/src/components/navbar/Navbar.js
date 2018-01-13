@@ -31,7 +31,7 @@ class Navbar extends Component {
               <Menu.Item header>
                 FEAST
                </Menu.Item>
-               <Link to={'/profile/' + this.props.profileId}><Menu.Item>Profile</Menu.Item></Link>
+               <Menu.Item><Link to={'/profile/' + this.props.profileId}>Profile</Link></Menu.Item>
                <Menu.Item position='right' onClick={this.handleClick}>Sign Out</Menu.Item>
             </Container>
           </Menu>
