@@ -11,33 +11,18 @@
       "required": true
     },
     "password": {
-      "type": "string"
-    },
-    "name": {
       "type": "string",
       "required": true
-    },
-    "street": {
-      "type": "string"
-    },
-    "city": {
-      "type": "string"
-    },
-    "state": {
-      "type": "string"
-    },
-    "zipcode": {
-      "type": "string"
-    },
-    "allergies": {
-      "type": "string"
-    },
-    "tools": {
-      "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "profileLists": {
+      "type": "hasOne",
+      "model": "profileList",
+      "foreignKey": ""
+    }
+  },
   "acls": [
     {
       "accessType": "EXECUTE",
