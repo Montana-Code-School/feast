@@ -16,8 +16,11 @@ class EditEvent extends Component {
       time: "",
       date: "",
       theme: "",
-      profileId: ""
+      profileId: "",
+      friend: "",
+      friends: []
     };
+    console.log(props)
       this.handleChange = this.handleChange.bind(this);
   }
     handleChange(event) {
@@ -38,6 +41,18 @@ class EditEvent extends Component {
         date: response.data.date,
         theme: response.data.theme 
       })
+
+      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.id)
+      .then((response) => {
+        console.log(response)
+        this.setState({
+          friends: response.data
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  
     })
     .catch((error) => {
       console.log(error);
@@ -74,8 +89,16 @@ class EditEvent extends Component {
       console.log(error);
     });
   }
+  
 
   render() {
+    console.log(this.state.friends)//
+    // let friendtest = [{id:'hell', friendName:'Hello'}];
+    const friendsList = this.state.friends.map((friend) => {
+      return(
+        <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+      )
+    })
     return (
       <div>
         <Navbar profileId={this.state.profileId} />
@@ -105,8 +128,7 @@ class EditEvent extends Component {
       </Form.Group>
       <Button type='submit' color='teal'>Submit</Button>
     </Form>
-  
-       
+    {friendsList}
 
       </div>
     );
