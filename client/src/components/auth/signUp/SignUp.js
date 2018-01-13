@@ -47,7 +47,7 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // this.pleasefillin();
+    this.pleasefillin();
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
