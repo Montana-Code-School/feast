@@ -4,6 +4,8 @@ import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 class SignUp extends Component {
@@ -30,18 +32,18 @@ class SignUp extends Component {
     console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
-  // pleasefillin(){
-  //   if(this.state.email === ''){
-  //     alert("Email Is A Required Feild")
-  //   }
-  //   if(this.state.password === ''){
-  //     alert("Password Is A Required Feild")
-  //   }
-  //   if(this.state.name === ''){
-  //     alert("Name Is A Required Feild")
-  //   }
+  pleasefillin(){
+    if(this.state.email === ''){
+      alert("Email Is A Required Feild")
+    }
+    if(this.state.password === ''){
+      alert("Password Is A Required Feild")
+    }
+    if(this.state.name === ''){
+      alert("Name Is A Required Feild")
+    }
     
-  // }
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -129,7 +131,7 @@ class SignUp extends Component {
        content='SIGN UP TO FEAST'
        color='green'
        textAlign='center'
-       style={{ fontSize: '4em', fontWeight: 'bold' }}
+       style={{ fontSize: '4em', fontWeight: 'bold', fontFamily: 'Ribeye Marrow' }}
      /> <br/>
         <br/>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
