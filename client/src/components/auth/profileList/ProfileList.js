@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Header, Form, Button, Card } from 'semantic-ui-react';
 import './ProfileList.css';
 import Navbar from '../../navbar/Navbar';
+import swal from 'sweetalert';
+
 
 class ProfileList extends Component {
   constructor(props) {
@@ -53,9 +55,15 @@ class ProfileList extends Component {
        var friendFound = this.lookingForFriendId(response);
 
         if(friendFound){
-          alert("You have already added this friend") 
+          swal({
+            text: "You have already added this friend",
+            button: "OK"
+          });
         } else if(response.data.id === this.state.profileId) {
-          alert("You cannot add yourself as a friend")
+          swal({
+            text: "You cannot add yourself as a friend",
+            button: "OK"
+          });
         } else {
 
 
@@ -89,7 +97,10 @@ class ProfileList extends Component {
     })
     .catch((error) => {
       console.log(error);
-      alert("Friend Email Not Found")
+      swal({
+        text: "Friend Email Not Found",
+        button: "OK",
+      });
     });
   }
   componentDidMount() {

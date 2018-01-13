@@ -38,7 +38,10 @@ class Login extends Component {
         
       })
       .catch((error) => {
-        swal('Invalid Email or Password')
+        swal({
+          text: "Invalid Email or Password",
+          button: "OK",
+        });
         console.log(error);
       })
   }

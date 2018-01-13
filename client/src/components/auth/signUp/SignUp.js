@@ -4,6 +4,8 @@ import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 class SignUp extends Component {
@@ -30,13 +32,23 @@ class SignUp extends Component {
   }
   pleasefillin(){
     if(this.state.email === ''){
-      alert("Email Is A Required Feild")
+      swal({
+        text: "Email Is A Required Feild",
+        button: "OK"
+      });
     }
     if(this.state.password === ''){
-      alert("Password Is A Required Feild")
+      swal({
+        text: "Password Is A Required Feild",
+        button: "OK"
+      });
+      
     }
     if(this.state.name === ''){
-      alert("Name Is A Required Feild")
+      swal({
+        text: "Name Is A Required Feild",
+        button: "OK"
+      });
     }
     
   }
