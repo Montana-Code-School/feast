@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card } from 'semantic-ui-react';
+import { Header, Image, Grid, List, Button, Card} from 'semantic-ui-react';
 import './Map.js';
 import {
   withScriptjs,
@@ -35,15 +35,52 @@ class Event extends Component {
       theme: "",
       isMarkerShown: "",      
       invites: [],
-      declined: []   
-
+      allergies: [],
+      courses: [],
+      dishes: []   
     };
+    }
+
+  componentDidMount() {
+    this.delayedShowMarker()
+    // DirectionsService.route({
+    //   origin: new google.maps.LatLng(45.683, -111.079),
+    //   destination: new google.maps.LatLng(45.8174, -110.8966),
+    //   travelMode: google.maps.TravelMode.DRIVING,
+    // }, (result, status) => {
+    //   if (status === google.maps.DirectionsStatus.OK) {
+    //     this.setState({
+    //       directions: result,
+    //     });
+    //   } else {
+    //     console.error(`error fetching directions ${result}`);
+    //   }
+    // });
+  }
+
+  allergiesornot(){
+    if(this.state.allergies){
+      return this.state.allergies;
+    }else{
+      return ['No Allergies'];
+    }
+  }
+
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true })
+    }, 3)
+  }
+  
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false })
+    this.delayedShowMarker()
   }
 
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      // console.log(response);
+      console.log(response);
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -53,7 +90,9 @@ class Event extends Component {
         zip: response.data.zip,
         time: response.data.time,
         date: response.data.date,
-        theme: response.data.theme,     
+        theme: response.data.theme, 
+        allergies: response.data.allergies, 
+        courses: response.data.courses   
       })
     })
     .catch((error) => {
@@ -62,9 +101,20 @@ class Event extends Component {
 
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       this.setState({
       invites: response.data      
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+    axios.get('/api/dishes?filter[where][eventId][like]=' + this.props.match.params.eid )
+    .then((response) => {
+      console.log(response);
+      this.setState({
+      dishes: response.data      
       })
     })
     .catch((error) => {
@@ -100,7 +150,6 @@ class Event extends Component {
         </div>
       )
     });
-    console.log(accept)
 
     var decline = this.invitedPeople('declined').map((invite) => {
       return(
@@ -109,7 +158,6 @@ class Event extends Component {
         </div>
       )
     });
-    console.log(decline)
 
     const MyMapComponent = compose(
       withProps({
@@ -130,7 +178,6 @@ class Event extends Component {
       </GoogleMap>
     );
 
-    console.log(this.state)
     // const inviteList = this.state.invites.map((invite) => {
     //   return(
     //     <div key={invite.id}> 
@@ -139,6 +186,34 @@ class Event extends Component {
     //   )
     // })
 
+    const dishesList = this.state.dishes.map((dish) => {
+      return(
+        <div key={dish.id}> 
+          {dish.name.toUpperCase()}
+          <br/>
+          <br/>
+        </div>
+      )
+    })
+
+    const allergyList = this.allergiesornot().map((a) => {
+      return(
+        <div key={a}> 
+          {a} 
+        </div>
+      )
+    })
+
+    const coursesList = this.state.courses.map((course) => {
+      return(
+        <div key={course}> 
+          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
+          <br/>
+          <br/>
+        </div>
+      )
+    })
+ 
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
@@ -210,9 +285,12 @@ class Event extends Component {
               <List>
                 <List.Item>
                   <List.Header as='h4'>COURSES</List.Header>
-                  Import our courses with the number of fields per course we have created.
+                  <br/>
+                  {coursesList}
+                  {dishesList}
                 </List.Item>
               </List> 
+           
             </Grid.Column>
             <Grid.Column>  
               <h4>TOOLS</h4>
@@ -238,11 +316,13 @@ class Event extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>ALLERGIES</h4>
-              import a list of allergies from the list of confirmed guests
+              {allergyList}
             </Grid.Column>
           </Grid.Row>
         </Grid>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='teal'>Edit Event</Button></Link>
+        {/* <Link to={"/event/courses/"  + this.props.match.params.eid}><Button color='teal'>Add a dish</Button></Link> */}
+
       </div>
       </div>
     );

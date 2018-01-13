@@ -31,6 +31,11 @@
     "theme": {
       "type": "string",
       "required": true
+    },
+    "courses": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],
@@ -44,6 +49,11 @@
     "courses": {
       "type": "hasMany",
       "model": "courses",
+      "foreignKey": ""
+    },
+    "dishes": {
+      "type": "hasMany",
+      "model": "dish",
       "foreignKey": ""
     }
   },

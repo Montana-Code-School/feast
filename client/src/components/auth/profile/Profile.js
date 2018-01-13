@@ -64,6 +64,8 @@ class Profile extends Component {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
+          console.log(response)
+
           this.setState({
             email: response.data.email,
             password: response.data.password,
@@ -132,9 +134,10 @@ class Profile extends Component {
     const inviteList = this.state.invites.map((invite) => {
       return (
         <div key={invite.id}>
-          <h4>{invite.eventId}</h4>
+          <h4>{invite.theme}</h4>
           <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'>ACCEPT</Button>
           <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'>DECLINE</Button>
+          
         </div>
       )
     })
