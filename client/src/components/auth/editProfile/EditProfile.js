@@ -10,15 +10,17 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       // profile: [],
-        email: "",
-        password: "",
+        // email: "",
+        // password: "",
         name: "",
         street:"",
         city:"",
         state: "",
         zip:"",
         phone:"",
-        allergies:""
+        allergies:"",
+        listId: "",
+        profileId: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,14 +28,16 @@ class EditProfile extends Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
+    console.log(this.state.phone)
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.put('/api/profiles/'+ this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"), {
-      id: this.state.id,
+    console.log('updating')
+    axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
+      profileId: this.state.profileId,
       email: this.state.email,
-      password: this.state.password,
+      // password: this.state.password,
       name: this.state.name,
       street: this.state.street,
       city: this.state.city,
@@ -51,19 +55,21 @@ class EditProfile extends Component {
   }
 
   componentWillMount() {
-    axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
+    axios.get('/api/profileLists/'+ this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
       console.log(response);
       this.setState({
         email: response.data.email, 
-        password: response.data.password,
+        // password: response.data.password,
         name: response.data.name,
         street: response.data.street,
         city: response.data.city,
         state: response.data.state,
         zip: response.data.zip,
         phone: response.data.phone,
-        allergies: response.data.allergies
+        allergies: response.data.allergies,
+        listId: response.data.id,
+        profileId: response.data.profileId
       })
     })
     .catch((error) => {
@@ -98,8 +104,8 @@ class EditProfile extends Component {
         <div className='text'>
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={1}>
-              <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
-              <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/>
+              {/* <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
+              <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/> */}
               <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
             <Form.Group widths={1}>

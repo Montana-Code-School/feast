@@ -31,9 +31,17 @@ class Login extends Component {
       .then((res) => {
         console.log(res);
         localStorage.setItem("feastAT", res.data.id)
-        localStorage.setItem("profileId", res.data.userId)
-        this.props.history.push("/profile/" + res.data.userId)
         
+        axios.get('/api/profileLists/findOne?filter[where][profileId]=' + res.data.userId +'&access_token=' + localStorage.getItem("feastAT"))
+        .then((response) => {
+          console.log(response)
+          this.props.history.push("/profile/" + response.data.id)
+
+        })
+        .catch((error) => {
+         console.log(error)
+        });
+
       })
       .catch((error) => {
         alert('Invalid Email or Password')

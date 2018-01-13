@@ -32,10 +32,11 @@ class CreateEvent extends Component {
           host: this.props.match.params.hid
         },
         eventId: "",
-        profileId: this.props.match.params.hid,
+        profileId: "",
         courses: [],
         friendsInvite: [],
-        allergies: []
+        allergies: [],
+        profileListId: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
@@ -135,9 +136,9 @@ class CreateEvent extends Component {
   }
     componentWillMount() {
    
-      axios.get('/api/profiles/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
+      axios.get('/api/profileLists/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         this.setState({
           
           host: response.data.name,
@@ -145,14 +146,11 @@ class CreateEvent extends Component {
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
+          profileId: response.data.profileId,
+          profileListId: response.data.id
           
         })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-      axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.hid)
+        axios.get('/api/friends?filter[where][profileId][like]=' + response.data.id)
       .then((response) => {
         console.log(response);
         this.setState({
@@ -164,6 +162,12 @@ class CreateEvent extends Component {
       .catch((error) => {
         console.log(error);
       });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      
   }
   
 

@@ -1,19 +1,17 @@
 {
-  "name": "profile",
-  "base": "User",
+  "name": "profileList",
+  "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "email": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "password": {
-      "type": "string",
-      "required": true
-<<<<<<< HEAD
+    "email": {
+      "type": "string"
     },
     "street": {
       "type": "string"
@@ -27,26 +25,21 @@
     "zipcode": {
       "type": "string"
     },
+    "phone": {
+      "type": "string"
+    },
     "allergies": {
       "type": "string"
     },
     "tools": {
       "type": "string"
     },
-    "photoId": {
+    "profileId": {
       "type": "string"
-=======
->>>>>>> develop
     }
   },
   "validations": [],
-  "relations": {
-    "profileLists": {
-      "type": "hasOne",
-      "model": "profileList",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "EXECUTE",

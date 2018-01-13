@@ -18,12 +18,14 @@ class SignUp extends Component {
       state: "",
       zip: "",
       phone: "",
-      allergies: ""
+      allergies: "",
+      profileId: "",
+      listId: ""
 
     }
-    console.log(props);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event) {
     console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
@@ -40,31 +42,70 @@ class SignUp extends Component {
     }
     
   }
+
   handleSubmit(event) {
     event.preventDefault();
     this.pleasefillin();
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
-      name: this.state.name,
-      street: this.state.street,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip,
-      phone: this.state.phone,
-      allergies: this.state.allergies,
       emailVerified: true
-
+      
     }
+    
   console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
-        console.log(res);
-        console.log(this.props.history)
-        // this.props.onLogin(res.data.id);          
-        this.props.history.push("/profile/" + res.data.id)
+        // console.log(res);
+        
+        const userLogin = {
+          email: this.state.email,
+          password: this.state.password
+          
+        }
+        this.setState({
+          profileId: res.data.id
+        })
 
-      })
+        const profileList = {
+          name: this.state.name,
+          street: this.state.street,
+          city: this.state.city,
+          state: this.state.state,
+          zip: this.state.zip,
+          phone: this.state.phone,
+          allergies: this.state.allergies,
+          profileId: res.data.id,
+          email: this.state.email
+        }
+
+        axios.post('/api/profileLists/', profileList)
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            listId: res.data.id
+          })
+          
+        })
+        .catch((error) => {
+          alert('Invalid Email or Password')
+          console.log(error);
+        })
+
+
+        axios.post('/api/profiles/login', userLogin)
+          .then((res) => {
+            // console.log(res);
+            localStorage.setItem("feastAT", res.data.id)
+            this.props.history.push("/profile/" + this.state.listId)
+            
+          })
+          .catch((error) => {
+            alert('Invalid Email or Password')
+            console.log(error);
+          })
+
+        })
       .catch((error) => {
         console.log(error);
       });

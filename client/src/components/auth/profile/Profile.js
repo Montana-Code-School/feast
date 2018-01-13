@@ -11,9 +11,8 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newProfile: [],
-      email: "",
-      password: "",
+      // email: "",
+      // password: "",
       name: "",
       street: "",
       city: "",
@@ -27,7 +26,6 @@ class Profile extends Component {
       photoId: ""
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
-    // this.handleClickLogout = this.handleClickLogout.bind(this);
     this.handleClickInvite = this.handleClickInvite.bind(this);
   }
 
@@ -62,13 +60,16 @@ class Profile extends Component {
 
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
-      axios.get('/api/profiles/' + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT"))
+      axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
           console.log(response)
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
           this.setState({
-            email: response.data.email,
-            password: response.data.password,
+            // email: response.data.email,
+            // password: response.data.password,
             name: response.data.name,
             street: response.data.street,
             city: response.data.city,
@@ -144,7 +145,7 @@ class Profile extends Component {
     return (
       <div>
         <div id="profile-overlay"></div>
-        <Navbar profileId={this.state.profileId}/>
+        <Navbar profileId={this.props.match.params.id}/>
         <div id='content'>
         <Header
           as='h1'
@@ -183,9 +184,9 @@ class Profile extends Component {
                 Profile
               </Card.Header>
               </Card.Content>
-              <Card.Content>
+              {/* <Card.Content>
                 Email: {this.state.email}
-              </Card.Content>
+              </Card.Content> */}
               <Card.Content>
                 Name: {this.state.name}
               </Card.Content>
@@ -239,14 +240,7 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </CardGroup>
-        <Link to={"/profile/edit/" + this.props.match.params.id}><Button color='teal'>Edit</Button></Link>
-        <Link to={"/friends/list/" +this.props.match.params.id}><Button color='teal'>Add Friends</Button></Link>
-        {/* <Button onClick={this.handleClickLogout} name='logout' color='teal'>Log Out</Button> */}
-        {/* {friendsList}
-        <h4>Your the Host of these Events!</h4>
-        {eventList}
-        <h4>You Need to RSVP to these Invites!</h4>
-        {inviteList}    */}
+ 
       </div>
       </div>
     );
