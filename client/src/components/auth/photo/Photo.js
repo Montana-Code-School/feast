@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import {Image} from 'cloudinary-react';
+// import {Image} from 'cloudinary-react';
 
 const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload';
@@ -102,35 +101,29 @@ class Photo extends Component {
         });
     }
   }
-    render() {
-      var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
-        console.log(this.props.SuperId.photoId)
-        if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
-        return(
-          <div>
+  render() {
+    var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
+    console.log(this.props.SuperId.photoId)
+    
+    if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
+      return(
+        <div>
           <Dropzone
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop.bind(this)}>
             <p>Click here to add your profile photo</p>
           </Dropzone>
-          <br/>
-         
-            
+          <br/>    
         </div>
-          )
-      }else{
-        return(
-        <img height="42" width="42" src = {pic}/>
-        // <img height="42" width="42" src = {`'https://res.cloudinary.com/mt-code-school/image/upload/${this.state.photoId}.jpg'`}/>
-
-      // <img height="42" width="42" src = 'https://res.cloudinary.com/mt-code-school/image/upload/eroxvdu9re91s9v0qjrz.jpg'/>
-      //  <img height="42" width="42" src = 'https://res.cloudinary.com/mt-code-school/image/upload/eroxvdu9re91s9v0qjrz.jpg'/>
-
+      )
+    } else {
+      return(
+      <div>
+        <img height="42" width="42" alt="" src = {pic}/>
+      </div>
       );
-
-
-      }
-    ;}}
-
-    export default Photo;
+    };
+  }
+}
+export default Photo;
