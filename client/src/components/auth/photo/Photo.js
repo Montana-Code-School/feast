@@ -45,7 +45,8 @@ class Photo extends Component {
       console.log(response.body.public_id)
       /////
       console.log(this.state);
-      axios.put('/api/profileLists/'+ this.props.SuperId.profileId + '?access_token=' + localStorage.getItem("feastAT"), {
+      axios.put('/api/profileLists/'+ this.props.SuperId.profileListId + '?access_token=' + localStorage.getItem("feastAT"), {
+        email: this.props.SuperId.email,
         photoId: response.body.public_id,
         name: this.props.SuperId.name,
         street: this.props.SuperId.street,
@@ -53,11 +54,12 @@ class Photo extends Component {
         state: this.props.SuperId.state,
         zip: this.props.SuperId.zip,
         phone: this.props.SuperId.phone,
-        allergies: this.props.SuperId.allergies
+        allergies: this.props.SuperId.allergies,
+        profileId: this.props.SuperId.profileId
       })
       .then((response) => {
         // this.props.history.push("/profile/" + this.props.SuperId)  
-        window.location = "/profile/" + this.props.SuperId.profileId   
+        window.location = "/profile/" + this.props.SuperId.profileListId   
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +79,7 @@ class Photo extends Component {
 
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
-      axios.get('/api/profileLists/' + this.props.SuperId.profileId + '?access_token=' + localStorage.getItem("feastAT"))
+      axios.get('/api/profileLists/' + this.props.SuperId.profileListId + '?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
           this.setState({
             email: response.data.email,

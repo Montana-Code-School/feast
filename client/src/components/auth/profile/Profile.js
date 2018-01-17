@@ -24,7 +24,8 @@ class Profile extends Component {
       events: [],
       invites: [],
       photoId: "",
-      profileId: this.props.match.params.id
+      profileId: "",
+      profileListId: this.props.match.params.id
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
     this.handleClickInvite = this.handleClickInvite.bind(this);
@@ -65,8 +66,7 @@ class Profile extends Component {
         .then((response) => {
           console.log(response)
           this.setState({
-            // email: response.data.email,
-            // password: response.data.password,
+            email: response.data.email,
             name: response.data.name,
             street: response.data.street,
             city: response.data.city,
@@ -74,7 +74,8 @@ class Profile extends Component {
             zip: response.data.zip,
             phone: response.data.phone,
             allergies: response.data.allergies,
-            photoId: response.data.photoId
+            photoId: response.data.photoId,
+            profileId: response.data.profileId
           
           })
         })
