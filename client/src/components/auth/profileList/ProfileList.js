@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Form, Button, Card } from 'semantic-ui-react';
+import { Header, Form, Button, Card, Icon } from 'semantic-ui-react';
 import './ProfileList.css';
 import Navbar from '../../navbar/Navbar';
 
@@ -121,16 +121,17 @@ class ProfileList extends Component {
       </div>
       <div id='content'>
       <Navbar profileId={this.state.profileId} />
-
-        <Header as='h1' textAlign='center'>
-          FEASTS' SIGNATURE FRIEND FINDER
-        </Header>
-        
+      <Header
+        as='h1'
+        content='FEASTS SIGNATURE FRIEND FINDER'
+        textAlign='center'
+        style={{ fontSize: '3em', fontWeight: 'bold' }}
+      />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
             <Form.Input label='Your Friends Email Address' placeholder='Email' name="email" onChange={this.handleChange} />
           </Form.Group>
-          <Button color='teal'>Find Your Friends</Button>
+          <Button color='teal'><Icon name='user plus'/>Find Your Friends</Button>
         </Form>
         <Card>
           <Card.Content>

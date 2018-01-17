@@ -3,7 +3,7 @@ import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Photo from '../photo/Photo';
-import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
+import { Header, Image, Grid, Button, Message, Card, Icon } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
 
@@ -120,7 +120,11 @@ class Profile extends Component {
 
     const eventList = this.state.events.map((event) => {
       return (
-        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'>{event.theme}</Button>
+        <div>
+        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
+      <br />
+      <br />
+      </div>
       )
     })
 
@@ -128,9 +132,11 @@ class Profile extends Component {
       return (
         <div key={invite.id}>
           <h4>{invite.theme}</h4>
-          <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'>ACCEPT</Button>
-          <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'>DECLINE</Button>
-          
+          <Button.Group>
+          <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
+          <Button.Or />
+          <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
+          </Button.Group>
         </div>
       )
     })
@@ -148,26 +154,17 @@ class Profile extends Component {
         />
         <div align='center'>
         <Button.Group>
-          <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'>HOST A FEAST</Button></Link>
+          <Link to={"/event/create/" + this.props.match.params.id}><Button type='submit' color='purple'><Icon name='food'/>HOST A FEAST</Button></Link>
           <Button.Or />
           <Link to={"/profile/edit/" + this.props.match.params.id + '?access_token=' + localStorage.getItem("feastAT")}><Button color='teal'>EDIT YOUR PROFILE</Button></Link>
           <Button.Or />
-          <Link to={"/friends/list/" + this.props.match.params.id}><Button color='teal'>ADD FRIENDS</Button></Link>
+          <Link to={"/friends/list/" + this.props.match.params.id}><Button color='teal'><Icon name='user plus'/>ADD FRIENDS</Button></Link>
         </Button.Group>
         </div>
         <br />
      <div className="container" align='center'>  
      <Photo SuperId = {this.state}/>  
      </div>
-        {/* <Grid
-          textAlign='center'
-        >
-          <Grid.Column style={{ maxWidth: 180 }}>
-            <Message>
-              Add <a href=''>Image</a>
-            </Message>
-          </Grid.Column>
-        </Grid> */}
         <CardGroup itemsPerRow='4'>
           <Card>
             <Card.Content>
@@ -175,9 +172,6 @@ class Profile extends Component {
                 Profile
               </Card.Header>
               </Card.Content>
-              {/* <Card.Content>
-                Email: {this.state.email}
-              </Card.Content> */}
               <Card.Content>
                 Name: {this.state.name}
               </Card.Content>

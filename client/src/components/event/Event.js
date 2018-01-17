@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card} from 'semantic-ui-react';
+import { Header, Image, Grid, List, Button, Card, Icon } from 'semantic-ui-react';
 import './Map.js';
 import {
   withScriptjs,
@@ -178,7 +178,7 @@ class Event extends Component {
     const coursesList = this.state.courses.map((course) => {
       return(
         <div key={course}> 
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'>Add a {course}</Button></Link>
+          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
           <br/>
           <br/>
         </div>
@@ -188,18 +188,21 @@ class Event extends Component {
     console.log(this.state.allergies)
     return (
       <div>
+        <div id='event-overlay'>
+        </div>
         <Navbar profileId={this.state.profileId}/>
         <div id='content'>
         <Header
         as='h1'
         content='WELCOME TO THE FEAST'
-        color='green'
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
       />
         <Card.Group itemsPerRow={3}>
         <Card>
+        <Card.Content>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+        </Card.Content>  
           <Card.Content>
             <Card.Header>
               Your Host
@@ -256,9 +259,10 @@ class Event extends Component {
             <Grid.Column>
               <List>
                 <List.Item>
-                  <List.Header as='h4'>COURSES</List.Header>
-                  <br/>
-                  <Card>
+                <Card>
+                  <Card.Content>
+                  <h4>COURSES</h4>
+                  </Card.Content>
                     <Card.Content>
                   {coursesList}
                     </Card.Content>
@@ -270,11 +274,12 @@ class Event extends Component {
                   </Card>  
                 </List.Item>
               </List> 
-           
             </Grid.Column>
             <Grid.Column>
-              <h4>GUESTS</h4>
               <Card>
+                <Card.Content>
+              <h4>GUESTS</h4>
+                </Card.Content> 
                 <Card.Content>
                   We're Coming To The FEAST
                 </Card.Content> 
@@ -290,8 +295,14 @@ class Event extends Component {
               </Card>  
             </Grid.Column>
             <Grid.Column>
+              <Card>
+              <Card.Content>
               <h4>ALLERGIES</h4>
+              </Card.Content>
+              <Card.Content>
               {allergyList}
+              </Card.Content>
+              </Card>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Header, Form, Button } from 'semantic-ui-react';
+import { Header, Form, Button, Card } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
+import './Courses.css';
 
 
 class Courses extends Component {
@@ -55,6 +56,8 @@ class Courses extends Component {
   render() {
     return (
       <div>
+        <div id='courses-overlay'>
+        </div>
         <Navbar profileId={this.state.profileId}/>
         <div id='content'>
         <Header
@@ -64,12 +67,16 @@ class Courses extends Component {
             textAlign='center'
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
+        <Card>
+        <Card.Content>  
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={2}>
-            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add to the FEAST' name="name" onChange={this.handleChange} />
+          <Form.Group unstackable widths={1}>
+            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} />
           </Form.Group>
-          <Button color='teal'>Add Dish</Button>
         </Form>
+          <Button color='teal'>Add Dish</Button>
+        </Card.Content>
+        </Card>  
       </div>
       </div> 
       
