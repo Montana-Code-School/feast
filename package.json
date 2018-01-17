@@ -11,6 +11,7 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "cloudinary-react": "^1.0.4",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "create-react-app": "^1.4.3",
@@ -21,9 +22,13 @@
     "loopback-component-explorer": "^5.0.0",
     "loopback-connector-mongodb": "^1.18.1",
     "passport": "^0.4.0",
+    "react": "^16.2.0",
+    "react-cloudinary": "^0.4.1",
+    "react-dropzone": "^4.2.3",
     "react-google-maps": "^9.4.1",
     "recompose": "^0.26.0",
     "serve-favicon": "^2.0.1",
+    "superagent": "^3.8.2",
     "strong-error-handler": "^2.3.0"
   },
   "devDependencies": {

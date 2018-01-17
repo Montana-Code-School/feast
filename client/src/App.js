@@ -9,6 +9,9 @@ import Event from './components/event/Event';
 import EditEvent from './components/event/EditEvent';
 import Courses from './components/event/Courses';
 import ProfileList from './components/auth/profileList/ProfileList';
+import Photo from './components/auth/photo/Photo';
+
+import './App.css';
 // import Test from './components/navbar/Test';
 
 class App extends Component {
@@ -36,6 +39,7 @@ class App extends Component {
             <Route exact path="/event/create/:hid" component={CreateEvent} />
             <Route exact path="/event/:eid" component={Event} />
             <Route exact path="/event/edit/:eid" component={EditEvent} />
+            <Route exact path="/profile/photo/:id" component={Photo}/> 
             <Route exact path="/event/courses/:course/:eid" component={Courses} />
 
           </Switch>
