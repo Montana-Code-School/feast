@@ -187,14 +187,13 @@ class EditEvent extends Component {
             textAlign='center'
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        </div>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group unstackable widths={1}>
+          <Form.Group unstackable widths={3}>
             <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
             <Form.Input type="date" label='Date' placeholder='Date' name="date" onChange={this.handleChange} value={this.state.date} />
             <Form.Input type ="time" label='Time' placeholder='Time' name="time" onChange={this.handleChange} value={this.state.time} />
           </Form.Group>
-          <Form.Group unstackable widths={1}>
+          <Form.Group unstackable widths={5}>
             <Form.Input type="text" label='Theme' placeholder='Theme' name="theme" onChange={this.handleChange} value={this.state.theme}/>
             <Form.Input type="text" label='Street'  name="street" onChange={this.handleChange} value={this.state.street}/>
             <Form.Input type="text" label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
@@ -225,6 +224,7 @@ class EditEvent extends Component {
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
+      </div>
       </div>
     );
   }

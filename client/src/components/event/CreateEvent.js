@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
-//import { Link } from 'react-router-dom';
+import './CreateEvent.css'
 import Navbar from '../navbar/Navbar';
 
 const options = [
@@ -182,6 +182,8 @@ class CreateEvent extends Component {
     })
     return (
       <div>
+        <div id='event-overlay'>
+        </div>
         <Navbar profileId={this.state.profileId}/>
         <div id='content'>
         <Header
@@ -191,7 +193,6 @@ class CreateEvent extends Component {
             textAlign='center'
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        </div>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
             <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
@@ -206,20 +207,11 @@ class CreateEvent extends Component {
             <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
         
-        <Grid columns={3} stackable divided>
+        <Grid columns={2} stackable divided>
           <Grid.Row> 
             <Grid.Column>
               <h4>Courses</h4>
               <Dropdown placeholder='Courses' fluid multiple selection options={options} onChange={this.handleChangeCourses} name='courses'/>
-            </Grid.Column>
-            <Grid.Column>  
-              <h4>TOOLS</h4>
-              <Checkbox label='Oven' /> <br/>
-              <Checkbox label='Fridge' /> <br/>
-              <Checkbox label='Range' /> <br/>
-              <Checkbox label='Mixer' /> <br/>
-              <Checkbox label='Blender' /> <br/>
-              <Checkbox label='Food Processor' /> <br/>
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
@@ -238,6 +230,7 @@ class CreateEvent extends Component {
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
+      </div>
       </div>
     );
   }

@@ -117,11 +117,11 @@ class ProfileList extends Component {
 
     return (
       <div>
-       <div id='friend-overlay'>
-       </div>
-       <Navbar profileId={this.state.profileId} />
-       <br />
-       <br />
+      <div id='friend-overlay'>
+      </div>
+      <div id='content'>
+      <Navbar profileId={this.state.profileId} />
+
         <Header as='h1' textAlign='center'>
           FEASTS' SIGNATURE FRIEND FINDER
         </Header>
@@ -143,7 +143,7 @@ class ProfileList extends Component {
           </Card.Content>
         </Card>  
       </div> 
-      
+    </div>  
     );
   }
 }

@@ -56,19 +56,21 @@ class Courses extends Component {
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
-        <br/>
-        <br/>
-        <Header as='h1' color='green' textAlign='center'>
-          Courses
-        </Header>
-        
+        <div id='content'>
+        <Header
+            as='h1'
+            content='Course'
+            color='green'
+            textAlign='center'
+            style={{ fontSize: '4em', fontWeight: 'bold' }}
+        />
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={2}>
             <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add to the FEAST' name="name" onChange={this.handleChange} />
           </Form.Group>
           <Button color='teal'>Add Dish</Button>
         </Form>
-
+      </div>
       </div> 
       
     );

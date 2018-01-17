@@ -48,12 +48,6 @@ class Profile extends Component {
       });
   }
 
-  // handleClickLogout(event) {
-  //   event.preventDefault();
-  //   localStorage.removeItem('feastAT');
-  //   this.props.history.push("/");
-  // };
-
   handleClickEvent(event) {
     event.preventDefault();
     this.props.history.push("/event/" + event.target.value)
@@ -162,11 +156,10 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-      {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered /> */}
-     <div className="container">  
+     <div className="container" align='center'>  
      <Photo SuperId = {this.state}/>  
      </div>
-        <Grid
+        {/* <Grid
           textAlign='center'
         >
           <Grid.Column style={{ maxWidth: 180 }}>
@@ -174,7 +167,7 @@ class Profile extends Component {
               Add <a href=''>Image</a>
             </Message>
           </Grid.Column>
-        </Grid>
+        </Grid> */}
         <CardGroup itemsPerRow='4'>
           <Card>
             <Card.Content>
