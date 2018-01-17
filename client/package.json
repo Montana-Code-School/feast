@@ -7,6 +7,7 @@
     "axios": "^0.17.1",
     "loopback-connector-mongodb": "^3.3.0",
     "react": "^16.1.1",
+    "react-cloudinary": "^0.4.1",
     "react-dom": "^16.1.1",
     "react-google-maps": "^9.4.1",
     "react-router-dom": "^4.2.2",

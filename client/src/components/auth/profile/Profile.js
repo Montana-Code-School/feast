@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Photo from '../photo/Photo';
 import { Header, Image, Grid, Button, Message, Card } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
@@ -21,7 +22,10 @@ class Profile extends Component {
       allergies: "",
       friends: [],
       events: [],
-      invites: []
+      invites: [],
+      photoId: "",
+      profileId: "",
+      profileListId: this.props.match.params.id
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
     this.handleClickInvite = this.handleClickInvite.bind(this);
@@ -62,15 +66,17 @@ class Profile extends Component {
         .then((response) => {
           console.log(response)
           this.setState({
-            // email: response.data.email,
-            // password: response.data.password,
+            email: response.data.email,
             name: response.data.name,
             street: response.data.street,
             city: response.data.city,
             state: response.data.state,
             zip: response.data.zip,
             phone: response.data.phone,
-            allergies: response.data.allergies
+            allergies: response.data.allergies,
+            photoId: response.data.photoId,
+            profileId: response.data.profileId
+          
           })
         })
         .catch((error) => {
@@ -156,7 +162,10 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
+      {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered /> */}
+     <div className="container">  
+     <Photo SuperId = {this.state}/>  
+     </div>
         <Grid
           textAlign='center'
         >
