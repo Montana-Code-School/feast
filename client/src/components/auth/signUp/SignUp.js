@@ -33,19 +33,24 @@ class SignUp extends Component {
   pleasefillin(){
     if(this.state.email === ''){
       alert("Email Is A Required Feild")
+      return false;
     }
     if(this.state.password === ''){
       alert("Password Is A Required Feild")
+      return false;
     }
     if(this.state.name === ''){
       alert("Name Is A Required Feild")
+      return false;
     }
-    
+    return true;
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.pleasefillin();
+    if (!this.pleasefillin()) {
+
+    } else {
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
@@ -109,7 +114,7 @@ class SignUp extends Component {
       .catch((error) => {
         console.log(error);
       });
-
+    }
   }
 
 
