@@ -137,18 +137,19 @@ class SignUp extends Component {
        style={{ fontSize: '4em', fontWeight: 'bold' }}
      /> <br/>
         <br/>
+        <div id='content'>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group align="center" widths={1}>
+          <Form.Group align="center" widths={3}>
             <Form.Input placeholder='Email' name="email" onChange={this.handleChange} />
             <Form.Input placeholder='Password' name="password" onChange={this.handleChange} />
             <Form.Input placeholder='Name' name="name" onChange={this.handleChange} />
           </Form.Group><br/>
-          <Form.Group align="center" widths={1}>
+          <Form.Group align="center" widths={3}>
             <Form.Input placeholder='Street' name="street" onChange={this.handleChange} />
             <Form.Input placeholder='City' name="city" onChange={this.handleChange} />
             <Form.Input placeholder='State' name="state" onChange={this.handleChange} />
           </Form.Group><br/>
-          <Form.Group align="center" widths={1}>
+          <Form.Group align="center" widths={3}>
             <Form.Input placeholder='Zip' name="zip" onChange={this.handleChange} />
             <Form.Input placeholder='Phone' name="phone" onChange={this.handleChange} />
             <Form.Input placeholder='Allergies' name="allergies" onChange={this.handleChange} />
@@ -162,16 +163,7 @@ class SignUp extends Component {
             </Grid.Column>
           </Grid>
         </Form>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        {/* <Card.Group className='footer'>
-        <Card.Content>
-        <Card color='orange' fluid image={footer} />
-        </Card.Content>
-        </Card.Group> */}
+        </div>
       </div>
     );
   }

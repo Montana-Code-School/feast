@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Header, Image, Grid, Message, Button, Form} from 'semantic-ui-react';
+import { Header, Image, Grid, Message, Button, Form } from 'semantic-ui-react';
 import "./EditProfile.css";
+import Navbar from '../../navbar/Navbar'
 
 
 class EditProfile extends Component {
@@ -81,6 +81,8 @@ class EditProfile extends Component {
     return (
       <div>
       <div id='background'></div>
+      <Navbar profileId={this.state.profileId}/>
+      <div id='content'>
         <Header
         as='h1'
         content='EDIT PROFILE'
@@ -88,7 +90,6 @@ class EditProfile extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        <Link to={"/profile/" + this.props.match.params.id}><Button color='teal'>Back</Button></Link>
         <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
         <Grid
           textAlign='center'
@@ -101,28 +102,26 @@ class EditProfile extends Component {
             </Message>
           </Grid.Column>
         </Grid><br/>
-        <div className='text'>
           <Form onSubmit={(e) => this.handleSubmit(e)}>
-            <Form.Group unstackable widths={1}>
+            <Form.Group unstackable widths={2}>
               {/* <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
               <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/> */}
               <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
-            <Form.Group widths={1}>
+            <Form.Group widths={3}>
               <Form.Input type='text' label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
               <Form.Input type='text' label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
               <Form.Input type='text' label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
             </Form.Group>
-            <Form.Group widths={1}>
+            <Form.Group widths={3}>
               <Form.Input type='text' label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
               <Form.Input type='text' label='Phone' name="phone" onChange={this.handleChange} value={this.state.phone}/>
               <Form.Input type='text' label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies}/>
             </Form.Group><br />
             <Button type='submit' color='teal'>Submit</Button>
           </Form>
-        </div>
       </div>
-
+    </div>
     );
   }
 }

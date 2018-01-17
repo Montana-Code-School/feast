@@ -297,6 +297,7 @@ class Event extends Component {
         </Grid>
         <br/>
         <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
+        <br/>
       </div>
       </div>
     );
