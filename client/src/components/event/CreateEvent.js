@@ -146,7 +146,7 @@ class CreateEvent extends Component {
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
-          profileId: response.data.profileId,
+          profileId: response.data.id,
           profileListId: response.data.id
           
         })
@@ -183,6 +183,7 @@ class CreateEvent extends Component {
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
+        <div id='content'>
         <Header
             as='h1'
             content='CREATE A FEAST'
@@ -190,6 +191,7 @@ class CreateEvent extends Component {
             textAlign='center'
             style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
+        </div>
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
             <Form.Input type="text" label='Host'  name="host" onChange={this.handleChange} value={this.state.host} />
