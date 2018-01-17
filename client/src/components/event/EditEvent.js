@@ -4,15 +4,14 @@ import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react
 //import { Link } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
 
-const options = [
-  { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
-  { key: 'salad', text: 'Salad', value: 'salad' },
-  { key: 'soup', text: 'Soup', value: 'soup' },
-  { key: 'entree', text: 'Entree', value: 'entree' },
-  { key: 'dessert', text: 'Dessert', value: 'dessert' },
-  { key: 'drinks', text: 'Drinks', value: 'drinks' }
-]
-
+// const options = [
+//   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
+//   { key: 'salad', text: 'Salad', value: 'salad' },
+//   { key: 'soup', text: 'Soup', value: 'soup' },
+//   { key: 'entree', text: 'Entree', value: 'entree' },
+//   { key: 'dessert', text: 'Dessert', value: 'dessert' },
+//   { key: 'drinks', text: 'Drinks', value: 'drinks' }
+// ]
 
 class EditEvent extends Component {
   constructor(props) {
@@ -29,7 +28,12 @@ class EditEvent extends Component {
       dishes: '',
       id: '',
       friends: [],
-      allergies: []
+      friendsInvited: [],
+      allergies: [],
+      allCourses: ["appetizer", "salad", "soup", "entree", "dessert", "drinks"],
+      newCourse: [],
+      profileListId: "",
+      profileId: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
@@ -55,11 +59,58 @@ class EditEvent extends Component {
   //   return twoD;
   // }
 
+  checkFriend (friend) {
+    for ( var j = 0; j < this.state.friendsInvited.length; j++) {
+      var friendInvitedId = this.state.friendsInvited[j].inviteProfileId;
+      if (friendInvitedId === friend) {
+        return true;
+      }
+     }
+     return false;
+  }
+
+  getfriends() {
+    var newFriendsInvite = [];
+    for (var i = 0; i < this.state.friends.length; i++) {
+      var friendId = this.state.friends[i].friendId;
+      var test = this.checkFriend(friendId);
+      if (!test) {
+        newFriendsInvite.push(this.state.friends[i])
+      }
+
+    }
+
+    var options = newFriendsInvite.map((child) => {
+      return (
+        {key: child.friendName, text: child.friendName.charAt(0).toUpperCase() + child.friendName.slice(1), value: child.friendName }
+      )
+    })
+    return options;
+  }
+
+
+  getCourses(courses) {
+    var newCourses = [];
+    for (var i = 0; i < this.state.allCourses.length; i++) {
+      if (courses.indexOf(this.state.allCourses[i]) === -1) {
+        newCourses.push(this.state.allCourses[i])
+      }
+    }
+    var options = newCourses.map((child) => {
+      return (
+        {key: child, text: child.charAt(0).toUpperCase() + child.slice(1), value: child }
+      )
+    })
+    return options;
+  }
+
+  
+
  
 
   handleChangeCourses(event,data) {
-    this.setState({courses: data.value});
-    console.log(this.state.courses);
+    this.setState({newCourses: data.value});
+    
   }
 
   handleChangeFriends(event,data) {
@@ -76,7 +127,7 @@ class EditEvent extends Component {
   
   handleSubmit(event){     
     event.preventDefault();
-
+    
     const editEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -86,7 +137,7 @@ class EditEvent extends Component {
       time: this.state.time,
       date: this.state.date,
       theme: this.state.theme,
-      courses: this.state.courses,
+      courses: this.state.courses.concat(this.state.newCourses),
       allergies: this.state.allergies
       
     };
@@ -100,7 +151,6 @@ class EditEvent extends Component {
         eventId: response.data.id
       })
 
-      console.log(this.state.friendsInvite);
 
       // for (var i = 0; i < invite.length; i++) {
         
@@ -141,21 +191,30 @@ class EditEvent extends Component {
           theme: response.data.theme,
           courses: response.data.courses,
           dishes: response.data.dishes,
-          id: response.data.id
-          
+          id: response.data.id,
+          profileListId: response.data.profileIdList,
+          profileId: response.data.profileId          
         })
-        axios.get('/api/friends?filter[where][profileId][like]=' + response.data.id)
-      .then((response) => {
-        console.log(response);
-        this.setState({
-          friends: response.data
+        axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
+        .then((response) => {
+          console.log(response);
+          this.setState({
+            friends: response.data
+          })
         })
-        //console.log(this.state)
-
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .catch((error) => {
+          console.log(error);
+        });
+        axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid)
+        .then((response) => {
+          console.log(response);
+          this.setState({
+            friendsInvited: response.data
+          })
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -166,14 +225,17 @@ class EditEvent extends Component {
   
 
   render() {
+    console.log(this.state)
+    const options = this.getCourses(this.state.courses)
+    const friends = this.getfriends()
 
-    const friendsList = this.state.friends.map((friend) => {
-      return(
-       {key: friend.friendId, text: friend.friendName, value: friend.friendId}
-        // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
+    // const friendsList = this.state.friends.map((friend) => {
+    //   return(
+    //    {key: friend.friendId, text: friend.friendName, value: friend.friendId}
+    //     // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
        
-      )
-    })
+    //   )
+    // })
     return (
       <div>
         <Navbar profileId={this.state.profileId}/>
@@ -217,7 +279,7 @@ class EditEvent extends Component {
             </Grid.Column>
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
-              <Dropdown placeholder='Friends' fluid multiple selection options={friendsList} onChange={this.handleChangeFriends} name='friends'/>
+              <Dropdown placeholder='Friends' fluid multiple selection options={friends} onChange={this.handleChangeFriends} name='friends'/>
 
               {/* <List selection onClick={this.handleClick}> */}
                 {/* {friendsList} */}

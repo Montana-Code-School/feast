@@ -95,7 +95,8 @@ class CreateEvent extends Component {
       theme: this.state.theme,
       profileId: this.props.match.params.hid,
       courses: this.state.courses,
-      allergies: this.state.allergies
+      allergies: this.state.allergies,
+      profileListId: this.state.profileListId
       
     };
     var invite = this.addName(this.state.friendsInvite);
