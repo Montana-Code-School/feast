@@ -45,22 +45,19 @@ class Photo extends Component {
       console.log(response.body.public_id)
       /////
       console.log(this.state);
-      axios.put('/api/profiles/'+ this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"), {
+      axios.put('/api/profileLists/'+ this.props.SuperId.profileId + '?access_token=' + localStorage.getItem("feastAT"), {
         photoId: response.body.public_id,
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
-        street: this.state.street,
-        city: this.state.city,
-        state: this.state.state,
-        zip: this.state.zip,
-        phone: this.state.phone,
-        allergies: this.state.allergies
-          
+        name: this.props.SuperId.name,
+        street: this.props.SuperId.street,
+        city: this.props.SuperId.city,
+        state: this.props.SuperId.state,
+        zip: this.props.SuperId.zip,
+        phone: this.props.SuperId.phone,
+        allergies: this.props.SuperId.allergies
       })
       .then((response) => {
         // this.props.history.push("/profile/" + this.props.SuperId)  
-        window.location = "/profile/" + this.props.SuperId    
+        window.location = "/profile/" + this.props.SuperId.profileId   
       })
       .catch((error) => {
         console.log(error);
@@ -80,7 +77,7 @@ class Photo extends Component {
 
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
-      axios.get('/api/profiles/' + this.props.SuperId + '?access_token=' + localStorage.getItem("feastAT"))
+      axios.get('/api/profileLists/' + this.props.SuperId.profileId + '?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
           this.setState({
             email: response.data.email,
@@ -104,9 +101,9 @@ class Photo extends Component {
     }
   }
     render() {
-      var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.state.photoId + '.jpg';
-        console.log(this.state.photoId)
-        if (typeof(this.state.photoId) === "undefined" || this.state.photoId === '') {
+      var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
+        console.log(this.props.SuperId.photoId)
+        if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
         return(
           <div>
           <Dropzone

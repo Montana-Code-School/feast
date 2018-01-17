@@ -23,7 +23,8 @@ class Profile extends Component {
       friends: [],
       events: [],
       invites: [],
-      photoId: ""
+      photoId: "",
+      profileId: this.props.match.params.id
     };
     this.handleClickEvent = this.handleClickEvent.bind(this);
     this.handleClickInvite = this.handleClickInvite.bind(this);
@@ -162,7 +163,7 @@ class Profile extends Component {
         <br />
       {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered /> */}
      <div className="container">  
-     <Photo  SuperPhoto = {this.state.photoId} SuperId = {this.props.match.params.id}/>  
+     <Photo SuperId = {this.state}/>  
      </div>
         <Grid
           textAlign='center'
