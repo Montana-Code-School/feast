@@ -74,9 +74,9 @@ class Courses extends Component {
             <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} />
           </Form.Group>
         </Form>
-          <Button color='teal'>Add Dish</Button>
         </Card.Content>
         </Card>  
+          <Button color='teal'>Add Dish</Button>
       </div>
       </div> 
       

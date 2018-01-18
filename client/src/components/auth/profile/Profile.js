@@ -200,7 +200,7 @@ class Profile extends Component {
             Your Friends
             </Card.Header>
             </Card.Content> 
-            <Card.Content>                      
+            <Card.Content id='card'>                      
              {friendsList}
             </Card.Content>
           </Card>

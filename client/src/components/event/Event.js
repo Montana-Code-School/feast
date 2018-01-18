@@ -143,7 +143,7 @@ class Event extends Component {
     const MyMapComponent = compose(
       withProps({
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
+        containerElement: <div style={{ height: `575px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
       }),
       withScriptjs,
