@@ -20,11 +20,35 @@ class EditProfile extends Component {
         phone:"",
         allergies:"",
         listId: "",
-        profileId: ""
+        profileId: "",
+        photoId:""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removePhotoOnclick = this.removePhotoOnclick.bind(this);
   }
+
+removePhotoOnclick(){
+  axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
+    profileId: this.state.profileId,
+    email: this.state.email,
+    // password: this.state.password,
+    name: this.state.name,
+    street: this.state.street,
+    city: this.state.city,
+    state: this.state.state,
+    zip: this.state.zip,
+    phone: this.state.phone,
+    allergies: this.state.allergies,
+    photoId: ''
+  })
+  .then((response) => {
+    this.props.history.push("/profile/" + response.data.id)       
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
@@ -44,7 +68,8 @@ class EditProfile extends Component {
       state: this.state.state,
       zip: this.state.zip,
       phone: this.state.phone,
-      allergies: this.state.allergies      
+      allergies: this.state.allergies, 
+      photoId: this.state.photoId    
     })
     .then((response) => {
       this.props.history.push("/profile/" + response.data.id)       
@@ -69,7 +94,8 @@ class EditProfile extends Component {
         phone: response.data.phone,
         allergies: response.data.allergies,
         listId: response.data.id,
-        profileId: response.data.profileId
+        profileId: response.data.profileId,
+        photoId: response.data.photoId
       })
     })
     .catch((error) => {
@@ -90,16 +116,8 @@ class EditProfile extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
-        <Grid
-          textAlign='center'
-          style={{ height: '100%' }}
-          verticalAlign='middle'
-        >  */}
           <Grid.Column style={{ maxWidth: 180 }}>
-            <Message>
-              Edit <a href=''>Image</a>
-            </Message>
+          <Button onClick = {this.removePhotoOnclick} type = 'removePicture' color='teal'>Remove Picture</Button>
           </Grid.Column>
         {/* </Grid><br/> */}
           <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -119,6 +137,7 @@ class EditProfile extends Component {
               <Form.Input type='text' label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies}/>
             </Form.Group><br />
             <Button type='submit' color='teal'>Submit</Button>
+
           </Form>
       </div>
     </div>
