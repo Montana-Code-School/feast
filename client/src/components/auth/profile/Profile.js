@@ -44,6 +44,7 @@ class Profile extends Component {
     axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
       .then((response) => {
         console.log(response)
+        window.location = '/profile/' + this.props.match.params.id;
       })
       .catch((error) => {
       });

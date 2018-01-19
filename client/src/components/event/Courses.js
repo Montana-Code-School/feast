@@ -13,7 +13,8 @@ class Courses extends Component {
       eventId: this.props.match.params.eid, 
       course: this.props.match.params.course,
       name: "",
-      servings: ""
+      servings: "",
+      profileId: ""
         
     };
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +27,7 @@ class Courses extends Component {
     this.setState(
       {[event.target.name]: event.target.value});
     
-    console.log(this.state.name);  
+    console.log(this.state);  
     }
 
   handleSubmit(event) {
@@ -49,9 +50,18 @@ class Courses extends Component {
 
     }
 
-  //   componentWillMount() {
-  //
-  // }
+    componentWillMount() {
+      axios.get('/api/events/' + this.props.match.params.eid)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          profileId: response.data.profileListId,        
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    } 
 
   render() {
     return (
