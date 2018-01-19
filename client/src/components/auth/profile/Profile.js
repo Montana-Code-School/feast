@@ -3,7 +3,7 @@ import "./Profile.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Photo from '../photo/Photo';
-import { Header, Image, Grid, Button, Message, Card, Icon } from 'semantic-ui-react';
+import { Header, Button, Card, Icon } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
 

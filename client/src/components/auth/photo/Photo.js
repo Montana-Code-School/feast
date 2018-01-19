@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-// import {Image} from 'cloudinary-react';
 
 const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload/';
@@ -25,7 +24,6 @@ class Photo extends Component {
       allergies: ''
           
     };
-    // console.log(props)
   }
 
   onImageDrop(files) {
@@ -41,9 +39,6 @@ class Photo extends Component {
      .field('file', file);
 
     upload.end((err, response) => {
-      // console.log(response.body.public_id)
-      /////
-      // console.log(this.state);
       axios.put('/api/profileLists/'+ this.props.SuperId.profileListId + '?access_token=' + localStorage.getItem("feastAT"), {
         email: this.props.SuperId.email,
         photoId: response.body.public_id,
@@ -57,13 +52,11 @@ class Photo extends Component {
         profileId: this.props.SuperId.profileId
       })
       .then((response) => {
-        // this.props.history.push("/profile/" + this.props.SuperId)  
         window.location = "/profile/" + this.props.SuperId.profileListId   
       })
       .catch((error) => {
         console.log(error);
       });
-      /////
       if (err) {
         console.error(err);
       }
@@ -103,7 +96,6 @@ class Photo extends Component {
   }
   render() {
     var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
-    // console.log(this.props.SuperId.photoId)
     
     if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
       return(
@@ -119,7 +111,7 @@ class Photo extends Component {
           )
       }else{
         return(
-        <img src = {pic}/>
+        <img src = {pic} alt='Profile Pic'/>
       );
     };
   }

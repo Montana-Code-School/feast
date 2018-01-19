@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
 import './CreateEvent.css'
 import Navbar from '../navbar/Navbar';
 import { geocodeByAddress} from 'react-places-autocomplete'
