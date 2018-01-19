@@ -17,12 +17,6 @@ import {
 import Navbar from '../navbar/Navbar';
 import party from './party.jpg';
 import two from './two.jpg';
-// import { geocodeByAddress} from 'react-places-autocomplete'
-
-// import PlacesAutocomplete from 'react-places-autocomplete'
-
-
-// https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
 
 class Event extends Component {
   constructor(props) {
@@ -53,7 +47,6 @@ class Event extends Component {
 
   allergiesornot(){
     var r = this.state.allergies.filter(function(entry) {return entry.trim() !== '';})
-    // console.log(r)
     if(r.length !== 0){
       return r;
     }else{
@@ -93,24 +86,6 @@ class Event extends Component {
         
       })
 
-      
-
-
-
-      // geocodeByAddress(response.data.street + response.data.city + response.data.state)
-      // .then((results) => {
-      //   console.log(results)
-      //   this.setState({
-      //     lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-      //     lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2,
-      //     place: results[0].place_id,
-      //     location: results[0].geometry.location
-      //   })
-
-      // })
-      
-      // .catch(error => console.error('Error', error))
-
     })
     .catch((error) => {
       console.log(error);
@@ -118,7 +93,6 @@ class Event extends Component {
 
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
-      // console.log(response);
       this.setState({
       invites: response.data      
       })
@@ -129,7 +103,6 @@ class Event extends Component {
 
     axios.get('/api/dishes?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
-      // console.log(response);
       this.setState({
       dishes: response.data      
       })
@@ -137,12 +110,9 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
-
   }  
 
   invitedPeople(status){
-    // console.log(this.state)
-
     var people = this.state.invites;
     var peoplelist = [];
     for (var i = 0; i < people.length; i++) {
@@ -216,7 +186,6 @@ class Event extends Component {
       )
     })
  
-    // console.log(this.state.allergies)
     return (
       <div>
         <div id='event-overlay'>

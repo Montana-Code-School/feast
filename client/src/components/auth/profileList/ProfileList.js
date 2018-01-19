@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button, Card, Icon } from 'semantic-ui-react';
 import './ProfileList.css';
@@ -26,7 +25,6 @@ class ProfileList extends Component {
     this.setState({[event.target.name]: event.target.value,
     friendEmail: event.target.value     
     });
-    // friendEmail = event.target.value;
   }
  
   handleClickLogout(event) {
@@ -78,8 +76,6 @@ class ProfileList extends Component {
           .then((response) => {
             console.log(response);
             window.location = "/friends/list/" + this.props.match.params.pid;
-           
-            // this.props.history.push("/friends/list/" + this.props.match.params.pid)        
           })
           .catch((error) => {
            
@@ -95,7 +91,6 @@ class ProfileList extends Component {
   componentDidMount() {
     axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.pid)
       .then((response) => {
-        //console.log(this.props.match.params.pid)
         console.log(response.data)
         this.setState({
           friends: response.data

@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
-//import { Link } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
 import './EditEvent.css';
-
-// const options = [
-//   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
-//   { key: 'salad', text: 'Salad', value: 'salad' },
-//   { key: 'soup', text: 'Soup', value: 'soup' },
-//   { key: 'entree', text: 'Entree', value: 'entree' },
-//   { key: 'dessert', text: 'Dessert', value: 'dessert' },
-//   { key: 'drinks', text: 'Drinks', value: 'drinks' }
-// ]
 
 class EditEvent extends Component {
   constructor(props) {
@@ -40,25 +30,6 @@ class EditEvent extends Component {
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
     this.handleChangeFriends = this.handleChangeFriends.bind(this);
   }
-
-  // addName(idList) {
-  //   var twoD = [];
-  //   var f = this.state.friends;
-  //   for (var i = 0; i < idList.length; i++) {
-  //     var id = idList[i];
-
-  //     for (var j = 0; j < f.length; j++) {
-  //       var friendId = f[j].friendId;
-
-  //       if (id === friendId) {
-  //         var adding = [id,f[j].friendName,f[j].friendAllergies];
-  //         twoD.push(adding);
-  //         this.state.allergies.push(f[j].friendAllergies);
-  //       }
-  //     }
-  //   }
-  //   return twoD;
-  // }
 
   checkFriend (friend) {
     for ( var j = 0; j < this.state.friendsInvited.length; j++) {
@@ -89,7 +60,6 @@ class EditEvent extends Component {
     return options;
   }
 
-
   getCourses(courses) {
     var newCourses = [];
     for (var i = 0; i < this.state.allCourses.length; i++) {
@@ -105,10 +75,6 @@ class EditEvent extends Component {
     return options;
   }
 
-  
-
- 
-
   handleChangeCourses(event,data) {
     this.setState({newCourses: data.value});
     
@@ -123,8 +89,6 @@ class EditEvent extends Component {
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
-
- 
   
   handleSubmit(event){     
     event.preventDefault();
@@ -142,8 +106,6 @@ class EditEvent extends Component {
       allergies: this.state.allergies
       
     };
-    // var invite = this.addName(this.state.friendsInvite);
-    //   console.log(invite);
 
     axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
     .then((response) => {
@@ -152,24 +114,6 @@ class EditEvent extends Component {
         eventId: response.data.id
       })
 
-
-      // for (var i = 0; i < invite.length; i++) {
-        
-      //   const createInvite = {
-      //     eventId: this.state.eventId,
-      //     inviteProfileId: invite[i][0],
-      //     inviteName: invite[i][1],
-      //     hostName: this.state.host,
-      //     theme: this.state.theme
-      //   }
-      //   axios.post('/api/invites', createInvite)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });      
-      // }
        this.props.history.push("/event/" + response.data.id)
     })
     .catch((error) => {
@@ -230,13 +174,6 @@ class EditEvent extends Component {
     const options = this.getCourses(this.state.courses)
     const friends = this.getfriends()
 
-    // const friendsList = this.state.friends.map((friend) => {
-    //   return(
-    //    {key: friend.friendId, text: friend.friendName, value: friend.friendId}
-    //     // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
-       
-    //   )
-    // })
     return (
       <div>
       <div id='editEvent-overlay'></div>
@@ -272,16 +209,7 @@ class EditEvent extends Component {
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
               <Dropdown placeholder='Friends' fluid multiple selection options={friends} onChange={this.handleChangeFriends} name='friends'/>
-
-              {/* <List selection onClick={this.handleClick}> */}
-                {/* {friendsList} */}
-                {/* <Button color='teal'>Invite</Button>
-              </List>  */}
             </Grid.Column>
-            {/* <Grid.Column>
-              <h4>Allergies</h4>
-              {f[j].friendAllergies}
-            </Grid.Column> */}
           </Grid.Row>
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>

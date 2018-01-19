@@ -91,14 +91,6 @@ class CreateEvent extends Component {
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
       .then((results) => {
         console.log(results)
-        // this.setState({
-        //   lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-        //   lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2,
-        //   place: results[0].place_id,
-        //   location: results[0].geometry.location
-        // })
-
-      
 
     const createEvent = {
       host: this.state.host,
@@ -176,8 +168,6 @@ class CreateEvent extends Component {
         this.setState({
           friends: response.data
         })
-        //console.log(this.state)
-
       })
       .catch((error) => {
         console.log(error);
@@ -195,9 +185,7 @@ class CreateEvent extends Component {
 
     const friendsList = this.state.friends.map((friend) => {
       return(
-       {key: friend.friendId, text: friend.friendName, value: friend.friendId}
-        // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
-       
+       {key: friend.friendId, text: friend.friendName, value: friend.friendId}       
       )
     })
     return (
@@ -236,16 +224,7 @@ class CreateEvent extends Component {
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
               <Dropdown placeholder='Friends' fluid multiple selection options={friendsList} onChange={this.handleChangeFriends} name='friends'/>
-
-              {/* <List selection onClick={this.handleClick}> */}
-                {/* {friendsList} */}
-                {/* <Button color='teal'>Invite</Button>
-              </List>  */}
             </Grid.Column>
-            {/* <Grid.Column>
-              <h4>Allergies</h4>
-              {f[j].friendAllergies}
-            </Grid.Column> */}
           </Grid.Row>
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>

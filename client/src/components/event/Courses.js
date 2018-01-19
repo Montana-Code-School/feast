@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button, Card } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
@@ -48,10 +47,6 @@ class Courses extends Component {
     this.props.history.push("/event/" + this.state.eventId)
 
     }
-
-  //   componentWillMount() {
-  //
-  // }
 
   render() {
     return (

@@ -12,8 +12,6 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // email: "",
-      // password: "",
       name: "",
       street: "",
       city: "",
@@ -59,7 +57,6 @@ class Profile extends Component {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
-          // console.log(response)
           this.setState({
             email: response.data.email,
             name: response.data.name,

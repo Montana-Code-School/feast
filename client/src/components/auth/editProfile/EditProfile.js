@@ -37,7 +37,6 @@ class EditProfile extends Component {
     axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
       profileId: this.state.profileId,
       email: this.state.email,
-      // password: this.state.password,
       name: this.state.name,
       street: this.state.street,
       city: this.state.city,
@@ -60,7 +59,6 @@ class EditProfile extends Component {
       console.log(response);
       this.setState({
         email: response.data.email, 
-        // password: response.data.password,
         name: response.data.name,
         street: response.data.street,
         city: response.data.city,
@@ -90,22 +88,13 @@ class EditProfile extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
-        <Grid
-          textAlign='center'
-          style={{ height: '100%' }}
-          verticalAlign='middle'
-        >  */}
           <Grid.Column style={{ maxWidth: 180 }}>
             <Message>
               Edit <a href=''>Image</a>
             </Message>
           </Grid.Column>
-        {/* </Grid><br/> */}
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={2}>
-              {/* <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
-              <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/> */}
               <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
             <Form.Group widths={3}>

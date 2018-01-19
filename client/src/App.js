@@ -10,9 +10,7 @@ import EditEvent from './components/event/EditEvent';
 import Courses from './components/event/Courses';
 import ProfileList from './components/auth/profileList/ProfileList';
 import Photo from './components/auth/photo/Photo';
-
 import './App.css';
-// import Test from './components/navbar/Test';
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +29,6 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Login} />
-            {/* <Route exact path="/test" component={Test} /> */}
             <Route exact path="/signup" onLogin={this.setAccessToken} component={SignUp} />
             <Route exact path="/friends/list/:pid" component={ProfileList} />
             <Route exact path="/profile/edit/:id" component={EditProfile} />
@@ -41,7 +38,6 @@ class App extends Component {
             <Route exact path="/event/edit/:eid" component={EditEvent} />
             <Route exact path="/profile/photo/:id" component={Photo}/> 
             <Route exact path="/event/courses/:course/:eid" component={Courses} />
-
           </Switch>
         </BrowserRouter>
     );

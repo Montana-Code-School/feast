@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
-// import footer from "./footer.jpg";
-// import { Link } from 'react-router-dom';
-
 
 class SignUp extends Component {
   constructor(props) {
@@ -61,7 +58,6 @@ class SignUp extends Component {
   console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
-        // console.log(res);
         
         const userLogin = {
           email: this.state.email,
@@ -100,7 +96,6 @@ class SignUp extends Component {
 
         axios.post('/api/profiles/login', userLogin)
           .then((res) => {
-            // console.log(res);
             localStorage.setItem("feastAT", res.data.id)
             this.props.history.push("/profile/" + this.state.listId)
             

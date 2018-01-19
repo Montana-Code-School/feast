@@ -26,9 +26,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div>
-        {/* googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places" */}
-       
+      <div>       
       </div>  
     );
   }  
