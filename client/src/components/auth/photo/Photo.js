@@ -98,8 +98,8 @@ class Photo extends Component {
     var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
     
     if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
-      return(
-        <div>
+      var x = ""
+      x =  <div>
           <Dropzone
             multiple={false}
             accept="image/*"
@@ -108,12 +108,12 @@ class Photo extends Component {
           </Dropzone>
           <br/>    
         </div>
-          )
+          
       }else{
-        return(
-        <img src = {pic} alt='Profile Pic'/>
-      );
-    };
+        x = <img src = {pic} alt='Profile Pic'/>
+      
+    }
+    return x;
   }
 }
 export default Photo;

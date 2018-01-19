@@ -5,7 +5,6 @@ import './CreateEvent.css'
 import Navbar from '../navbar/Navbar';
 import { geocodeByAddress} from 'react-places-autocomplete'
 
-
 const options = [
   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
   { key: 'salad', text: 'Salad', value: 'salad' },
