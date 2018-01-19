@@ -7,6 +7,7 @@ import { Header, Image, Grid, Button, Message, Card, Icon } from 'semantic-ui-re
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
 
+
 class Profile extends Component {
   constructor(props) {
     super(props);

@@ -90,18 +90,18 @@ class EditProfile extends Component {
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
         />
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
+        {/* <Image src='http://fillmurray.com/200/300' size='small' rounded centered/>
         <Grid
           textAlign='center'
           style={{ height: '100%' }}
           verticalAlign='middle'
-        > 
+        >  */}
           <Grid.Column style={{ maxWidth: 180 }}>
             <Message>
               Edit <a href=''>Image</a>
             </Message>
           </Grid.Column>
-        </Grid><br/>
+        {/* </Grid><br/> */}
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={2}>
               {/* <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
