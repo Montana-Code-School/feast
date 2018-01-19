@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import {Image, Transformation} from 'cloudinary-react';
+// import {Image} from 'cloudinary-react';
 
 const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload/';
@@ -25,7 +25,7 @@ class Photo extends Component {
       allergies: ''
           
     };
-    console.log(props)
+    // console.log(props)
   }
 
   onImageDrop(files) {
@@ -41,9 +41,9 @@ class Photo extends Component {
      .field('file', file);
 
     upload.end((err, response) => {
-      console.log(response.body.public_id)
+      // console.log(response.body.public_id)
       /////
-      console.log(this.state);
+      // console.log(this.state);
       axios.put('/api/profileLists/'+ this.props.SuperId.profileListId + '?access_token=' + localStorage.getItem("feastAT"), {
         email: this.props.SuperId.email,
         photoId: response.body.public_id,
@@ -101,31 +101,27 @@ class Photo extends Component {
         });
     }
   }
-    render() {
-      var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
-      
-      console.log(this.props.SuperId.photoId)
-        if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
-        return(
-          <div>
+  render() {
+    var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
+    // console.log(this.props.SuperId.photoId)
+    
+    if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
+      return(
+        <div>
           <Dropzone
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop.bind(this)}>
             <p>Click here to add your profile photo</p>
           </Dropzone>
-          <br/>
-         
-            
+          <br/>    
         </div>
           )
       }else{
         return(
         <img src = {pic}/>
       );
-
-
-      }
-    ;}}
-
-    export default Photo;
+    };
+  }
+}
+export default Photo;
