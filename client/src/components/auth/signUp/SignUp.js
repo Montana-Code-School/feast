@@ -24,7 +24,6 @@ class SignUp extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
   pleasefillin(){
@@ -52,10 +51,8 @@ class SignUp extends Component {
       email: this.state.email,
       password: this.state.password,
       emailVerified: true
-      
     }
     
-  console.log(event);
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
         
@@ -82,7 +79,6 @@ class SignUp extends Component {
 
         axios.post('/api/profileLists/', profileList)
         .then((res) => {
-          console.log(res);
           this.setState({
             listId: res.data.id
           })

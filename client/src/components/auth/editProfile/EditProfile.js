@@ -4,14 +4,10 @@ import { Header, Grid, Message, Button, Form } from 'semantic-ui-react';
 import "./EditProfile.css";
 import Navbar from '../../navbar/Navbar'
 
-
 class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // profile: [],
-        // email: "",
-        // password: "",
         name: "",
         street:"",
         city:"",
@@ -28,12 +24,10 @@ class EditProfile extends Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
-    console.log(this.state.phone)
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('updating')
     axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
       profileId: this.state.profileId,
       email: this.state.email,
@@ -56,7 +50,6 @@ class EditProfile extends Component {
   componentWillMount() {
     axios.get('/api/profileLists/'+ this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-      console.log(response);
       this.setState({
         email: response.data.email, 
         name: response.data.name,

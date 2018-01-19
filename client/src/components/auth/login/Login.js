@@ -93,7 +93,6 @@ class Login extends Component {
                     type='password'
                     onChange={this.handleChange}
                   />
-
                   <Button color='teal' fluid size='large'>Login</Button>
                 </Segment>
               </Form>

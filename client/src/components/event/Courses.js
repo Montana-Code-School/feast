@@ -23,9 +23,7 @@ class Courses extends Component {
   handleChange(event) {
     event.preventDefault();
     this.setState(
-      {[event.target.name]: event.target.value});
-    
-    console.log(this.state.dish);  
+      {[event.target.name]: event.target.value});    
     }
 
   handleSubmit(event) {
@@ -36,10 +34,8 @@ class Courses extends Component {
       course: this.state.course,
       eventId: this.state.eventId
     }
-    console.log(createDish);
     axios.post('/api/dishes', createDish)
     .then((response) => {
-      console.log(response)
     })
     .catch((error) => {
       console.log(error);

@@ -68,7 +68,6 @@ class Event extends Component {
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-       console.log(response);
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,

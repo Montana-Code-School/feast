@@ -49,7 +49,6 @@ class EditEvent extends Component {
       if (!test) {
         newFriendsInvite.push(this.state.friends[i])
       }
-
     }
 
     var options = newFriendsInvite.map((child) => {
@@ -81,9 +80,7 @@ class EditEvent extends Component {
   }
 
   handleChangeFriends(event,data) {
-    console.log(data.text)
     this.setState({friendsInvite: data.value});
-    console.log(this.state.friendsInvite);
   }
 
   handleChange(event) {
@@ -92,7 +89,6 @@ class EditEvent extends Component {
   
   handleSubmit(event){     
     event.preventDefault();
-    
     const editEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -109,23 +105,19 @@ class EditEvent extends Component {
 
     axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
     .then((response) => {
-      console.log(response);
       this.setState({
         eventId: response.data.id
       })
-
        this.props.history.push("/event/" + response.data.id)
     })
     .catch((error) => {
-      console.log(error);
       alert("Theme is a required field")
     });   
   }
+
     componentWillMount() {
-   
       axios.get('/api/events/' + this.props.match.params.eid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response);
         this.setState({
           date: response.data.date,
           host: response.data.host,
@@ -142,7 +134,6 @@ class EditEvent extends Component {
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
         .then((response) => {
-          console.log(response);
           this.setState({
             friends: response.data
           })
@@ -152,7 +143,6 @@ class EditEvent extends Component {
         });
         axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid)
         .then((response) => {
-          console.log(response);
           this.setState({
             friendsInvited: response.data
           })
@@ -164,13 +154,9 @@ class EditEvent extends Component {
       .catch((error) => {
         console.log(error);
       });
-
-      
   }
   
-
   render() {
-    console.log(this.state)
     const options = this.getCourses(this.state.courses)
     const friends = this.getfriends()
 

@@ -41,7 +41,6 @@ class Profile extends Component {
 
     axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
       .then((response) => {
-        console.log(response)
       })
       .catch((error) => {
       });
@@ -51,7 +50,6 @@ class Profile extends Component {
     event.preventDefault();
     this.props.history.push("/event/" + event.target.value)
   };
-
 
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
