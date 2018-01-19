@@ -25,6 +25,12 @@
     "zip": {
       "type": "string"
     },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
     "time": {
       "type": "string"
     },

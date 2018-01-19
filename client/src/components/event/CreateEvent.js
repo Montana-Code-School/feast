@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Button, Form, Header, Grid, Dropdown, Checkbox} from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
+import { geocodeByAddress} from 'react-places-autocomplete'
+
 
 const options = [
   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
@@ -36,7 +38,9 @@ class CreateEvent extends Component {
         courses: [],
         friendsInvite: [],
         allergies: [],
-        profileListId: ""
+        profileListId: "",
+        lat: "",
+        lng: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
@@ -84,6 +88,18 @@ class CreateEvent extends Component {
   handleSubmit(event){     
     event.preventDefault();
 
+    geocodeByAddress(this.state.street + this.state.city + this.state.state)
+      .then((results) => {
+        console.log(results)
+        // this.setState({
+        //   lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
+        //   lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2,
+        //   place: results[0].place_id,
+        //   location: results[0].geometry.location
+        // })
+
+      
+
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -96,9 +112,11 @@ class CreateEvent extends Component {
       profileId: this.props.match.params.hid,
       courses: this.state.courses,
       allergies: this.state.allergies,
-      profileListId: this.state.profileListId
-      
+      profileListId: this.state.profileListId,
+      lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
+      lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
     };
+
     var invite = this.addName(this.state.friendsInvite);
       console.log(invite);
 
@@ -133,7 +151,8 @@ class CreateEvent extends Component {
     .catch((error) => {
       console.log(error);
       alert("Theme is a required field")
-    });   
+    }); 
+  })  
   }
     componentWillMount() {
    

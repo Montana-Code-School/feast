@@ -26,10 +26,11 @@
     "react-cloudinary": "^0.4.1",
     "react-dropzone": "^4.2.3",
     "react-google-maps": "^9.4.1",
+    "react-places-autocomplete": "^6.0.0",
     "recompose": "^0.26.0",
     "serve-favicon": "^2.0.1",
-    "superagent": "^3.8.2",
-    "strong-error-handler": "^2.3.0"
+    "strong-error-handler": "^2.3.0",
+    "superagent": "^3.8.2"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
