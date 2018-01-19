@@ -26,7 +26,7 @@ class Courses extends Component {
     this.setState(
       {[event.target.name]: event.target.value});
     
-    console.log(this.state.dish);  
+    console.log(this.state.name);  
     }
 
   handleSubmit(event) {
@@ -71,12 +71,13 @@ class Courses extends Component {
         <Card.Content>  
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
-            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} />
+            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} value={this.state.name} />
           </Form.Group>
+          <Button color='teal'>Add Dish</Button>
         </Form>
         </Card.Content>
         </Card>  
-          <Button color='teal'>Add Dish</Button>
+          
       </div>
       </div> 
       
