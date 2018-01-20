@@ -116,7 +116,7 @@ class Profile extends Component {
 
     const eventList = this.state.events.map((event) => {
       return (
-        <div>
+        <div key='eventId'>
         <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
       <br />
       <br />
