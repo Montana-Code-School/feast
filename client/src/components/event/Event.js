@@ -17,6 +17,8 @@ import {
 import Navbar from '../navbar/Navbar';
 import party from './party.jpg';
 import two from './two.jpg';
+import Photo from '../auth/photo/Photo';
+
 // import { geocodeByAddress} from 'react-places-autocomplete'
 
 // import PlacesAutocomplete from 'react-places-autocomplete'
@@ -44,6 +46,10 @@ class Event extends Component {
       dishes: [],
       lat: "",
       lng: "",
+      photoId: "",
+      profileId: "",
+      profileListId: this.props.match.params.id
+
     };
     }
 
@@ -89,7 +95,8 @@ class Event extends Component {
         allergies: response.data.allergies, 
         courses: response.data.courses,
         lat: response.data.lat,
-        lng: response.data.lng
+        lng: response.data.lng,
+        photoId: response.data.photoId,
         
       })
 
@@ -231,9 +238,10 @@ class Event extends Component {
       />
         <Card.Group itemsPerRow={3}>
         <Card>
-        <Card.Content>
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
-        </Card.Content>  
+        <Image src = {this.state.SuperId} alt='Profile Pic'/>
+        {/* <Image src = {Photo} alt='Profile Pic'/> */}
+
+        
           <Card.Content>
             <Card.Header>
               Your Host
