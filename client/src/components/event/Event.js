@@ -5,7 +5,7 @@ import './Event.css';
 import { Header, Image, Grid, List, Button, Card, Icon, Label } from 'semantic-ui-react';
 import './Map.js';
 import {
-  withScriptjs,
+  // withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
@@ -146,14 +146,14 @@ class Event extends Component {
         containerElement: <div style={{ height: `575px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
       }),
-      withScriptjs,
+      // withScriptjs,
       withGoogleMap,
     )((props) =>
       <GoogleMap
-        defaultZoom={13}
-        defaultCenter={{ lat: 45.683, lng: -111.079 }}
+        defaultZoom={14}
+        defaultCenter={{ lat: parseFloat(this.state.lat), lng: parseFloat(this.state.lng) }}
       >
-        <Marker position={{ lat: this.state.lat, lng: this.state.lng }} onClick={props.onMarkerClick} />
+        <Marker position={{ lat: parseFloat(this.state.lat), lng: parseFloat(this.state.lng) }} onClick={props.onMarkerClick} />
       </GoogleMap>
     );
 

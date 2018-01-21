@@ -15,6 +15,7 @@ class ProfileList extends Component {
     profileId: props.match.params.pid,
     friends: []
     };
+    // console.log(props.match.params.pid)
     this.handleChange = this.handleChange.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
   }
