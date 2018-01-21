@@ -4,7 +4,6 @@ import { Header, Form, Button, Card } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 import './Courses.css';
 
-
 class Courses extends Component {
   constructor(props) {
     super(props);
@@ -13,12 +12,10 @@ class Courses extends Component {
       course: this.props.match.params.course,
       name: "",
       servings: "",
-      profileId: ""
-        
+      profileId: ""   
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
   
   handleChange(event) {
@@ -29,7 +26,6 @@ class Courses extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    
     const createDish = {
       name: this.state.name,
       course: this.state.course,
@@ -42,7 +38,6 @@ class Courses extends Component {
       console.log(error);
     });
     this.props.history.push("/event/" + this.state.eventId)
-
     }
 
     componentWillMount() {
@@ -81,11 +76,9 @@ class Courses extends Component {
           <Button color='teal'>Add Dish</Button>
         </Form>
         </Card.Content>
-        </Card>  
-          
+        </Card>        
       </div>
-      </div> 
-      
+      </div>    
     );
   }
 }

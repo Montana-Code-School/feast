@@ -15,7 +15,6 @@ class ProfileList extends Component {
     profileId: props.match.params.pid,
     friends: []
     };
-    // console.log(props.match.params.pid)
     this.handleChange = this.handleChange.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
   }
@@ -39,7 +38,6 @@ class ProfileList extends Component {
       }
     }
     return false;
-
   }
 
   handleSubmit(event) {
@@ -47,33 +45,27 @@ class ProfileList extends Component {
     axios.get('/api/profileLists/findOne?filter[where][email]=' + this.state.friendEmail + '&access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
        var friendFound = this.lookingForFriendId(response);
-
         if(friendFound){
           alert("You have already added this friend") 
         } else if(response.data.id === this.state.profileId) {
           alert("You cannot add yourself as a friend")
         } else {
-
-
           this.setState({
             friendId: response.data.id,
             friendName: response.data.name,
             friendAllergies: response.data.allergies
           })
-          
           const createFriendship = {
             profileId: this.props.match.params.pid,
             friendId: this.state.friendId,
             friendName: this.state.friendName,
             friendAllergies: this.state.friendAllergies
           }
-        
           axios.post('/api/friends', createFriendship)
           .then((response) => {
             window.location = "/friends/list/" + this.props.match.params.pid;
           })
           .catch((error) => {
-           
             console.log(error);
           });
         }

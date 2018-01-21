@@ -7,7 +7,6 @@ import { Header, Button, Card, Icon } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +68,6 @@ class Profile extends Component {
             allergies: response.data.allergies,
             photoId: response.data.photoId,
             profileId: response.data.profileId
-          
           })
         })
         .catch((error) => {
@@ -139,6 +137,7 @@ class Profile extends Component {
         </div>
       )
     })
+
     return (
       <div>
         <div id="profile-overlay"></div>
@@ -224,7 +223,6 @@ class Profile extends Component {
             </Card.Content>
           </Card>
         </CardGroup>
- 
       </div>
       </div>
     );

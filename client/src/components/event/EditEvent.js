@@ -40,10 +40,8 @@ class EditEvent extends Component {
     var f = this.state.friends;
     for (var i = 0; i < idList.length; i++) {
       var id = idList[i];
-
       for (var j = 0; j < f.length; j++) {
         var friendId = f[j].friendId;
-
         if (id === friendId) {
           var adding = [id,f[j].friendName,f[j].friendAllergies];
           twoD.push(adding);
@@ -53,7 +51,6 @@ class EditEvent extends Component {
     }
     return twoD;
   }
-
 
   checkFriend (friend) {
     for ( var j = 0; j < this.state.friendsInvited.length; j++) {
@@ -99,8 +96,7 @@ class EditEvent extends Component {
   }
 
   handleChangeCourses(event,data) {
-    this.setState({newCourses: data.value});
-    
+    this.setState({newCourses: data.value});  
   }
 
   handleChangeFriends(event,data) {
@@ -111,14 +107,10 @@ class EditEvent extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
- 
   handleSubmit(event){     
     event.preventDefault();
-
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
-      .then((results) => {
-        // console.log(results)
-  
+      .then((results) => {  
         const editEvent = {
           host: this.state.host,
           street: this.state.street,
@@ -133,23 +125,17 @@ class EditEvent extends Component {
           profileListId: this.state.profileListId,
           profileId: this.state.profileId,
           lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-          lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
-          
-          
+          lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2      
         };
         var invite = this.addName(this.state.friendsInvite);
-        //   console.log(invite);
 
         axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
         .then((response) => {
-          // console.log(this.state.friendsInvite);
           this.setState({
             eventId: response.data.id
           })
 
-
-          for (var i = 0; i < invite.length; i++) {
-            
+          for (var i = 0; i < invite.length; i++) {  
             const createInvite = {
               eventId: this.state.eventId,
               inviteProfileId: invite[i][0],
@@ -159,7 +145,6 @@ class EditEvent extends Component {
             }
             axios.post('/api/invites', createInvite)
             .then((response) => {
-              console.log(response)
             })
             .catch((error) => {
               console.log(error);
@@ -245,8 +230,7 @@ class EditEvent extends Component {
             <Form.Input type="text" label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
             <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
             <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
-          </Form.Group>
-        
+          </Form.Group>    
         <Grid columns={2} stackable divided>
           <Grid.Row> 
             <Grid.Column>
@@ -265,10 +249,6 @@ class EditEvent extends Component {
       </div>
     );
   }
-
-
 }
-
-
 
 export default EditEvent;

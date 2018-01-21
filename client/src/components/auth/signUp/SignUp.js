@@ -18,7 +18,6 @@ class SignUp extends Component {
       allergies: "",
       profileId: "",
       listId: ""
-
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -45,7 +44,6 @@ class SignUp extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (!this.pleasefillin()) {
-
     } else {
     const userSignUp = {
       email: this.state.email,
@@ -55,16 +53,13 @@ class SignUp extends Component {
     
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
-        
         const userLogin = {
           email: this.state.email,
-          password: this.state.password
-          
+          password: this.state.password  
         }
         this.setState({
           profileId: res.data.id
         })
-
         const profileList = {
           name: this.state.name,
           street: this.state.street,
@@ -81,20 +76,17 @@ class SignUp extends Component {
         .then((res) => {
           this.setState({
             listId: res.data.id
-          })
-          
+          })  
         })
         .catch((error) => {
           alert('Invalid Email or Password')
           console.log(error);
         })
 
-
         axios.post('/api/profiles/login', userLogin)
           .then((res) => {
             localStorage.setItem("feastAT", res.data.id)
-            this.props.history.push("/profile/" + this.state.listId)
-            
+            this.props.history.push("/profile/" + this.state.listId)  
           })
           .catch((error) => {
             alert('Invalid Email or Password')
@@ -159,7 +151,5 @@ class SignUp extends Component {
     );
   }
 }
-
-
 
 export default SignUp;

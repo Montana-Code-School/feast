@@ -126,19 +126,16 @@ class CreateEvent extends Component {
   })  
   }
     componentWillMount() {
-   
       axios.get('/api/profileLists/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        this.setState({
-          
+        this.setState({   
           host: response.data.name,
           street: response.data.street,
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
           profileId: response.data.id,
-          profileListId: response.data.id
-          
+          profileListId: response.data.id      
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.id)
       .then((response) => {
@@ -156,7 +153,6 @@ class CreateEvent extends Component {
   }
   
   render() {
-
     const friendsList = this.state.friends.map((friend) => {
       return(
        {key: friend.friendId, text: friend.friendName, value: friend.friendId}       
@@ -189,7 +185,6 @@ class CreateEvent extends Component {
             <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
             <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
-        
         <Grid columns={2} stackable divided>
           <Grid.Row> 
             <Grid.Column>
@@ -208,10 +203,6 @@ class CreateEvent extends Component {
       </div>
     );
   }
-
-
 }
-
-
 
 export default CreateEvent;

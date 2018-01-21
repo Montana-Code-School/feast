@@ -3,8 +3,6 @@ import "./Login.css";
 import axios from 'axios';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
-
-
 class Login extends Component {
   constructor(props) {
     super(props);
