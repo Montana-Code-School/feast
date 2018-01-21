@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card, Icon } from 'semantic-ui-react';
+import { Header, Image, Grid, List, Button, Card, Icon, Label } from 'semantic-ui-react';
 import './Map.js';
 import {
   withScriptjs,
@@ -178,7 +178,12 @@ class Event extends Component {
     const coursesList = this.state.courses.map((course) => {
       return(
         <div key={course}> 
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
+          <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}>
+            <Button color='teal'>
+              <Icon name='cocktail'/>
+              Add {course}
+            </Button></Link>
+          </Button>  
           <br/>
           <br/>
         </div>
