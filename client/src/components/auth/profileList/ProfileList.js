@@ -16,13 +16,13 @@ class ProfileList extends Component {
     profileId: props.match.params.pid,
     friends: []
     };
-    console.log(props.match.params.pid)
+    // console.log(props.match.params.pid)
     this.handleChange = this.handleChange.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
   }
 
   handleChange(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value,
     friendEmail: event.target.value     
     });
@@ -49,7 +49,7 @@ class ProfileList extends Component {
     event.preventDefault();
     axios.get('/api/profileLists/findOne?filter[where][email]=' + this.state.friendEmail + '&access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-       console.log(response);
+      //  console.log(response);
        var friendFound = this.lookingForFriendId(response);
 
         if(friendFound){
@@ -72,11 +72,11 @@ class ProfileList extends Component {
             friendAllergies: this.state.friendAllergies
           }
     
-          console.log(createFriendship);
+          // console.log(createFriendship);
     
           axios.post('/api/friends', createFriendship)
           .then((response) => {
-            console.log(response);
+            // console.log(response);
             window.location = "/friends/list/" + this.props.match.params.pid;
            
             // this.props.history.push("/friends/list/" + this.props.match.params.pid)        
@@ -96,7 +96,7 @@ class ProfileList extends Component {
     axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.pid)
       .then((response) => {
         //console.log(this.props.match.params.pid)
-        console.log(response.data)
+        // console.log(response.data)
         this.setState({
           friends: response.data
         })

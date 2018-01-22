@@ -4,15 +4,8 @@ import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
 //import { Link } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
 import './EditEvent.css';
+import { geocodeByAddress} from 'react-places-autocomplete'
 
-// const options = [
-//   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
-//   { key: 'salad', text: 'Salad', value: 'salad' },
-//   { key: 'soup', text: 'Soup', value: 'soup' },
-//   { key: 'entree', text: 'Entree', value: 'entree' },
-//   { key: 'dessert', text: 'Dessert', value: 'dessert' },
-//   { key: 'drinks', text: 'Drinks', value: 'drinks' }
-// ]
 
 class EditEvent extends Component {
   constructor(props) {
@@ -30,35 +23,39 @@ class EditEvent extends Component {
       id: '',
       friends: [],
       friendsInvited: [],
+      friendsInvite: [],
       allergies: [],
       allCourses: ["appetizer", "salad", "soup", "entree", "dessert", "drinks"],
       newCourse: [],
       profileListId: "",
-      profileId: ""
+      profileId: "",
+      lat: "",
+      lng: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
     this.handleChangeFriends = this.handleChangeFriends.bind(this);
   }
 
-  // addName(idList) {
-  //   var twoD = [];
-  //   var f = this.state.friends;
-  //   for (var i = 0; i < idList.length; i++) {
-  //     var id = idList[i];
+  addName(idList) {
+    var twoD = [];
+    var f = this.state.friends;
+    for (var i = 0; i < idList.length; i++) {
+      var id = idList[i];
 
-  //     for (var j = 0; j < f.length; j++) {
-  //       var friendId = f[j].friendId;
+      for (var j = 0; j < f.length; j++) {
+        var friendId = f[j].friendId;
 
-  //       if (id === friendId) {
-  //         var adding = [id,f[j].friendName,f[j].friendAllergies];
-  //         twoD.push(adding);
-  //         this.state.allergies.push(f[j].friendAllergies);
-  //       }
-  //     }
-  //   }
-  //   return twoD;
-  // }
+        if (id === friendId) {
+          var adding = [id,f[j].friendName,f[j].friendAllergies];
+          twoD.push(adding);
+          this.state.allergies.push(f[j].friendAllergies);
+        }
+      }
+    }
+    return twoD;
+  }
+
 
   checkFriend (friend) {
     for ( var j = 0; j < this.state.friendsInvited.length; j++) {
@@ -83,7 +80,7 @@ class EditEvent extends Component {
 
     var options = newFriendsInvite.map((child) => {
       return (
-        {key: child.friendName, text: child.friendName.charAt(0).toUpperCase() + child.friendName.slice(1), value: child.friendName }
+        {key: child.friendId, text: child.friendName.charAt(0).toUpperCase() + child.friendName.slice(1), value: child.friendId }
       )
     })
     return options;
@@ -105,19 +102,15 @@ class EditEvent extends Component {
     return options;
   }
 
-  
-
- 
-
   handleChangeCourses(event,data) {
     this.setState({newCourses: data.value});
     
   }
 
   handleChangeFriends(event,data) {
-    console.log(data.text)
+    // console.log(data.text)
     this.setState({friendsInvite: data.value});
-    console.log(this.state.friendsInvite);
+    // console.log(this.state.friendsInvite);
   }
 
   handleChange(event) {
@@ -125,63 +118,72 @@ class EditEvent extends Component {
   }
 
  
-  
   handleSubmit(event){     
     event.preventDefault();
-    
-    const editEvent = {
-      host: this.state.host,
-      street: this.state.street,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip,
-      time: this.state.time,
-      date: this.state.date,
-      theme: this.state.theme,
-      courses: this.state.courses.concat(this.state.newCourses),
-      allergies: this.state.allergies
-      
-    };
-    // var invite = this.addName(this.state.friendsInvite);
-    //   console.log(invite);
 
-    axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
-    .then((response) => {
-      console.log(response);
-      this.setState({
-        eventId: response.data.id
-      })
+    geocodeByAddress(this.state.street + this.state.city + this.state.state)
+      .then((results) => {
+        // console.log(results)
+  
+        const editEvent = {
+          host: this.state.host,
+          street: this.state.street,
+          city: this.state.city,
+          state: this.state.state,
+          zip: this.state.zip,
+          time: this.state.time,
+          date: this.state.date,
+          theme: this.state.theme,
+          courses: this.state.courses.concat(this.state.newCourses),
+          allergies: this.state.allergies,
+          profileListId: this.state.profileListId,
+          profileId: this.state.profileId,
+          lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
+          lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
+          
+          
+        };
+        var invite = this.addName(this.state.friendsInvite);
+        //   console.log(invite);
+
+        axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
+        .then((response) => {
+          // console.log(this.state.friendsInvite);
+          this.setState({
+            eventId: response.data.id
+          })
 
 
-      // for (var i = 0; i < invite.length; i++) {
-        
-      //   const createInvite = {
-      //     eventId: this.state.eventId,
-      //     inviteProfileId: invite[i][0],
-      //     inviteName: invite[i][1],
-      //     hostName: this.state.host,
-      //     theme: this.state.theme
-      //   }
-      //   axios.post('/api/invites', createInvite)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });      
-      // }
-       this.props.history.push("/event/" + response.data.id)
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("Theme is a required field")
-    });   
+          for (var i = 0; i < invite.length; i++) {
+            
+            const createInvite = {
+              eventId: this.state.eventId,
+              inviteProfileId: invite[i][0],
+              inviteName: invite[i][1],
+              hostName: this.state.host,
+              theme: this.state.theme
+            }
+            axios.post('/api/invites', createInvite)
+            .then((response) => {
+              console.log(response)
+            })
+            .catch((error) => {
+              console.log(error);
+            });      
+          }
+          this.props.history.push("/event/" + this.props.match.params.eid)
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Theme is a required field")
+        });
+    })    
   }
     componentWillMount() {
    
       axios.get('/api/events/' + this.props.match.params.eid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           date: response.data.date,
           host: response.data.host,
@@ -193,12 +195,14 @@ class EditEvent extends Component {
           courses: response.data.courses,
           dishes: response.data.dishes,
           id: response.data.id,
-          profileListId: response.data.profileIdList,
-          profileId: response.data.profileId          
+          profileListId: response.data.profileListId,
+          profileId: response.data.profileId,
+          lat: response.data.lat,
+          lng: response.data.lng          
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.setState({
             friends: response.data
           })
@@ -208,7 +212,7 @@ class EditEvent extends Component {
         });
         axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.setState({
             friendsInvited: response.data
           })
@@ -226,17 +230,10 @@ class EditEvent extends Component {
   
 
   render() {
-    console.log(this.state)
     const options = this.getCourses(this.state.courses)
     const friends = this.getfriends()
 
-    // const friendsList = this.state.friends.map((friend) => {
-    //   return(
-    //    {key: friend.friendId, text: friend.friendName, value: friend.friendId}
-    //     // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
-       
-    //   )
-    // })
+   
     return (
       <div>
       <div id='editEvent-overlay'></div>

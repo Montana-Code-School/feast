@@ -13,7 +13,8 @@ class Courses extends Component {
       eventId: this.props.match.params.eid, 
       course: this.props.match.params.course,
       name: "",
-      servings: ""
+      servings: "",
+      profileId: ""
         
     };
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +27,7 @@ class Courses extends Component {
     this.setState(
       {[event.target.name]: event.target.value});
     
-    console.log(this.state.dish);  
+    console.log(this.state);  
     }
 
   handleSubmit(event) {
@@ -49,9 +50,18 @@ class Courses extends Component {
 
     }
 
-  //   componentWillMount() {
-  //
-  // }
+    componentWillMount() {
+      axios.get('/api/events/' + this.props.match.params.eid)
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          profileId: response.data.profileListId,        
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    } 
 
   render() {
     return (
@@ -71,12 +81,13 @@ class Courses extends Component {
         <Card.Content>  
         <Form onSubmit={(e) => this.handleSubmit(e)}>
           <Form.Group unstackable widths={1}>
-            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} />
+            <Form.Input label={this.props.match.params.course.toUpperCase()} placeholder='Add To The FEAST' name="name" onChange={this.handleChange} value={this.state.name} />
           </Form.Group>
+          <Button color='teal'>Add Dish</Button>
         </Form>
         </Card.Content>
         </Card>  
-          <Button color='teal'>Add Dish</Button>
+          
       </div>
       </div> 
       
