@@ -129,7 +129,7 @@ class Profile extends Component {
       return (
         <div key={invite.id}>
           <h4>{invite.theme}</h4>
-          <Button.Group>
+          <Button.Group vertical>
           <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
           <Button.Or />
           <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
@@ -160,10 +160,16 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-     <div className="container" align='center'>  
+     <div className="container" align='center'> 
+     <Card>
+       <Card.Content> 
      <Photo SuperId = {this.state}/>  
+      </Card.Content>
+    </Card>  
+    <br/>
+    <br/>
      </div>
-        <CardGroup itemsPerRow='4'>
+        <CardGroup itemsPerRow='5'>
           <Card>
             <Card.Content>
               <Card.Header>
@@ -222,6 +228,15 @@ class Profile extends Component {
               {inviteList}
             </Card.Content>
           </Card>
+          <Card>
+            <Card.Content>
+            <Card.Header>
+              Events You Are Attending! 
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            </Card.Content>  
+          </Card>     
         </CardGroup>
       </div>
       </div>
