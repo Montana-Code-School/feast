@@ -257,20 +257,27 @@ class Event extends Component {
         </Card.Group>
         </div>
         <div id='grid'>
-        <Grid columns={3} divided>
+        <Grid columns='equal'>
           <Grid.Row> 
             <Grid.Column>
               <List>
                 <List.Item>
                 <Card>
                   <Card.Content>
-                  <h4>COURSES</h4>
+                    <Card.Header>
+                      COURSES
+                    </Card.Header>  
                   </Card.Content>
                     <Card.Content>
                   {coursesList}
                     </Card.Content>
                   </Card>
                   <Card>
+                    <Card.Content>
+                    <Card.Header>
+                      WE ALREADY HAVE...
+                    </Card.Header>  
+                    </Card.Content>
                     <Card.Content>  
                   {dishesList}
                     </Card.Content>
@@ -281,15 +288,17 @@ class Event extends Component {
             <Grid.Column>
               <Card>
                 <Card.Content>
-              <h4>GUESTS</h4>
+                <Card.Header>
+                  GUEST
+                </Card.Header>  
                 </Card.Content> 
-                <Card.Content>
+                <Card.Content as='h4'>
                   We're Coming To The FEAST
                 </Card.Content> 
                 <Card.Content>   
                   {accept}
                 </Card.Content>
-                <Card.Content>
+                <Card.Content as='h4'>
                   We Can Not Make It To The FEAST
                 </Card.Content> 
                 <Card.Content> 
@@ -300,7 +309,9 @@ class Event extends Component {
             <Grid.Column>
               <Card>
               <Card.Content>
-              <h4>ALLERGIES</h4>
+              <Card.Header>
+                ALLERGIES
+              </Card.Header>  
               </Card.Content>
               <Card.Content>
               {allergyList}

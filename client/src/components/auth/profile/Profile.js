@@ -118,7 +118,7 @@ class Profile extends Component {
     const eventList = this.state.events.map((event) => {
       return (
         <div key={event.id}>
-        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
+        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button><Button><Icon name='delete'/></Button>
       <br />
       <br />
       </div>
@@ -234,6 +234,10 @@ class Profile extends Component {
               Events You Are Attending! 
             </Card.Header>
             </Card.Content>
+            <Button.Group vertical>
+            <Link to=''></Link>
+            <Button onClick={this.handleClickEvent} color='purple'><Icon name='birthday'/>Event</Button>
+            </Button.Group>
             <Card.Content>
             </Card.Content>  
           </Card>     
