@@ -38,7 +38,9 @@ class Profile extends Component {
       eventId: event.target.dataset.event,
       inviteProfileId: event.target.dataset.profile,
       inviteName: event.target.dataset.name,
-      rsvp: event.target.name
+      rsvp: event.target.name,
+      hostName: event.target.dataset.host,
+      theme: event.target.dataset.theme
     }
 
     axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
@@ -101,8 +103,9 @@ class Profile extends Component {
       .catch((error) => {
       });
 
-    axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id + '&filter[where][rsvp]=invited')
+    axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id)
       .then((response) => {
+        console.log(response)
         this.setState({
           invites: response.data
         })
@@ -130,18 +133,49 @@ class Profile extends Component {
       )
     })
 
-    const inviteList = this.state.invites.map((invite) => {
-      return (
-        <div key={invite.id}>
-          <h4>{invite.theme}</h4>
-          <Button.Group>
-          <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
-          <Button.Or />
-          <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
-          </Button.Group>
+    const acceptedList = this.state.invites.map((accept) => {
+      if (accept.rsvp === 'accepted') {
+        var output = 
+        <div key={accept.id}>
+          <Link to={'/event/' + accept.eventId}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
         </div>
+      }
+      return (
+        output
       )
     })
+
+    const inviteList = this.state.invites.map((invite) => {
+      if (invite.rsvp === 'invited') {
+        var output = <div key={invite.id}>
+        <h4>{invite.theme}</h4>
+        <Button.Group>
+        <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
+        <Button.Or />
+        <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
+        </Button.Group>
+      </div>
+
+      }
+        return (
+          output
+        )
+    
+    })
+
+
+    // const inviteList = this.state.invites.map((invite) => {
+    //   return (
+    //     <div key={invite.id}>
+    //       <h4>{invite.theme}</h4>
+    //       <Button.Group>
+    //       <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
+    //       <Button.Or />
+    //       <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
+    //       </Button.Group>
+    //     </div>
+    //   )
+    // })
     return (
       <div>
         <div id="profile-overlay"></div>
@@ -224,6 +258,7 @@ class Profile extends Component {
             </Card.Content> 
             <Card.Content> 
               {inviteList}
+              {acceptedList}
             </Card.Content>
           </Card>
         </CardGroup>
