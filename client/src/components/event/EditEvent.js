@@ -56,7 +56,6 @@ class EditEvent extends Component {
     return twoD;
   }
 
-
   checkFriend (friend) {
     for ( var j = 0; j < this.state.friendsInvited.length; j++) {
       var friendInvitedId = this.state.friendsInvited[j].inviteProfileId;
@@ -75,9 +74,7 @@ class EditEvent extends Component {
       if (!test) {
         newFriendsInvite.push(this.state.friends[i])
       }
-
     }
-
     var options = newFriendsInvite.map((child) => {
       return (
         {key: child.friendId, text: child.friendName.charAt(0).toUpperCase() + child.friendName.slice(1), value: child.friendId }
@@ -85,8 +82,6 @@ class EditEvent extends Component {
     })
     return options;
   }
-
-
   getCourses(courses) {
     var newCourses = [];
     for (var i = 0; i < this.state.allCourses.length; i++) {
@@ -104,27 +99,21 @@ class EditEvent extends Component {
 
   handleChangeCourses(event,data) {
     this.setState({newCourses: data.value});
-    
   }
 
   handleChangeFriends(event,data) {
-    // console.log(data.text)
     this.setState({friendsInvite: data.value});
-    // console.log(this.state.friendsInvite);
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
   }
 
- 
   handleSubmit(event){     
     event.preventDefault();
 
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
-      .then((results) => {
-        // console.log(results)
-  
+      .then((results) => {  
         const editEvent = {
           host: this.state.host,
           street: this.state.street,
@@ -140,19 +129,13 @@ class EditEvent extends Component {
           profileId: this.state.profileId,
           lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
           lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
-          
-          
         };
         var invite = this.addName(this.state.friendsInvite);
-        //   console.log(invite);
-
         axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
         .then((response) => {
-          // console.log(this.state.friendsInvite);
           this.setState({
             eventId: response.data.id
           })
-
 
           for (var i = 0; i < invite.length; i++) {
             
@@ -165,7 +148,6 @@ class EditEvent extends Component {
             }
             axios.post('/api/invites', createInvite)
             .then((response) => {
-              console.log(response)
             })
             .catch((error) => {
               console.log(error);
@@ -183,7 +165,6 @@ class EditEvent extends Component {
    
       axios.get('/api/events/' + this.props.match.params.eid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        // console.log(response);
         this.setState({
           date: response.data.date,
           host: response.data.host,
@@ -198,11 +179,11 @@ class EditEvent extends Component {
           profileListId: response.data.profileListId,
           profileId: response.data.profileId,
           lat: response.data.lat,
-          lng: response.data.lng          
+          lng: response.data.lng,
+          allergies: response.data.allergies          
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
         .then((response) => {
-          // console.log(response);
           this.setState({
             friends: response.data
           })
@@ -212,7 +193,6 @@ class EditEvent extends Component {
         });
         axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid)
         .then((response) => {
-          // console.log(response);
           this.setState({
             friendsInvited: response.data
           })
@@ -223,12 +203,9 @@ class EditEvent extends Component {
       })
       .catch((error) => {
         console.log(error);
-      });
-
-      
+      }); 
   }
   
-
   render() {
     const options = this.getCourses(this.state.courses)
     const friends = this.getfriends()
