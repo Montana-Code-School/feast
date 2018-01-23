@@ -30,11 +30,13 @@ class EditEvent extends Component {
       profileListId: "",
       profileId: "",
       lat: "",
-      lng: ""
+      lng: "",
+      deleteInvites: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
     this.handleChangeFriends = this.handleChangeFriends.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   addName(idList) {
@@ -97,6 +99,49 @@ class EditEvent extends Component {
     return options;
   }
 
+  handleClickDelete(event) {
+    event.preventDefault();
+    axios.delete('/api/events/' + this.state.id + '?access_token=' + localStorage.getItem("feastAT"))
+      .then((response) => {
+        console.log(response)
+
+        // axios.delete('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
+        // .then((response) => {
+        //   console.log(response)
+        //   this.props.history.push("/profile/" + this.state.profileId)
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
+
+        axios.get('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
+        .then((response) => {
+          console.log(response.data[0].id)
+         for (var i = 0; i < response.data.length; i++) {
+            axios.delete('/api/invites/' + response.data[i].id + '?access_token=' + localStorage.getItem("feastAT")) 
+              .then((response) => {
+                console.log(response)
+                // this.props.history.push("/profile/" + this.state.profileId)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+         }
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+        this.props.history.push("/profile/" + this.state.profileId)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+   
+  };
+
   handleChangeCourses(event,data) {
     this.setState({newCourses: data.value});
   }
@@ -134,6 +179,7 @@ class EditEvent extends Component {
           allergies: this.state.allergies,
           profileListId: this.state.profileListId,
           profileId: this.state.profileId,
+          id: this.state.id,
           lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
           lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
         };
@@ -172,6 +218,7 @@ class EditEvent extends Component {
    
       axios.get('/api/events/' + this.props.match.params.eid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
+        console.log(response)
         this.setState({
           date: response.data.date,
           host: response.data.host,
@@ -267,6 +314,8 @@ class EditEvent extends Component {
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
+         <Button onClick={this.handleClickDelete} type='submit' color='teal'>Delete Event</Button>
+
       </div>
       </div>
     );
