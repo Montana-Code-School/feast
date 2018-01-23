@@ -69,13 +69,10 @@ class CreateEvent extends Component {
 
   handleChangeCourses(event,data) {
     this.setState({courses: data.value});
-    console.log(this.state.courses);
   }
 
   handleChangeFriends(event,data) {
-    console.log(data.text)
     this.setState({friendsInvite: data.value});
-    console.log(this.state.friendsInvite);
   }
 
   handleChange(event) {
@@ -89,16 +86,7 @@ class CreateEvent extends Component {
 
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
       .then((results) => {
-        console.log(results)
-        // this.setState({
-        //   lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-        //   lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2,
-        //   place: results[0].place_id,
-        //   location: results[0].geometry.location
-        // })
-
-      
-
+       
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -117,16 +105,12 @@ class CreateEvent extends Component {
     };
 
     var invite = this.addName(this.state.friendsInvite);
-      console.log(invite);
 
     axios.post('/api/events/' , createEvent) 
     .then((response) => {
-      console.log(response);
       this.setState({
         eventId: response.data.id
       })
-
-      console.log(this.state.friendsInvite);
 
       for (var i = 0; i < invite.length; i++) {
         
@@ -139,7 +123,6 @@ class CreateEvent extends Component {
         }
         axios.post('/api/invites', createInvite)
         .then((response) => {
-          console.log(response)
         })
         .catch((error) => {
           console.log(error);
@@ -157,9 +140,7 @@ class CreateEvent extends Component {
    
       axios.get('/api/profileLists/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response);
         this.setState({
-          
           host: response.data.name,
           street: response.data.street,
           city: response.data.city,
@@ -167,16 +148,12 @@ class CreateEvent extends Component {
           zip: response.data.zip,
           profileId: response.data.id,
           profileListId: response.data.id
-          
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.id)
       .then((response) => {
-        console.log(response);
         this.setState({
           friends: response.data
         })
-        //console.log(this.state)
-
       })
       .catch((error) => {
         console.log(error);
@@ -194,9 +171,7 @@ class CreateEvent extends Component {
 
     const friendsList = this.state.friends.map((friend) => {
       return(
-       {key: friend.friendId, text: friend.friendName, value: friend.friendId}
-        // <Button id={friend.friendName}onClick={this.handleClick} color='purple' value={friend.friendId} key={friend.friendId}>{friend.friendName}</Button>
-       
+       {key: friend.friendId, text: friend.friendName, value: friend.friendId}       
       )
     })
     return (
@@ -235,16 +210,7 @@ class CreateEvent extends Component {
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
               <Dropdown placeholder='Friends' fluid multiple selection options={friendsList} onChange={this.handleChangeFriends} name='friends'/>
-
-              {/* <List selection onClick={this.handleClick}> */}
-                {/* {friendsList} */}
-                {/* <Button color='teal'>Invite</Button>
-              </List>  */}
             </Grid.Column>
-            {/* <Grid.Column>
-              <h4>Allergies</h4>
-              {f[j].friendAllergies}
-            </Grid.Column> */}
           </Grid.Row>
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>

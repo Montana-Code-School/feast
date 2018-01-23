@@ -45,7 +45,6 @@ class Profile extends Component {
 
     axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
       .then((response) => {
-        console.log(response)
         window.location = '/profile/' + this.props.match.params.id;
       })
       .catch((error) => {
@@ -62,7 +61,6 @@ class Profile extends Component {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
-          console.log(response)
           this.setState({
             email: response.data.email,
             name: response.data.name,
@@ -105,7 +103,6 @@ class Profile extends Component {
 
     axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id)
       .then((response) => {
-        console.log(response)
         this.setState({
           invites: response.data
         })
@@ -163,19 +160,6 @@ class Profile extends Component {
     
     })
 
-
-    // const inviteList = this.state.invites.map((invite) => {
-    //   return (
-    //     <div key={invite.id}>
-    //       <h4>{invite.theme}</h4>
-    //       <Button.Group>
-    //       <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
-    //       <Button.Or />
-    //       <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
-    //       </Button.Group>
-    //     </div>
-    //   )
-    // })
     return (
       <div>
         <div id="profile-overlay"></div>

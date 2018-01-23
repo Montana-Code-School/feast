@@ -9,9 +9,7 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // profile: [],
-        // email: "",
-        // password: "",
+        email: "",
         name: "",
         street:"",
         city:"",
@@ -28,16 +26,13 @@ class EditProfile extends Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value});
-    console.log(this.state.phone)
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('updating')
     axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
       profileId: this.state.profileId,
       email: this.state.email,
-      // password: this.state.password,
       name: this.state.name,
       street: this.state.street,
       city: this.state.city,
@@ -57,10 +52,8 @@ class EditProfile extends Component {
   componentWillMount() {
     axios.get('/api/profileLists/'+ this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-      console.log(response);
       this.setState({
         email: response.data.email, 
-        // password: response.data.password,
         name: response.data.name,
         street: response.data.street,
         city: response.data.city,
@@ -69,7 +62,7 @@ class EditProfile extends Component {
         phone: response.data.phone,
         allergies: response.data.allergies,
         listId: response.data.id,
-        profileId: response.data.id
+        profileId: response.data.profileId
       })
     })
     .catch((error) => {
