@@ -4,6 +4,8 @@ import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
 import './CreateEvent.css'
 import Navbar from '../navbar/Navbar';
 import { geocodeByAddress} from 'react-places-autocomplete'
+import swal from 'sweetalert';
+
 
 const options = [
   { key: 'appetizer', text: 'Appetizer', value: 'appetizer' },
@@ -149,7 +151,10 @@ class CreateEvent extends Component {
     })
     .catch((error) => {
       console.log(error);
-      alert("Theme is a required field")
+      // alert("Theme is a required field") // not working
+      swal({
+        text: "Theme is a Required Feild"
+      })
     }); 
   })  
   }

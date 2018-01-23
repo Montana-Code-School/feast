@@ -4,6 +4,8 @@ import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
 // import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 class SignUp extends Component {
@@ -32,15 +34,21 @@ class SignUp extends Component {
   }
   pleasefillin(){
     if(this.state.email === ''){
-      alert("Email Is A Required Feild")
+      swal({
+        text: "Email is a Required Field"
+      })
       return false;
     }
     if(this.state.password === ''){
-      alert("Password Is A Required Feild")
+      swal({
+        text: "Password is a Required Field"
+      })
       return false;
     }
     if(this.state.name === ''){
-      alert("Name Is A Required Feild")
+      swal({
+        text: "Name is a Required Field"
+      })
       return false;
     }
     return true;
@@ -93,7 +101,9 @@ class SignUp extends Component {
           
         })
         .catch((error) => {
-          alert('Invalid Email or Password')
+          swal({
+            text: "Invalid Email or Password"
+          })
           console.log(error);
         })
 
@@ -106,7 +116,9 @@ class SignUp extends Component {
             
           })
           .catch((error) => {
-            alert('Invalid Email or Password')
+            swal({
+              text: "Invalid Email or Password"
+            })
             console.log(error);
           })
 

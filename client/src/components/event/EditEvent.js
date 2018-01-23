@@ -5,6 +5,8 @@ import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 import './EditEvent.css';
 import { geocodeByAddress} from 'react-places-autocomplete'
+import swal from 'sweetalert';
+
 
 
 class EditEvent extends Component {
@@ -175,7 +177,10 @@ class EditEvent extends Component {
         })
         .catch((error) => {
           console.log(error);
-          alert("Theme is a required field")
+          // alert("Theme is a required field")
+          swal({
+            text: "Theme is a Required Feild"
+          })
         });
     })    
   }
