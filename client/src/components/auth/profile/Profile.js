@@ -150,27 +150,12 @@ class Profile extends Component {
         <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
         </Button.Group>
       </div>
-
       }
         return (
           output
         )
-    
     })
 
-
-    // const inviteList = this.state.invites.map((invite) => {
-    //   return (
-    //     <div key={invite.id}>
-    //       <h4>{invite.theme}</h4>
-    //       <Button.Group>
-    //       <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
-    //       <Button.Or />
-    //       <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} color='red'><Icon name='thumbs down'/>DECLINE</Button>
-    //       </Button.Group>
-    //     </div>
-    //   )
-    // })
     return (
       <div>
         <div id="profile-overlay"></div>
@@ -259,7 +244,6 @@ class Profile extends Component {
             </Card.Content> 
             <Card.Content> 
               {inviteList}
-              {acceptedList}
             </Card.Content>
           </Card>
           <Card>
@@ -268,10 +252,7 @@ class Profile extends Component {
               Events You Are Attending! 
             </Card.Header>
             </Card.Content>
-            <Button.Group vertical>
-            <Link to=''></Link>
-            <Button onClick={this.handleClickEvent} color='purple'><Icon name='birthday'/>Event</Button>
-            </Button.Group>
+            {acceptedList}
             <Card.Content>
             </Card.Content>  
           </Card>     
