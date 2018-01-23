@@ -53,6 +53,7 @@ class SignUp extends Component {
     
     axios.post('/api/profiles', userSignUp)
       .then((res) => {
+        
         const userLogin = {
           email: this.state.email,
           password: this.state.password  

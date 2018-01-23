@@ -42,7 +42,6 @@ class Profile extends Component {
 
     axios.put('/api/invites/' + event.target.dataset.invite, inviteRsvp)
       .then((response) => {
-        console.log(response)
         window.location = '/profile/' + this.props.match.params.id;
       })
       .catch((error) => {
@@ -58,7 +57,6 @@ class Profile extends Component {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
-          console.log(response)
           this.setState({
             email: response.data.email,
             name: response.data.name,
@@ -100,7 +98,6 @@ class Profile extends Component {
 
     axios.get('/api/invites?filter[where][inviteProfileId][like]=' + this.props.match.params.id)
       .then((response) => {
-        console.log(response)
         this.setState({
           invites: response.data
         })

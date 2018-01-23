@@ -8,6 +8,7 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        email: "",
         name: "",
         street:"",
         city:"",
@@ -60,7 +61,7 @@ class EditProfile extends Component {
         phone: response.data.phone,
         allergies: response.data.allergies,
         listId: response.data.id,
-        profileId: response.data.id
+        profileId: response.data.profileId
       })
     })
     .catch((error) => {

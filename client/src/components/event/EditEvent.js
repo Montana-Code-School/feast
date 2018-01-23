@@ -28,11 +28,13 @@ class EditEvent extends Component {
       profileListId: "",
       profileId: "",
       lat: "",
-      lng: ""
+      lng: "",
+      deleteInvites: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
     this.handleChangeFriends = this.handleChangeFriends.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   addName(idList) {
@@ -71,7 +73,6 @@ class EditEvent extends Component {
         newFriendsInvite.push(this.state.friends[i])
       }
     }
-
     var options = newFriendsInvite.map((child) => {
       return (
         {key: child.friendId, text: child.friendName.charAt(0).toUpperCase() + child.friendName.slice(1), value: child.friendId }
@@ -79,7 +80,6 @@ class EditEvent extends Component {
     })
     return options;
   }
-
   getCourses(courses) {
     var newCourses = [];
     for (var i = 0; i < this.state.allCourses.length; i++) {
@@ -94,6 +94,49 @@ class EditEvent extends Component {
     })
     return options;
   }
+
+  handleClickDelete(event) {
+    event.preventDefault();
+    axios.delete('/api/events/' + this.state.id + '?access_token=' + localStorage.getItem("feastAT"))
+      .then((response) => {
+        console.log(response)
+
+        // axios.delete('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
+        // .then((response) => {
+        //   console.log(response)
+        //   this.props.history.push("/profile/" + this.state.profileId)
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
+
+        axios.get('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
+        .then((response) => {
+          console.log(response.data[0].id)
+         for (var i = 0; i < response.data.length; i++) {
+            axios.delete('/api/invites/' + response.data[i].id + '?access_token=' + localStorage.getItem("feastAT")) 
+              .then((response) => {
+                console.log(response)
+                // this.props.history.push("/profile/" + this.state.profileId)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+         }
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+        this.props.history.push("/profile/" + this.state.profileId)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+   
+  };
 
   handleChangeCourses(event,data) {
     this.setState({newCourses: data.value});  
@@ -110,7 +153,14 @@ class EditEvent extends Component {
   handleSubmit(event){     
     event.preventDefault();
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
-      .then((results) => {  
+      .then((results) => { 
+        var finalCourses = []
+        if(this.state.newCourses === undefined) {
+          finalCourses = this.state.courses
+        } else {
+          finalCourses = this.state.courses.concat(this.state.newCourses)
+        }
+        
         const editEvent = {
           host: this.state.host,
           street: this.state.street,
@@ -120,10 +170,11 @@ class EditEvent extends Component {
           time: this.state.time,
           date: this.state.date,
           theme: this.state.theme,
-          courses: this.state.courses.concat(this.state.newCourses),
+          courses: finalCourses,
           allergies: this.state.allergies,
           profileListId: this.state.profileListId,
           profileId: this.state.profileId,
+          id: this.state.id,
           lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
           lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2      
         };
@@ -176,7 +227,8 @@ class EditEvent extends Component {
           profileListId: response.data.profileListId,
           profileId: response.data.profileId,
           lat: response.data.lat,
-          lng: response.data.lng          
+          lng: response.data.lng,
+          allergies: response.data.allergies          
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
         .then((response) => {
@@ -245,6 +297,8 @@ class EditEvent extends Component {
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
+         <Button onClick={this.handleClickDelete} type='submit' color='teal'>Delete Event</Button>
+
       </div>
       </div>
     );
