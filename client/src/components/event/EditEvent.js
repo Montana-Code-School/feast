@@ -113,7 +113,14 @@ class EditEvent extends Component {
     event.preventDefault();
 
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
-      .then((results) => {  
+      .then((results) => { 
+        var finalCourses = []
+        if(this.state.newCourses === undefined) {
+          finalCourses = this.state.courses
+        } else {
+          finalCourses = this.state.courses.concat(this.state.newCourses)
+        }
+        
         const editEvent = {
           host: this.state.host,
           street: this.state.street,
@@ -123,7 +130,7 @@ class EditEvent extends Component {
           time: this.state.time,
           date: this.state.date,
           theme: this.state.theme,
-          courses: this.state.courses.concat(this.state.newCourses),
+          courses: finalCourses,
           allergies: this.state.allergies,
           profileListId: this.state.profileListId,
           profileId: this.state.profileId,
