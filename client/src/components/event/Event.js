@@ -10,20 +10,17 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-import { 
-  compose, 
-  withProps 
+import {
+  compose,
+  withProps
 } from "recompose";
 import Navbar from '../navbar/Navbar';
 import party from './party.jpg';
 import two from './two.jpg';
+import Photo from '../auth/photo/Photo';
 // import { geocodeByAddress} from 'react-places-autocomplete'
-
 // import PlacesAutocomplete from 'react-places-autocomplete'
-
-
 // https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
-
 class Event extends Component {
   constructor(props) {
     super(props);
@@ -37,20 +34,35 @@ class Event extends Component {
       time: "",
       date: "",
       theme: "",
-      isMarkerShown: "",      
+      isMarkerShown: "",
       invites: [],
       allergies: [],
       courses: [],
       dishes: [],
       lat: "",
       lng: "",
-    };
+      photoId: "",
+      profileId: "",
+      profileListId: this.props.match.params.id,
+      
+      userModel: { name: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      phone: "",
+      allergies: "",
+      friends: [],
+      events: [],
+      invites: [],
+      photoId: "",
+      profileId: "",
+      profileListId: this.props.match.params.id}
+      };
     }
-
   componentDidMount() {
     this.delayedShowMarker()
   }
-
   allergiesornot(){
     var r = this.state.allergies.filter(function(entry) {return entry.trim() !== '';})
     // console.log(r)
@@ -60,18 +72,15 @@ class Event extends Component {
       return ['No Allergies'];
     }
   }
-
   delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
     }, 30)
   }
-  
   handleMarkerClick = () => {
     this.setState({ isMarkerShown: false })
     this.delayedShowMarker()
   }
-
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
@@ -84,18 +93,38 @@ class Event extends Component {
         zip: response.data.zip,
         time: response.data.time,
         date: response.data.date,
-        theme: response.data.theme, 
-        allergies: response.data.allergies, 
+        theme: response.data.theme,
+        allergies: response.data.allergies,
         courses: response.data.courses,
         lat: response.data.lat,
-        lng: response.data.lng
-        
+        lng: response.data.lng,
+        photoId: response.data.photoId,
       })
-
-      
-
-
-
+      if (localStorage.getItem("feastAT") !== null) {
+        axios.get('/api/profileLists/' + response.data.profileId +'?access_token=' + localStorage.getItem("feastAT"))
+          .then((response) => {
+            // console.log(response)
+            this.setState({
+              userModel:{
+                email: response.data.email,
+                name: response.data.name,
+                street: response.data.street,
+                city: response.data.city,
+                state: response.data.state,
+                zip: response.data.zip,
+                phone: response.data.phone,
+                allergies: response.data.allergies,
+                photoId: response.data.photoId,
+                profileId: response.data.profileId
+              }
+            })
+          })
+          .catch((error) => {
+            if (error.response.data.error.statusCode === 401) {
+              this.props.history.push("/")
+            }
+          });
+      }
       // geocodeByAddress(response.data.street + response.data.city + response.data.state)
       // .then((results) => {
       //   console.log(results)
@@ -105,43 +134,34 @@ class Event extends Component {
       //     place: results[0].place_id,
       //     location: results[0].geometry.location
       //   })
-
       // })
-      
       // .catch(error => console.error('Error', error))
-
     })
     .catch((error) => {
       console.log(error);
     });
-
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
       // console.log(response);
       this.setState({
-      invites: response.data      
+      invites: response.data
       })
     })
     .catch((error) => {
       console.log(error);
     });
-
     axios.get('/api/dishes?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
       // console.log(response);
       this.setState({
-      dishes: response.data      
+      dishes: response.data
       })
     })
     .catch((error) => {
       console.log(error);
     });
-
-  }  
-
+  }
   invitedPeople(status){
-    // console.log(this.state)
-
     var people = this.state.invites;
     var peoplelist = [];
     for (var i = 0; i < people.length; i++) {
@@ -152,24 +172,22 @@ class Event extends Component {
     }
     return peoplelist;
   }
-
   render() {
+    console.log(this.state)
     var accept = this.invitedPeople('accepted').map((invite) => {
       return(
-        <div key={invite}> 
-          {invite} 
+        <div key={invite}>
+          {invite}
         </div>
       )
     });
-
     var decline = this.invitedPeople('declined').map((invite) => {
       return(
-        <div key={invite}> 
-          {invite} 
+        <div key={invite}>
+          {invite}
         </div>
       )
     });
-
     const MyMapComponent = compose(
       withProps({
         loadingElement: <div style={{ height: `100%` }} />,
@@ -186,35 +204,31 @@ class Event extends Component {
         <Marker position={{ lat: parseFloat(this.state.lat), lng: parseFloat(this.state.lng) }} onClick={props.onMarkerClick} />
       </GoogleMap>
     );
-
     const dishesList = this.state.dishes.map((dish) => {
       return(
-        <div key={dish.id}> 
+        <div key={dish.id}>
           {dish.name.toUpperCase()}
           <br/>
           <br/>
         </div>
       )
     })
-
     const allergyList = this.allergiesornot().map((a) => {
       return(
-        <div key={a}> 
-          {a} 
+        <div key={a}>
+          {a}
         </div>
       )
     })
-
     const coursesList = this.state.courses.map((course) => {
       return(
-        <div key={course}> 
+        <div key={course}>
           {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
           <br/>
           <br/>
         </div>
       )
     })
- 
     // console.log(this.state.allergies)
     return (
       <div>
@@ -231,35 +245,37 @@ class Event extends Component {
         <Card.Group itemsPerRow={3}>
         <Card>
         <Card.Content>
-        <Image src='http://fillmurray.com/200/300' size='small' rounded centered />
-        </Card.Content>  
+        <div className="container" align='center'>  
+        <Photo SuperId = {this.state.userModel}/>
+        </div>
+        </Card.Content>
           <Card.Content>
             <Card.Header>
               Your Host
             </Card.Header>
             <Card.Content>
-              Host: {this.state.host} 
+              Host: {this.state.host}
             </Card.Content>
             <Card.Content>
-              Date: {this.state.date} 
-            </Card.Content> 
-            <Card.Content>
-              Time: {this.state.time} 
-            </Card.Content>
-            <Card.Content> 
-              Theme: {this.state.theme} 
-            </Card.Content>
-            <Card.Content> 
-              Street: {this.state.street} 
-            </Card.Content>
-            <Card.Content>    
-              City: {this.state.city} 
+              Date: {this.state.date}
             </Card.Content>
             <Card.Content>
-              State: {this.state.state} 
+              Time: {this.state.time}
             </Card.Content>
             <Card.Content>
-              Zip: {this.state.zip} 
+              Theme: {this.state.theme}
+            </Card.Content>
+            <Card.Content>
+              Street: {this.state.street}
+            </Card.Content>
+            <Card.Content>
+              City: {this.state.city}
+            </Card.Content>
+            <Card.Content>
+              State: {this.state.state}
+            </Card.Content>
+            <Card.Content>
+              Zip: {this.state.zip}
           </Card.Content>
           </Card.Content>
         </Card>
@@ -279,12 +295,12 @@ class Event extends Component {
           <Card.Content>
             <Image src={two}/>
           </Card.Content>
-          </Card> 
+          </Card>
         </Card.Group>
         </div>
         <div id='grid'>
         <Grid columns={3} divided>
-          <Grid.Row> 
+          <Grid.Row>
             <Grid.Column>
               <List>
                 <List.Item>
@@ -297,31 +313,31 @@ class Event extends Component {
                     </Card.Content>
                   </Card>
                   <Card>
-                    <Card.Content>  
+                    <Card.Content>
                   {dishesList}
                     </Card.Content>
-                  </Card>  
+                  </Card>
                 </List.Item>
-              </List> 
+              </List>
             </Grid.Column>
             <Grid.Column>
               <Card>
                 <Card.Content>
               <h4>GUESTS</h4>
-                </Card.Content> 
+                </Card.Content>
                 <Card.Content>
                   We're Coming To The FEAST
-                </Card.Content> 
-                <Card.Content>   
+                </Card.Content>
+                <Card.Content>
                   {accept}
                 </Card.Content>
                 <Card.Content>
                   We Can Not Make It To The FEAST
-                </Card.Content> 
-                <Card.Content> 
+                </Card.Content>
+                <Card.Content>
                   {decline}
-                </Card.Content>  
-              </Card>  
+                </Card.Content>
+              </Card>
             </Grid.Column>
             <Grid.Column>
               <Card>
@@ -343,5 +359,4 @@ class Event extends Component {
     );
   }
 }
-
 export default Event;

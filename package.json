@@ -30,7 +30,8 @@
     "recompose": "^0.26.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.3.0",
-    "superagent": "^3.8.2"
+    "superagent": "^3.8.2",
+    "sweetalert": "^2.1.0"
   },
   "devDependencies": {
     "eslint": "^3.17.1",
