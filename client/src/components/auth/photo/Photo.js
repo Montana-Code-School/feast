@@ -82,7 +82,9 @@ class Photo extends Component {
             state: response.data.state,
             zip: response.data.zip,
             phone: response.data.phone,
-            allergies: response.data.allergies
+            allergies: response.data.allergies,
+            photoId: response.data.photoId,
+            profileId: response.data.profileId
           
           })
         })

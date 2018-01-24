@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./Login.css";
 import axios from 'axios';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import swal from 'sweetalert';
 
 class Login extends Component {
   constructor(props) {
@@ -39,7 +40,9 @@ class Login extends Component {
 
       })
       .catch((error) => {
-        alert('Invalid Email or Password')
+        swal({
+          text: "Invalid Email or Password"
+        })
         console.log(error);
       })
   }
