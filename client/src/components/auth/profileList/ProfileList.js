@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button, Card, Icon } from 'semantic-ui-react';
 import './ProfileList.css';
@@ -18,17 +17,14 @@ class ProfileList extends Component {
     profileId: props.match.params.pid,
     friends: []
     };
-    // console.log(props.match.params.pid)
     this.handleChange = this.handleChange.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
   }
 
   handleChange(event) {
-    // console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value,
     friendEmail: event.target.value     
     });
-    // friendEmail = event.target.value;
   }
  
   handleClickLogout(event) {
@@ -44,16 +40,13 @@ class ProfileList extends Component {
       }
     }
     return false;
-
   }
 
   handleSubmit(event) {
     event.preventDefault();
     axios.get('/api/profileLists/findOne?filter[where][email]=' + this.state.friendEmail + '&access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-      //  console.log(response);
        var friendFound = this.lookingForFriendId(response);
-
         if(friendFound){
           swal({
             text: "You have already added this friend"
@@ -63,32 +56,22 @@ class ProfileList extends Component {
             text: "You cannot add yourself as a friend"
           })
         } else {
-
-
           this.setState({
             friendId: response.data.id,
             friendName: response.data.name,
             friendAllergies: response.data.allergies
           })
-          
           const createFriendship = {
             profileId: this.props.match.params.pid,
             friendId: this.state.friendId,
             friendName: this.state.friendName,
             friendAllergies: this.state.friendAllergies
           }
-    
-          // console.log(createFriendship);
-    
           axios.post('/api/friends', createFriendship)
           .then((response) => {
-            // console.log(response);
             window.location = "/friends/list/" + this.props.match.params.pid;
-           
-            // this.props.history.push("/friends/list/" + this.props.match.params.pid)        
           })
           .catch((error) => {
-           
             console.log(error);
           });
         }
@@ -103,8 +86,6 @@ class ProfileList extends Component {
   componentDidMount() {
     axios.get('/api/friends?filter[where][profileId][like]=' + this.props.match.params.pid)
       .then((response) => {
-        //console.log(this.props.match.params.pid)
-        // console.log(response.data)
         this.setState({
           friends: response.data
         })

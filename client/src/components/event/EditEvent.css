@@ -2,7 +2,7 @@
   background-image: url('./profile.jpg');
   background-size: cover;  
   background-position: center center;
-  position:absolute;
+  position:fixed;
   width: 100%;
   top: 0;
   bottom: 0;
@@ -12,3 +12,7 @@
 #content {
   padding: 80px;
 }
+/* #footer {
+  position: absolute;
+  bottom: 0%;
+} */

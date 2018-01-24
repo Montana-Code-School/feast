@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
-//import { Link } from 'react-router-dom';
+import { Button, Form, Header, Grid, Dropdown, Icon } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 import './EditEvent.css';
 import { geocodeByAddress} from 'react-places-autocomplete'
 import swal from 'sweetalert';
-
 
 
 class EditEvent extends Component {
@@ -46,10 +44,8 @@ class EditEvent extends Component {
     var f = this.state.friends;
     for (var i = 0; i < idList.length; i++) {
       var id = idList[i];
-
       for (var j = 0; j < f.length; j++) {
         var friendId = f[j].friendId;
-
         if (id === friendId) {
           var adding = [id,f[j].friendName,f[j].friendAllergies];
           twoD.push(adding);
@@ -114,29 +110,25 @@ class EditEvent extends Component {
             axios.delete('/api/invites/' + response.data[i].id + '?access_token=' + localStorage.getItem("feastAT")) 
               .then((response) => {
                 console.log(response)
-                // this.props.history.push("/profile/" + this.state.profileId)
               })
               .catch((error) => {
                 console.log(error);
               });
          }
-
         })
         .catch((error) => {
           console.log(error);
         });
-
 
         this.props.history.push("/profile/" + this.state.profileId)
       })
       .catch((error) => {
         console.log(error);
       });
-   
   };
 
   handleChangeCourses(event,data) {
-    this.setState({newCourses: data.value});
+    this.setState({newCourses: data.value});  
   }
 
   handleChangeFriends(event,data) {
@@ -149,7 +141,6 @@ class EditEvent extends Component {
 
   handleSubmit(event){     
     event.preventDefault();
-
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
       .then((results) => { 
         var finalCourses = []
@@ -174,17 +165,17 @@ class EditEvent extends Component {
           profileId: this.state.profileId,
           id: this.state.id,
           lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-          lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2
+          lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2      
         };
         var invite = this.addName(this.state.friendsInvite);
+
         axios.put('/api/events/' + this.props.match.params.eid , editEvent) 
         .then((response) => {
           this.setState({
             eventId: response.data.id
           })
 
-          for (var i = 0; i < invite.length; i++) {
-            
+          for (var i = 0; i < invite.length; i++) {  
             const createInvite = {
               eventId: this.state.eventId,
               inviteProfileId: invite[i][0],
@@ -210,11 +201,10 @@ class EditEvent extends Component {
         });
     })    
   }
+
     componentWillMount() {
-   
       axios.get('/api/events/' + this.props.match.params.eid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response)
         this.setState({
           date: response.data.date,
           host: response.data.host,
@@ -253,19 +243,20 @@ class EditEvent extends Component {
       })
       .catch((error) => {
         console.log(error);
-      }); 
+      });
   }
   
   render() {
     const options = this.getCourses(this.state.courses)
     const friends = this.getfriends()
 
-   
     return (
       <div>
       <div id='editEvent-overlay'></div>
         <Navbar profileId={this.props.match.params.pid}/>
         <div id='content'>
+        <br />
+        <Button onClick={this.handleClickDelete} type='submit' color='teal'><Icon name='delete'/>Delete Event</Button>
         <Header
             as='h1'
             content='EDIT EVENT'
@@ -285,8 +276,7 @@ class EditEvent extends Component {
             <Form.Input type="text" label='City'  name="city" onChange={this.handleChange} value={this.state.city}/>
             <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
             <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
-          </Form.Group>
-        
+          </Form.Group>    
         <Grid columns={2} stackable divided>
           <Grid.Row> 
             <Grid.Column>
@@ -296,30 +286,17 @@ class EditEvent extends Component {
             <Grid.Column>
               <h4>Invite Your Friends!</h4>
               <Dropdown placeholder='Friends' fluid multiple selection options={friends} onChange={this.handleChangeFriends} name='friends'/>
-
-              {/* <List selection onClick={this.handleClick}> */}
-                {/* {friendsList} */}
-                {/* <Button color='teal'>Invite</Button>
-              </List>  */}
             </Grid.Column>
-            {/* <Grid.Column>
-              <h4>Allergies</h4>
-              {f[j].friendAllergies}
-            </Grid.Column> */}
           </Grid.Row>
-        </Grid><br/>      
+        </Grid>
+        <br/>      
+        <br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
-         <Button onClick={this.handleClickDelete} type='submit' color='teal'>Delete Event</Button>
-
       </div>
       </div>
     );
   }
-
-
 }
-
-
 
 export default EditEvent;

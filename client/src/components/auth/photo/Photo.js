@@ -21,8 +21,7 @@ class Photo extends Component {
       state: '',
       zip: '',
       phone: '',
-      allergies: ''
-          
+      allergies: ''  
     };
   }
 
@@ -95,6 +94,7 @@ class Photo extends Component {
         });
     }
   }
+
   render() {
     var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
     
@@ -105,14 +105,12 @@ class Photo extends Component {
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop.bind(this)}>
-            <p>Click here to add your profile photo</p>
+            <a><p>Click here to add your profile photo</p></a>
           </Dropzone>
           <br/>    
-        </div>
-          
+        </div>    
       }else{
-        x = <img src = {pic} alt='Profile Pic'/>
-      
+        x = <img src = {pic} alt='Profile Pic'/>  
     }
     return x;
   }

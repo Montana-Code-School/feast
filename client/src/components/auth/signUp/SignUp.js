@@ -23,7 +23,6 @@ class SignUp extends Component {
       allergies: "",
       profileId: "",
       listId: ""
-
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -56,13 +55,11 @@ class SignUp extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if (!this.pleasefillin()) {
-
     } else {
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
       emailVerified: true
-      
     }
     
     axios.post('/api/profiles', userSignUp)
@@ -70,13 +67,11 @@ class SignUp extends Component {
         
         const userLogin = {
           email: this.state.email,
-          password: this.state.password
-          
+          password: this.state.password  
         }
         this.setState({
           profileId: res.data.id
         })
-
         const profileList = {
           name: this.state.name,
           street: this.state.street,
@@ -93,8 +88,7 @@ class SignUp extends Component {
         .then((res) => {
           this.setState({
             listId: res.data.id
-          })
-          
+          })  
         })
         .catch((error) => {
           swal({
@@ -103,12 +97,10 @@ class SignUp extends Component {
           console.log(error);
         })
 
-
         axios.post('/api/profiles/login', userLogin)
           .then((res) => {
             localStorage.setItem("feastAT", res.data.id)
-            this.props.history.push("/profile/" + this.state.listId)
-            
+            this.props.history.push("/profile/" + this.state.listId)  
           })
           .catch((error) => {
             swal({
@@ -175,7 +167,5 @@ class SignUp extends Component {
     );
   }
 }
-
-
 
 export default SignUp;

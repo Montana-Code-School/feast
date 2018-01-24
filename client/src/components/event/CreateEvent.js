@@ -16,7 +16,6 @@ const options = [
   { key: 'drinks', text: 'Drinks', value: 'drinks' }
 ]
 
-
 class CreateEvent extends Component {
   constructor(props) {
     super(props);
@@ -53,10 +52,8 @@ class CreateEvent extends Component {
     var f = this.state.friends;
     for (var i = 0; i < idList.length; i++) {
       var id = idList[i];
-
       for (var j = 0; j < f.length; j++) {
         var friendId = f[j].friendId;
-
         if (id === friendId) {
           var adding = [id,f[j].friendName,f[j].friendAllergies];
           twoD.push(adding);
@@ -66,8 +63,6 @@ class CreateEvent extends Component {
     }
     return twoD;
   }
-
- 
 
   handleChangeCourses(event,data) {
     this.setState({courses: data.value});
@@ -81,14 +76,11 @@ class CreateEvent extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
- 
-  
   handleSubmit(event){     
     event.preventDefault();
 
     geocodeByAddress(this.state.street + this.state.city + this.state.state)
       .then((results) => {
-       
     const createEvent = {
       host: this.state.host,
       street: this.state.street,
@@ -107,15 +99,12 @@ class CreateEvent extends Component {
     };
 
     var invite = this.addName(this.state.friendsInvite);
-
     axios.post('/api/events/' , createEvent) 
     .then((response) => {
       this.setState({
         eventId: response.data.id
       })
-
-      for (var i = 0; i < invite.length; i++) {
-        
+      for (var i = 0; i < invite.length; i++) {    
         const createInvite = {
           eventId: this.state.eventId,
           inviteProfileId: invite[i][0],
@@ -142,17 +131,16 @@ class CreateEvent extends Component {
   })  
   }
     componentWillMount() {
-   
       axios.get('/api/profileLists/' + this.props.match.params.hid + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        this.setState({
+        this.setState({   
           host: response.data.name,
           street: response.data.street,
           city: response.data.city,
           state: response.data.state,
           zip: response.data.zip,
           profileId: response.data.id,
-          profileListId: response.data.id
+          profileListId: response.data.id      
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.id)
       .then((response) => {
@@ -166,19 +154,16 @@ class CreateEvent extends Component {
       })
       .catch((error) => {
         console.log(error);
-      });
-
-      
+      });      
   }
   
-
   render() {
-
     const friendsList = this.state.friends.map((friend) => {
       return(
        {key: friend.friendId, text: friend.friendName, value: friend.friendId}       
       )
     })
+    
     return (
       <div>
         <div id='event-overlay'>
@@ -205,7 +190,6 @@ class CreateEvent extends Component {
             <Form.Input type="text" label='State'  name="state" onChange={this.handleChange} value={this.state.state}/>
             <Form.Input type="number" label='Zip'  name="zip" onChange={this.handleChange} value={this.state.zip}/>
           </Form.Group>
-        
         <Grid columns={2} stackable divided>
           <Grid.Row> 
             <Grid.Column>
@@ -224,10 +208,6 @@ class CreateEvent extends Component {
       </div>
     );
   }
-
-
 }
-
-
 
 export default CreateEvent;

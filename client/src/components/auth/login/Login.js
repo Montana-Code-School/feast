@@ -15,7 +15,6 @@ class Login extends Component {
   }
 
   handleChange(event) {
-    // console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
 
@@ -28,12 +27,10 @@ class Login extends Component {
 
     axios.post('/api/profiles/login', userLogin)
       .then((res) => {
-        // console.log(res);
         localStorage.setItem("feastAT", res.data.id)
         
         axios.get('/api/profileLists/findOne?filter[where][profileId]=' + res.data.userId +'&access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
-          // console.log(response)
           this.props.history.push("/profile/" + response.data.id)
 
         })
@@ -55,11 +52,6 @@ class Login extends Component {
       <div>
         <div id="hero-overlay"></div>
         <div className='login-form'>
-          {/*
-      Heads up! The styles below are necessary for the correct render of this example.
-      You can do same with CSS, the main idea is that all the elements up to the `Grid`
-      below must have a height of 100%.
-    */}
           <style>{`
       body > div,
       body > div > div,
@@ -102,7 +94,6 @@ class Login extends Component {
                     type='password'
                     onChange={this.handleChange}
                   />
-
                   <Button color='teal' fluid size='large'>Login</Button>
                 </Segment>
               </Form>

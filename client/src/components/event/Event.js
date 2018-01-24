@@ -5,7 +5,6 @@ import './Event.css';
 import { Header, Image, Grid, List, Button, Card, Icon } from 'semantic-ui-react';
 import './Map.js';
 import {
-  // withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
@@ -18,9 +17,7 @@ import Navbar from '../navbar/Navbar';
 import party from './party.jpg';
 import two from './two.jpg';
 import Photo from '../auth/photo/Photo';
-// import { geocodeByAddress} from 'react-places-autocomplete'
-// import PlacesAutocomplete from 'react-places-autocomplete'
-// https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
+
 class Event extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +60,6 @@ class Event extends Component {
   }
   allergiesornot(){
     var r = this.state.allergies.filter(function(entry) {return entry.trim() !== '';})
-    // console.log(r)
     if(r.length !== 0){
       return r;
     }else{
@@ -141,7 +137,6 @@ class Event extends Component {
     });
     axios.get('/api/invites?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
-      // console.log(response);
       this.setState({
       invites: response.data
       })
@@ -151,7 +146,6 @@ class Event extends Component {
     });
     axios.get('/api/dishes?filter[where][eventId][like]=' + this.props.match.params.eid )
     .then((response) => {
-      // console.log(response);
       this.setState({
       dishes: response.data
       })
@@ -159,7 +153,8 @@ class Event extends Component {
     .catch((error) => {
       console.log(error);
     });
-  }
+  }  
+
   invitedPeople(status){
     var people = this.state.invites;
     var peoplelist = [];
@@ -221,14 +216,21 @@ class Event extends Component {
     })
     const coursesList = this.state.courses.map((course) => {
       return(
-        <div key={course}> 
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
+        <div key={course}>
+            <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}>
+            <Button color='teal'>
+              <Icon name='cocktail'/>
+              Add {course}
+            </Button></Link>
+          </Button>  
+
+          {/* {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link> */}
           <br/>
           <br/>
         </div>
       )
     })
-    // console.log(this.state.allergies)
+ 
     return (
       <div>
         <div id='event-overlay'>
@@ -298,14 +300,16 @@ class Event extends Component {
         </Card.Group>
         </div>
         <div id='grid'>
-        <Grid columns={3} divided>
+        <Grid columns={3}>
           <Grid.Row>
             <Grid.Column>
               <List>
                 <List.Item>
                 <Card>
                   <Card.Content>
-                  <h4>COURSES</h4>
+                    <Card.Header>
+                      COURSES
+                    </Card.Header>  
                   </Card.Content>
                     <Card.Content>
                   {coursesList}
@@ -330,7 +334,7 @@ class Event extends Component {
                 <Card.Content>
                   {accept}
                 </Card.Content>
-                <Card.Content>
+                <Card.Content as='h4'>
                   We Can Not Make It To The FEAST
                 </Card.Content>
                 <Card.Content>
@@ -341,7 +345,9 @@ class Event extends Component {
             <Grid.Column>
               <Card>
               <Card.Content>
-              <h4>ALLERGIES</h4>
+              <Card.Header>
+                ALLERGIES
+              </Card.Header>  
               </Card.Content>
               <Card.Content>
               {allergyList}

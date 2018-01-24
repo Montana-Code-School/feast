@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-//import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, Form, Button, Card } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 import './Courses.css';
-
 
 class Courses extends Component {
   constructor(props) {
@@ -14,40 +12,37 @@ class Courses extends Component {
       course: this.props.match.params.course,
       name: "",
       servings: "",
-      profileId: ""
-        
+      profileId: ""   
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
   
   handleChange(event) {
     event.preventDefault();
     this.setState(
-      {[event.target.name]: event.target.value});
-    
-    console.log(this.state);  
+      {[event.target.name]: event.target.value});    
     }
 
   handleSubmit(event) {
     event.preventDefault();
-    
     const createDish = {
       name: this.state.name,
       course: this.state.course,
       eventId: this.state.eventId
     }
-    console.log(createDish);
     axios.post('/api/dishes', createDish)
     .then((response) => {
-      console.log(response)
     })
     .catch((error) => {
       console.log(error);
     });
+<<<<<<< HEAD
     this.props.history.push("/event/" + this.state.eventId + "/" + this.props.match.params.pid)
 
+=======
+    this.props.history.push("/event/" + this.state.eventId)
+>>>>>>> develop
     }
 
     componentWillMount() {
@@ -86,11 +81,9 @@ class Courses extends Component {
           <Button color='teal'>Add Dish</Button>
         </Form>
         </Card.Content>
-        </Card>  
-          
+        </Card>        
       </div>
-      </div> 
-      
+      </div>    
     );
   }
 }

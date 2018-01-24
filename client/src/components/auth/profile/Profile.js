@@ -7,13 +7,10 @@ import { Header, Button, Card, Icon } from 'semantic-ui-react';
 import CardGroup from 'semantic-ui-react/dist/commonjs/views/Card/CardGroup';
 import Navbar from '../../navbar/Navbar';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // email: "",
-      // password: "",
       name: "",
       street: "",
       city: "",
@@ -56,7 +53,6 @@ class Profile extends Component {
     this.props.history.push("/event/" + event.target.value + "/" + this.props.match.params.id)
   };
 
-
   componentWillMount() {
     if (localStorage.getItem("feastAT") !== null) {
       axios.get('/api/profileLists/' + this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
@@ -72,7 +68,6 @@ class Profile extends Component {
             allergies: response.data.allergies,
             photoId: response.data.photoId,
             profileId: response.data.profileId
-          
           })
         })
         .catch((error) => {
@@ -133,8 +128,15 @@ class Profile extends Component {
     const acceptedList = this.state.invites.map((accept) => {
       if (accept.rsvp === 'accepted') {
         var output = 
+<<<<<<< HEAD
         <div key={accept.id}>
           <Link to={'/event/' + accept.eventId + "/" + this.props.match.params.id}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
+=======
+        <div key={accept.id} >
+          <Link to={'/event/' + accept.eventId}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
+        <br />
+        <br />
+>>>>>>> develop
         </div>
       }
       return (
@@ -146,18 +148,16 @@ class Profile extends Component {
       if (invite.rsvp === 'invited') {
         var output = <div key={invite.id}>
         <h4>{invite.theme}</h4>
-        <Button.Group>
+        <Button.Group vertical>
         <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
         <Button.Or />
         <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
         </Button.Group>
       </div>
-
       }
         return (
           output
         )
-    
     })
 
     return (
@@ -182,10 +182,16 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-     <div className="container" align='center'>  
+     <div className="container" align='center'> 
+     <Card>
+       <Card.Content> 
      <Photo SuperId = {this.state}/>  
+      </Card.Content>
+    </Card>  
+    <br/>
+    <br/>
      </div>
-        <CardGroup itemsPerRow='4'>
+        <CardGroup itemsPerRow='5'>
           <Card>
             <Card.Content>
               <Card.Header>
@@ -242,11 +248,19 @@ class Profile extends Component {
             </Card.Content> 
             <Card.Content> 
               {inviteList}
-              {acceptedList}
             </Card.Content>
           </Card>
+          <Card>
+            <Card.Content>
+            <Card.Header>
+              Events You Are Attending! 
+            </Card.Header>
+            </Card.Content>
+            <Card.Content>
+            {acceptedList}
+            </Card.Content>  
+          </Card>     
         </CardGroup>
- 
       </div>
       </div>
     );

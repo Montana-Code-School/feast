@@ -25,7 +25,7 @@
     "react": "^16.2.0",
     "react-cloudinary": "^0.4.1",
     "react-dropzone": "^4.2.3",
-    "react-google-maps": "^9.4.1",
+    "react-google-maps": "^9.4.5",
     "react-places-autocomplete": "^6.0.0",
     "recompose": "^0.26.0",
     "serve-favicon": "^2.0.1",

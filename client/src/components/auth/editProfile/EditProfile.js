@@ -4,7 +4,6 @@ import { Header, Grid, Button, Form } from 'semantic-ui-react';
 import "./EditProfile.css";
 import Navbar from '../../navbar/Navbar'
 
-
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -112,11 +111,8 @@ removePhotoOnclick(){
           <Grid.Column style={{ maxWidth: 180 }}>
           <Button onClick = {this.removePhotoOnclick} type = 'removePicture' color='teal'>Remove Picture</Button>
           </Grid.Column>
-        {/* </Grid><br/> */}
           <Form onSubmit={(e) => this.handleSubmit(e)}>
             <Form.Group unstackable widths={2}>
-              {/* <Form.Input type='text' label='Email' name="email" onChange={this.handleChange}  value={this.state.email}/>
-              <Form.Input type='text' label='Password' name="password" onChange={this.handleChange} value={this.state.password}/> */}
               <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
             </Form.Group>
             <Form.Group widths={3}>

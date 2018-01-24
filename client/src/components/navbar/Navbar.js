@@ -3,7 +3,6 @@ import { Menu, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +14,6 @@ class Navbar extends Component {
     event.preventDefault();
     axios.post('/api/profiles/logout?access_token=' + localStorage.getItem("feastAT"))
     .then((response) => {
-     console.log(response)
     })
     .catch((error) => {
       console.log(error);
