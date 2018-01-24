@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form, Header, Grid, Dropdown } from 'semantic-ui-react';
+import { Button, Form, Header, Grid, Dropdown, Icon } from 'semantic-ui-react';
 import Navbar from '../navbar/Navbar';
 import './EditEvent.css';
 import { geocodeByAddress} from 'react-places-autocomplete'
@@ -101,15 +101,6 @@ class EditEvent extends Component {
       .then((response) => {
         console.log(response)
 
-        // axios.delete('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
-        // .then((response) => {
-        //   console.log(response)
-        //   this.props.history.push("/profile/" + this.state.profileId)
-        // })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
-
         axios.get('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
         .then((response) => {
           console.log(response.data[0].id)
@@ -117,25 +108,21 @@ class EditEvent extends Component {
             axios.delete('/api/invites/' + response.data[i].id + '?access_token=' + localStorage.getItem("feastAT")) 
               .then((response) => {
                 console.log(response)
-                // this.props.history.push("/profile/" + this.state.profileId)
               })
               .catch((error) => {
                 console.log(error);
               });
          }
-
         })
         .catch((error) => {
           console.log(error);
         });
-
 
         this.props.history.push("/profile/" + this.state.profileId)
       })
       .catch((error) => {
         console.log(error);
       });
-   
   };
 
   handleChangeCourses(event,data) {
@@ -263,6 +250,8 @@ class EditEvent extends Component {
       <div id='editEvent-overlay'></div>
         <Navbar profileId={this.state.profileId}/>
         <div id='content'>
+        <br />
+        <Button onClick={this.handleClickDelete} type='submit' color='teal'><Icon name='delete'/>Delete Event</Button>
         <Header
             as='h1'
             content='EDIT EVENT'
@@ -294,11 +283,11 @@ class EditEvent extends Component {
               <Dropdown placeholder='Friends' fluid multiple selection options={friends} onChange={this.handleChangeFriends} name='friends'/>
             </Grid.Column>
           </Grid.Row>
-        </Grid><br/>      
+        </Grid>
+        <br/>      
+        <br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
-         <br />
-         <Button onClick={this.handleClickDelete} type='submit' color='teal'>Delete Event</Button>
       </div>
       </div>
     );
