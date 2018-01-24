@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
 const CLOUDINARY_UPLOAD_PRESET = 'phhzubtc';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/mt-code-school/upload/';
+const CLOUDINARY_UPLOAD_URL = '//api.cloudinary.com/v1_1/mt-code-school/upload/';
   
 class Photo extends Component {
   constructor(props) {
@@ -96,7 +96,7 @@ class Photo extends Component {
   }
 
   render() {
-    var pic = 'https://res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
+    var pic = '//res.cloudinary.com/mt-code-school/image/upload/' + this.props.SuperId.photoId + '.jpg';
     
     if (typeof(this.props.SuperId.photoId) === "undefined" || this.props.SuperId.photoId === '') {
       var x = ""

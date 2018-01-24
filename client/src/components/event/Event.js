@@ -283,7 +283,7 @@ class Event extends Component {
         <Card>
         <Card.Content>
         <MyMapComponent
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL="//maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
           isMarkerShown={true}
           onMarkerClick={this.handleMarkerClick}
         />
