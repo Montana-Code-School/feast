@@ -128,15 +128,8 @@ class Profile extends Component {
     const acceptedList = this.state.invites.map((accept) => {
       if (accept.rsvp === 'accepted') {
         var output = 
-<<<<<<< HEAD
         <div key={accept.id}>
           <Link to={'/event/' + accept.eventId + "/" + this.props.match.params.id}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
-=======
-        <div key={accept.id} >
-          <Link to={'/event/' + accept.eventId}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
-        <br />
-        <br />
->>>>>>> develop
         </div>
       }
       return (

@@ -37,12 +37,8 @@ class Courses extends Component {
     .catch((error) => {
       console.log(error);
     });
-<<<<<<< HEAD
     this.props.history.push("/event/" + this.state.eventId + "/" + this.props.match.params.pid)
 
-=======
-    this.props.history.push("/event/" + this.state.eventId)
->>>>>>> develop
     }
 
     componentWillMount() {

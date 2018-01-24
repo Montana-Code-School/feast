@@ -37,12 +37,8 @@ class App extends Component {
             <Route exact path="/event/:eid/:pid" component={Event} />
             <Route exact path="/event/edit/:eid/:pid" component={EditEvent} />
             <Route exact path="/profile/photo/:id" component={Photo}/> 
-<<<<<<< HEAD
             <Route exact path="/event/courses/:course/:eid/:pid" component={Courses} />
 
-=======
-            <Route exact path="/event/courses/:course/:eid" component={Courses} />
->>>>>>> develop
           </Switch>
         </BrowserRouter>
     );
