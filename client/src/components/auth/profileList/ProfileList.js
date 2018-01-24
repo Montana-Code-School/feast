@@ -69,7 +69,7 @@ class ProfileList extends Component {
           }
           axios.post('/api/friends', createFriendship)
           .then((response) => {
-            window.location = "/friends/list/" + this.props.match.params.pid;
+            window.location = "friends/list/" + this.props.match.params.pid;
           })
           .catch((error) => {
             console.log(error);
