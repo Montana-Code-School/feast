@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Header, Grid, Message, Button, Form } from 'semantic-ui-react';
+import { Header, Grid, Button, Form } from 'semantic-ui-react';
 import "./EditProfile.css";
 import Navbar from '../../navbar/Navbar'
 

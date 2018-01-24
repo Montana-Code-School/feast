@@ -70,7 +70,7 @@ class Photo extends Component {
   }
 
   componentWillMount() {
-    if (localStorage.getItem("feastAT") !== null) {
+    if (this.props.SuperId.profileListId) {
       axios.get('/api/profileLists/' + this.props.SuperId.profileListId + '?access_token=' + localStorage.getItem("feastAT"))
         .then((response) => {
           this.setState({
@@ -84,7 +84,6 @@ class Photo extends Component {
             zip: response.data.zip,
             phone: response.data.phone,
             allergies: response.data.allergies,
-            photoId: response.data.photoId,
             profileId: response.data.profileId
           
           })
