@@ -217,12 +217,14 @@ class Event extends Component {
     const coursesList = this.state.courses.map((course) => {
       return(
         <div key={course}>
-            <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}>
+            <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid + "/" + this.props.match.params.pid}>
             <Button color='teal'>
               <Icon name='cocktail'/>
               Add {course}
             </Button></Link>
           </Button>  
+
+          
 
           {/* {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link> */}
           <br/>
