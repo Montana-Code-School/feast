@@ -1,6 +1,6 @@
 {
   "name": "profile",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -13,38 +13,24 @@
     "password": {
       "type": "string",
       "required": true
-    },
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "street": {
-      "type": "string"
-    },
-    "city": {
-      "type": "string"
-    },
-    "state": {
-      "type": "string"
-    },
-    "zipcode": {
-      "type": "string"
-    },
-    "allergies": {
-      "type": "string"
-    },
-    "tools": {
-      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "events": {
-      "type": "hasMany",
-      "model": "events",
+    "profileLists": {
+      "type": "hasOne",
+      "model": "profileList",
       "foreignKey": ""
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "findOne"
+    }
+  ],
   "methods": {}
 }

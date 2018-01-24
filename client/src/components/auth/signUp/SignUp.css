@@ -1,15 +1,14 @@
 #signup-overlay {
-  background-image: url('./two.jpg');
+  background-image: url('./profile.jpg');
   background-size: cover;  
   background-position: center center;
-  position:absolute;
+  position:fixed;
   width: 100%;
   top: 0;
   bottom: 0;
   height: 100vh;
   z-index: -10;
 }
-form{
-  position:relative;
-  z-index: 0;  
+#content{
+  padding: 80px;
 }

@@ -1,0 +1,21 @@
+#profile-overlay {
+  background-image: url('./profile.jpg');
+  background-size: cover;
+  background-position: center center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  height: 120vh;
+  z-index: -10;
+}
+#form{
+  position: relative;
+  z-index: 0;  
+}
+#content {
+  padding: 80px
+}
+#card {
+  top: auto;
+}

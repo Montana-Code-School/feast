@@ -10,6 +10,9 @@
       "type": "string",
       "required": true
     },
+    "profileListId": {
+      "type": "string"
+    },
     "street": {
       "type": "string"
     },
@@ -22,6 +25,12 @@
     "zip": {
       "type": "string"
     },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
     "time": {
       "type": "string"
     },
@@ -29,11 +38,34 @@
       "type": "string"
     },
     "theme": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "courses": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "profiles": {
+      "type": "hasMany",
+      "model": "profile",
+      "foreignKey": "",
+      "through": "invite"
+    },
+    "courses": {
+      "type": "hasMany",
+      "model": "courses",
+      "foreignKey": ""
+    },
+    "dishes": {
+      "type": "hasMany",
+      "model": "dish",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }

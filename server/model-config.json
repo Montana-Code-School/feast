@@ -47,11 +47,19 @@
     "dataSource": "db",
     "public": true
   },
-  "courses": {
+  "friends": {
+    "dataSource": "db",
+    "public": true
+  },
+  "invite": {
     "dataSource": "db",
     "public": true
   },
   "dish": {
+    "dataSource": "db",
+    "public": true
+  },
+  "profileList": {
     "dataSource": "db",
     "public": true
   }

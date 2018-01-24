@@ -1,124 +1,135 @@
 import React, { Component } from 'react';
-// import { Link} from 'react-router-dom';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
-
+import { Header, Grid, Button, Form } from 'semantic-ui-react';
+import "./EditProfile.css";
+import Navbar from '../../navbar/Navbar'
 
 class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newProfile: [],
-        newEmail: "",
-        newPassword: "",
-        newName: "",
-        newStreet:"",
-        newCity:"",
-        newState: "",
-        newZip:"",
-        newPhone:"",
-        newAllergies:""
+        email: "",
+        name: "",
+        street:"",
+        city:"",
+        state: "",
+        zip:"",
+        phone:"",
+        allergies:"",
+        listId: "",
+        profileId: "",
+        photoId:""
     };
-      this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.removePhotoOnclick = this.removePhotoOnclick.bind(this);
   }
-    handleChange(event) {
-      console.log(event.target.value);
-      this.setState({[event.target.name]: event.target.value});
-    }
-  componentWillMount() {
-    axios.get('/api/profiles/' + this.props.match.params.id)
-    .then((response) => {
-      // console.log(response);
-      this.setState({
-        newEmail: response.data.email, 
-        newPassword: response.data.password,
-        newName: response.data.name,
-        newStreet: response.data.street,
-        newCity: response.data.city,
-        newState: response.data.state,
-        newZip: response.data.zip,
-        newPhone: response.data.phone,
-        newAllergies: response.data.allergies
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+
+removePhotoOnclick(){
+  axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
+    profileId: this.state.profileId,
+    email: this.state.email,
+    // password: this.state.password,
+    name: this.state.name,
+    street: this.state.street,
+    city: this.state.city,
+    state: this.state.state,
+    zip: this.state.zip,
+    phone: this.state.phone,
+    allergies: this.state.allergies,
+    photoId: ''
+  })
+  .then((response) => {
+    this.props.history.push("/profile/" + response.data.id)       
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
+
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value});
   }
-  // handleChangeEmail(event) {
-  //   this.setState({newEmail: event.target.value});
-  // }
-  // handleChangePassword(event) {
-  //   this.setState({newPassword: event.target.value});
-  // }
-  // handleChangeName(event) {
-  //   this.setState({newName: event.target.value});
-  // }
+
   handleSubmit(event) {
     event.preventDefault();
-    var updateProfile = this.state;
-    console.log (updateProfile)
-    axios.put('/api/profiles/'+ this.props.match.params.id, {
-          id: this.state.id,
-          email: this.state.newEmail,
-          password: this.state.newPassword,
-          name: this.state.newName,
-          street: this.state.newStreet,
-          city: this.state.newCity,
-          state: this.state.newState,
-          zip: this.state.newZip,
-          phone: this.state.newPhone,
-          allergies: this.state.newAllergies
-
-      
+    axios.put('/api/profileLists/'+ this.state.listId + '?access_token=' + localStorage.getItem("feastAT"), {
+      profileId: this.state.profileId,
+      email: this.state.email,
+      name: this.state.name,
+      street: this.state.street,
+      city: this.state.city,
+      state: this.state.state,
+      zip: this.state.zip,
+      phone: this.state.phone,
+      allergies: this.state.allergies, 
+      photoId: this.state.photoId    
     })
     .then((response) => {
-      // updateProfile.push(response.data);          
-      console.log(response.data);
-      console.log(this.props.history);
-      this.setState({
-        newProfile: updateProfile
-      })
-     this.props.history.push("/profile/" + response.data.id)  
-      
+      this.props.history.push("/profile/" + response.data.id)       
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
+  componentWillMount() {
+    axios.get('/api/profileLists/'+ this.props.match.params.id +'?access_token=' + localStorage.getItem("feastAT"))
+    .then((response) => {
+      this.setState({
+        email: response.data.email, 
+        name: response.data.name,
+        street: response.data.street,
+        city: response.data.city,
+        state: response.data.state,
+        zip: response.data.zip,
+        phone: response.data.phone,
+        allergies: response.data.allergies,
+        listId: response.data.id,
+        profileId: response.data.profileId,
+        photoId: response.data.photoId
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+ 
   render() {
     return (
       <div>
-        <h1>
-          Profile
-        </h1>
-        <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={2}>
-        <Form.Input label='Email' placeholder='Email' name="newEmail" onChange={this.handleChange}  value={this.state.newEmail}/>
-        <Form.Input label='Password' placeholder='Password' name="newPassword" onChange={this.handleChange} value={this.state.newPassword}/>
-      </Form.Group>
-      <Form.Group unstackable widths={1}>
-        <Form.Input label='Name' placeholder='Name' name="newName" onChange={this.handleChange} value={this.state.newName}/>
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Street' placeholder='Street' name="newStreet" onChange={this.handleChange} value={this.state.newStreet}/>
-        <Form.Input label='City' placeholder='City' name="newCity" onChange={this.handleChange} value={this.state.newCity}/>
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='State' placeholder='State' name="newState" onChange={this.handleChange} value={this.state.newState}/>
-        <Form.Input label='Zip' placeholder='Zip' name="newZip" onChange={this.handleChange} value={this.state.newZip}/>
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Phone' placeholder='Phone' name="newPhone" onChange={this.handleChange} value={this.state.newPhone}/>
-        <Form.Input label='Allergies' placeholder='Allergies' name="newAllergies" onChange={this.handleChange} value={this.state.newAllergies}/>
-      </Form.Group>
-      <Button type='submit'>Submit</Button>
-    </Form>
-  
-       
+      <div id='background'></div>
+      <Navbar profileId={this.state.profileId}/>
+      <div id='content'>
+        <Header
+        as='h1'
+        content='EDIT PROFILE'
+        color='green'
+        textAlign='center'
+        style={{ fontSize: '4em', fontWeight: 'bold' }}
+        />
+          <Grid.Column style={{ maxWidth: 180 }}>
+          <Button onClick = {this.removePhotoOnclick} type = 'removePicture' color='teal'>Remove Picture</Button>
+          </Grid.Column>
+          <Form onSubmit={(e) => this.handleSubmit(e)}>
+            <Form.Group unstackable widths={2}>
+              <Form.Input type='text' label='Name' name="name" onChange={this.handleChange} value={this.state.name}/>
+            </Form.Group>
+            <Form.Group widths={3}>
+              <Form.Input type='text' label='Street' name="street" onChange={this.handleChange} value={this.state.street}/>
+              <Form.Input type='text' label='City' name="city" onChange={this.handleChange} value={this.state.city}/>
+              <Form.Input type='text' label='State' name="state" onChange={this.handleChange} value={this.state.state}/>
+            </Form.Group>
+            <Form.Group widths={3}>
+              <Form.Input type='text' label='Zip' name="zip" onChange={this.handleChange} value={this.state.zip}/>
+              <Form.Input type='text' label='Phone' name="phone" onChange={this.handleChange} value={this.state.phone}/>
+              <Form.Input type='text' label='Allergies' name="allergies" onChange={this.handleChange} value={this.state.allergies}/>
+            </Form.Group><br />
+            <Button type='submit' color='teal'>Submit</Button>
 
+          </Form>
       </div>
+    </div>
     );
   }
 }

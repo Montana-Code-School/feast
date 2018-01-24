@@ -1,0 +1,30 @@
+{
+  "name": "friends",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "friendAllergies": {
+    "type": "string",
+    "required": true
+  },
+  "properties": {
+    "profileId": {
+      "type": "string",
+      "required": true
+    },
+    "friendId": {
+      "type": "string",
+      "required": true
+    },
+    "friendName": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

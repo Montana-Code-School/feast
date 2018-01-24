@@ -1,101 +1,171 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Form} from 'semantic-ui-react';
+import { Header, Button, Form, Message, Grid } from 'semantic-ui-react';
 import "./SignUp.css";
+// import footer from "./footer.jpg";
 // import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+
 
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        email: "",
-        password: "",
-        name: "",
-        street:"",
-        city:"",
-        state: "",
-        zip:"",
-        phone:"",
-        allergies:""
-
+      email: "",
+      password: "",
+      name: "",
+      street: "",
+      city: "",
+      state: "",
+      zip: "",
+      phone: "",
+      allergies: "",
+      profileId: "",
+      listId: ""
     }
-    console.log(props);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event) {
-    console.log(event.target.value);
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  pleasefillin(){
+    if(this.state.email === ''){
+      swal({
+        text: "Email is a Required Field"
+      })
+      return false;
+    }
+    if(this.state.password === ''){
+      swal({
+        text: "Password is a Required Field"
+      })
+      return false;
+    }
+    if(this.state.name === ''){
+      swal({
+        text: "Name is a Required Field"
+      })
+      return false;
+    }
+    return true;
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
+    if (!this.pleasefillin()) {
+    } else {
     const userSignUp = {
       email: this.state.email,
       password: this.state.password,
-      name: this.state.name,
-      street: this.state.street,
-      city: this.state.city,
-      state: this.state.state,
-      zip: this.state.zip,
-      phone: this.state.phone,
-      allergies: this.state.allergies
+      emailVerified: true
     }
     
-    axios.post('/api/profiles', userSignUp) 
-        .then((res) => {
-          console.log(res);
-          console.log(this.props.history)
-         // this.props.onLogin(res.data.id);          
-          this.props.history.push("/profile/" + res.data.id)
+    axios.post('/api/profiles', userSignUp)
+      .then((res) => {
+        
+        const userLogin = {
+          email: this.state.email,
+          password: this.state.password  
+        }
+        this.setState({
+          profileId: res.data.id
+        })
+        const profileList = {
+          name: this.state.name,
+          street: this.state.street,
+          city: this.state.city,
+          state: this.state.state,
+          zip: this.state.zip,
+          phone: this.state.phone,
+          allergies: this.state.allergies,
+          profileId: res.data.id,
+          email: this.state.email
+        }
 
+        axios.post('/api/profileLists/', profileList)
+        .then((res) => {
+          this.setState({
+            listId: res.data.id
+          })  
         })
         .catch((error) => {
+          swal({
+            text: "Invalid Email or Password"
+          })
           console.log(error);
-        });
-          // this.setAccessToken(res.data.id);
-       
+        })
+
+        axios.post('/api/profiles/login', userLogin)
+          .then((res) => {
+            localStorage.setItem("feastAT", res.data.id)
+            this.props.history.push("/profile/" + this.state.listId)  
+          })
+          .catch((error) => {
+            swal({
+              text: "Invalid Email or Password"
+            })
+            console.log(error);
+          })
+
+        })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
-  
+
 
   render() {
     return (
       <div>
         <div id="signup-overlay"></div>
-        <h1>
-          Sign Up
-          </h1>
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
-      <Form.Group unstackable widths={2}>
-        <Form.Input label='Email' placeholder='Email' name="email" onChange={this.handleChange} />
-        <Form.Input label='Password' placeholder='Password' name="password" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group unstackable widths={1}>
-        <Form.Input label='Name' placeholder='Name' name="name" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Street' placeholder='Street' name="street" onChange={this.handleChange} />
-        <Form.Input label='City' placeholder='City' name="city" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='State' placeholder='State' name="state" onChange={this.handleChange} />
-        <Form.Input label='Zip' placeholder='Zip' name="zip" onChange={this.handleChange} />
-      </Form.Group>
-      <Form.Group widths={2}>
-        <Form.Input label='Phone' placeholder='Phone' name="phone" onChange={this.handleChange} />
-        <Form.Input label='Allergies' placeholder='Allergies' name="allergies" onChange={this.handleChange} />
-      </Form.Group>
-      <Button type='submit'>Submit</Button>
-    </Form>
-  
-    
-    </div>
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+       <Header
+       as='h1'
+       content='SIGN UP TO FEAST'
+       color='green'
+       textAlign='center'
+       style={{ fontSize: '4em', fontWeight: 'bold' }}
+     /> <br/>
+        <br/>
+        <div id='content'>
+        <Form onSubmit={(e) => this.handleSubmit(e)}>
+          <Form.Group align="center" widths={3}>
+            <Form.Input placeholder='Email' name="email" onChange={this.handleChange} />
+            <Form.Input placeholder='Password' name="password" onChange={this.handleChange} />
+            <Form.Input placeholder='Name' name="name" onChange={this.handleChange} />
+          </Form.Group><br/>
+          <Form.Group align="center" widths={3}>
+            <Form.Input placeholder='Street' name="street" onChange={this.handleChange} />
+            <Form.Input placeholder='City' name="city" onChange={this.handleChange} />
+            <Form.Input placeholder='State' name="state" onChange={this.handleChange} />
+          </Form.Group><br/>
+          <Form.Group align="center" widths={3}>
+            <Form.Input placeholder='Zip' name="zip" onChange={this.handleChange} />
+            <Form.Input placeholder='Phone' name="phone" onChange={this.handleChange} />
+            <Form.Input placeholder='Allergies' name="allergies" onChange={this.handleChange} />
+          </Form.Group><br/>
+          <Button type='submit' color='teal'>Submit</Button>
+          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Message color='teal'>
+                Already signed up? <a href='./'>Log In</a>
+              </Message>
+            </Grid.Column>
+          </Grid>
+        </Form>
+        </div>
+      </div>
     );
   }
-
-
 }
-
-
 
 export default SignUp;
