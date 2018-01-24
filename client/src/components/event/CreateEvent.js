@@ -128,7 +128,7 @@ class CreateEvent extends Component {
           console.log(error);
         });      
       }
-       this.props.history.push("/event/" + response.data.id)
+       this.props.history.push("/event/" + response.data.id + "/" + this.props.match.params.hid)
     })
     .catch((error) => {
       console.log(error);

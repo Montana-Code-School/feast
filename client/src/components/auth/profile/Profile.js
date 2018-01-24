@@ -53,7 +53,7 @@ class Profile extends Component {
 
   handleClickEvent(event) {
     event.preventDefault();
-    this.props.history.push("/event/" + event.target.value)
+    this.props.history.push("/event/" + event.target.value + "/" + this.props.match.params.id)
   };
 
 
@@ -134,7 +134,7 @@ class Profile extends Component {
       if (accept.rsvp === 'accepted') {
         var output = 
         <div key={accept.id}>
-          <Link to={'/event/' + accept.eventId}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
+          <Link to={'/event/' + accept.eventId + "/" + this.props.match.params.id}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
         </div>
       }
       return (

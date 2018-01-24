@@ -91,6 +91,7 @@ class Event extends Component {
         lng: response.data.lng
         
       })
+      console.log(this.props)
 
       
 
@@ -208,7 +209,7 @@ class Event extends Component {
     const coursesList = this.state.courses.map((course) => {
       return(
         <div key={course}> 
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
+          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
           <br/>
           <br/>
         </div>
@@ -220,7 +221,7 @@ class Event extends Component {
       <div>
         <div id='event-overlay'>
         </div>
-        <Navbar profileId={this.state.profileId}/>
+        <Navbar profileId={this.props.match.params.pid}/>
         <div id='content'>
         <Header
         as='h1'
@@ -336,7 +337,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <br/>
-        <Link to={"/event/edit/" + this.props.match.params.eid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
+        <Link to={"/event/edit/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
         <br/>
       </div>
       </div>

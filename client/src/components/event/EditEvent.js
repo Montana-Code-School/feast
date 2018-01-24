@@ -105,15 +105,6 @@ class EditEvent extends Component {
       .then((response) => {
         console.log(response)
 
-        // axios.delete('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
-        // .then((response) => {
-        //   console.log(response)
-        //   this.props.history.push("/profile/" + this.state.profileId)
-        // })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
-
         axios.get('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
         .then((response) => {
           console.log(response.data[0].id)
@@ -206,7 +197,7 @@ class EditEvent extends Component {
               console.log(error);
             });      
           }
-          this.props.history.push("/event/" + this.props.match.params.eid)
+          this.props.history.push("/event/" + this.props.match.params.eid + "/" + this.props.match.params.pid)
         })
         .catch((error) => {
           console.log(error);
@@ -268,7 +259,7 @@ class EditEvent extends Component {
     return (
       <div>
       <div id='editEvent-overlay'></div>
-        <Navbar profileId={this.state.profileId}/>
+        <Navbar profileId={this.props.match.params.pid}/>
         <div id='content'>
         <Header
             as='h1'

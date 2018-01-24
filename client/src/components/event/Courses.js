@@ -46,7 +46,7 @@ class Courses extends Component {
     .catch((error) => {
       console.log(error);
     });
-    this.props.history.push("/event/" + this.state.eventId)
+    this.props.history.push("/event/" + this.state.eventId + "/" + this.props.match.params.pid)
 
     }
 
@@ -68,7 +68,7 @@ class Courses extends Component {
       <div>
         <div id='courses-overlay'>
         </div>
-        <Navbar profileId={this.state.profileId}/>
+        <Navbar profileId={this.props.match.params.pid}/>
         <div id='content'>
         <Header
             as='h1'
