@@ -300,7 +300,7 @@ class Event extends Component {
         </Card.Group>
         </div>
         <div id='grid'>
-        <Grid columns={3} divided>
+        <Grid columns={3}>
           <Grid.Row>
             <Grid.Column>
               <List>
