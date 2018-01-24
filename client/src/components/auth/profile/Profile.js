@@ -118,7 +118,7 @@ class Profile extends Component {
     const eventList = this.state.events.map((event) => {
       return (
         <div key={event.id}>
-        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button><Button><Icon name='delete'/></Button>
+        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
       <br />
       <br />
       </div>
@@ -128,8 +128,10 @@ class Profile extends Component {
     const acceptedList = this.state.invites.map((accept) => {
       if (accept.rsvp === 'accepted') {
         var output = 
-        <div key={accept.id}>
+        <div key={accept.id} >
           <Link to={'/event/' + accept.eventId}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
+        <br />
+        <br />
         </div>
       }
       return (
@@ -141,7 +143,7 @@ class Profile extends Component {
       if (invite.rsvp === 'invited') {
         var output = <div key={invite.id}>
         <h4>{invite.theme}</h4>
-        <Button.Group>
+        <Button.Group vertical>
         <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
         <Button.Or />
         <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
@@ -249,8 +251,8 @@ class Profile extends Component {
               Events You Are Attending! 
             </Card.Header>
             </Card.Content>
-            {acceptedList}
             <Card.Content>
+            {acceptedList}
             </Card.Content>  
           </Card>     
         </CardGroup>

@@ -104,7 +104,7 @@ class Photo extends Component {
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop.bind(this)}>
-            <p>Click here to add your profile photo</p>
+            <a><p>Click here to add your profile photo</p></a>
           </Dropzone>
           <br/>    
         </div>    

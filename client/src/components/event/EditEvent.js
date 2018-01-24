@@ -297,8 +297,8 @@ class EditEvent extends Component {
         </Grid><br/>      
          <Button type='submit' color='teal'>Submit</Button>
          </Form>
+         <br />
          <Button onClick={this.handleClickDelete} type='submit' color='teal'>Delete Event</Button>
-
       </div>
       </div>
     );
