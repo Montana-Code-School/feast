@@ -218,11 +218,9 @@ class Event extends Component {
       return(
         <div key={course}>
             <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid + "/" + this.props.match.params.pid}>
-            <Button color='teal'>
               <Icon name='cocktail'/>
               Add {course}
-            </Button></Link>
-          </Button>  
+            </Link></Button>
 
           
 
