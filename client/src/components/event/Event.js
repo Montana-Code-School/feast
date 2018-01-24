@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card, Icon, Label } from 'semantic-ui-react';
+import { Header, Image, Grid, List, Button, Card, Icon } from 'semantic-ui-react';
 import './Map.js';
 import {
-  // withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
@@ -18,9 +17,7 @@ import Navbar from '../navbar/Navbar';
 import party from './party.jpg';
 import two from './two.jpg';
 import Photo from '../auth/photo/Photo';
-// import { geocodeByAddress} from 'react-places-autocomplete'
-// import PlacesAutocomplete from 'react-places-autocomplete'
-// https://www.google.com/maps/place/3028+W+Villard+St,+Bozeman,+MT+59718/@45.6832965,-111.0793269,17z/data=!3m1!4b1!4m13!1m7!3m6!1s0x534545b8cc0a0017:0x35e94083d209dad5!2s3028+W+Villard+St,+Bozeman,+MT+59718!3b1!8m2!3d45.6832965!4d-111.0771436!3m4!1s0x534545b8cc0a0017:0x35e94083d209dad5!8m2!3d45.6832965!4d-111.0771436
+
 class Event extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +39,6 @@ class Event extends Component {
       lat: "",
       lng: "",
       photoId: "",
-      profileId: "",
       profileListId: this.props.match.params.id,
       
       userModel: { name: "",
@@ -221,7 +217,14 @@ class Event extends Component {
     const coursesList = this.state.courses.map((course) => {
       return(
         <div key={course}>
-          {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link>
+            <Button  color='purple' pointing='right'>{course.toUpperCase()}<Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}>
+            <Button color='teal'>
+              <Icon name='cocktail'/>
+              Add {course}
+            </Button></Link>
+          </Button>  
+
+          {/* {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link> */}
           <br/>
           <br/>
         </div>
