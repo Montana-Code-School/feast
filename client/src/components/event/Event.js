@@ -326,9 +326,11 @@ class Event extends Component {
             <Grid.Column>
               <Card>
                 <Card.Content>
-              <h4>GUESTS</h4>
+                  <Card.Header>
+                  GUESTS
+                  </Card.Header>
                 </Card.Content>
-                <Card.Content>
+                <Card.Content as='h4'>
                   We're Coming To The FEAST
                 </Card.Content>
                 <Card.Content>
