@@ -51,7 +51,8 @@ class Photo extends Component {
         profileId: this.props.SuperId.profileId
       })
       .then((response) => {
-        window.location = "profile/" + this.props.SuperId.profileListId   
+        // window.location = "profile/" + this.props.SuperId.profileListId
+        this.props.history.push("/profile/" + this.props.SuperId.profileListId)    
       })
       .catch((error) => {
         console.log(error);
