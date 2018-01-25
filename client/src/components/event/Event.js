@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Event.css';
-import { Header, Image, Grid, List, Button, Card, Icon } from 'semantic-ui-react';
+import { Header, Image, Grid, Button, Card, Icon } from 'semantic-ui-react';
 import './Map.js';
 import {
   withGoogleMap,
@@ -298,11 +298,9 @@ class Event extends Component {
         </Card.Group>
         </div>
         <div id='grid'>
-        <Grid columns={3}>
+        <Grid columns={4}>
           <Grid.Row>
             <Grid.Column>
-              <List>
-                <List.Item>
                 <Card>
                   <Card.Content>
                     <Card.Header>
@@ -313,13 +311,18 @@ class Event extends Component {
                   {coursesList}
                     </Card.Content>
                   </Card>
+                  </Grid.Column>
+                  <Grid.Column>
                   <Card>
+                    <Card.Content>
+                  <Card.Header>
+                      DISHES PEOPLE ARE BRINGING
+                    </Card.Header> 
+                    </Card.Content>
                     <Card.Content>
                   {dishesList}
                     </Card.Content>
                   </Card>
-                </List.Item>
-              </List>
             </Grid.Column>
             <Grid.Column>
               <Card>
