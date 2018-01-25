@@ -186,7 +186,6 @@ class Event extends Component {
         containerElement: <div style={{ height: `575px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
       }),
-      // withScriptjs,
       withGoogleMap,
     )((props) =>
       <GoogleMap
@@ -219,10 +218,6 @@ class Event extends Component {
               <Icon name='cocktail'/>
               Add {course}
             </Link></Button>
-
-          
-
-          {/* {course.toUpperCase()} <Link to={"/event/courses/" + course + "/" + this.props.match.params.eid}><Button color='teal'><Icon name='cocktail'/>Add {course}</Button></Link> */}
           <br/>
           <br/>
         </div>

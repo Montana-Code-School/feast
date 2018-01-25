@@ -130,6 +130,8 @@ class Profile extends Component {
         var output = 
         <div key={accept.id}>
           <Link to={'/event/' + accept.eventId + "/" + this.props.match.params.id}><Button color='teal'>{accept.hostName + "'s " + accept.theme + " Event"}</Button></Link>
+          <br/>
+          <br/>
         </div>
       }
       return (
