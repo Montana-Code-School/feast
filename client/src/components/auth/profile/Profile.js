@@ -118,10 +118,10 @@ class Profile extends Component {
     const eventList = this.state.events.map((event) => {
       return (
         <div key={event.id}>
-        <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
-      <br />
-      <br />
-      </div>
+          <Button onClick={this.handleClickEvent} name='event' value={event.id} key={event.id} color='purple'><Icon name='birthday'/>{event.theme}</Button>
+          <br />
+          <br />
+        </div>
       )
     })
 
@@ -143,12 +143,12 @@ class Profile extends Component {
       if (invite.rsvp === 'invited') {
         var output = <div key={invite.id}>
         <h4>{invite.theme}</h4>
-        <Button.Group vertical>
-        <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
-        <Button.Or />
-        <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
-        </Button.Group>
-      </div>
+          <Button.Group vertical>
+            <Button onClick={this.handleClickInvite} name='accepted' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='green'><Icon name='thumbs up'/>ACCEPT</Button>
+              <Button.Or />
+            <Button onClick={this.handleClickInvite} name='declined' data-event={invite.eventId} data-profile={invite.inviteProfileId} data-name={invite.inviteName} data-invite={invite.id} data-host={invite.hostName} data-theme={invite.theme} color='red'><Icon name='thumbs down'/>DECLINE</Button>
+          </Button.Group>
+        </div>
       }
         return (
           output
@@ -158,7 +158,7 @@ class Profile extends Component {
     return (
       <div>
         <div id="profile-overlay"></div>
-        <Navbar profileId={this.props.match.params.id}/>
+          <Navbar profileId={this.props.match.params.id}/>
         <div id='content'>
         <Header
           as='h1'
@@ -177,15 +177,15 @@ class Profile extends Component {
         </Button.Group>
         </div>
         <br />
-     <div className="container" align='center'> 
-     <Card>
-       <Card.Content> 
-     <Photo SuperId = {this.state}/>  
-      </Card.Content>
-    </Card>  
-    <br/>
-    <br/>
-     </div>
+        <div className="container" align='center'> 
+        <Card>
+          <Card.Content> 
+        <Photo SuperId = {this.state}/>  
+          </Card.Content>
+        </Card>  
+        <br/>
+        <br/>
+        </div>
         <CardGroup itemsPerRow='5'>
           <Card>
             <Card.Content>

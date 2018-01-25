@@ -53,7 +53,6 @@ class Event extends Component {
       photoId: "",
       profileId: "",
       profileListId: this.props.match.params.id},
-
       };
     }
   componentDidMount() {
@@ -82,8 +81,7 @@ class Event extends Component {
       return <Link to={"/event/edit/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
     }
   }  
-  
-  
+   
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
@@ -107,7 +105,6 @@ class Event extends Component {
       if (localStorage.getItem("feastAT") !== null) {
         axios.get('/api/profileLists/' + response.data.profileId +'?access_token=' + localStorage.getItem("feastAT"))
           .then((response) => {
-            // console.log(response)
             this.setState({
               userModel:{
                 email: response.data.email,
@@ -125,11 +122,10 @@ class Event extends Component {
           })
           .catch((error) => {
             if (error.response.data.error.statusCode === 401) {
-              this.props.history.push("/")
-            }
-          });
+            this.props.history.push("/")
+          }
+        });
       }
-
     })
     .catch((error) => {
       console.log(error);
@@ -235,7 +231,7 @@ class Event extends Component {
         content='WELCOME TO THE FEAST'
         textAlign='center'
         style={{ fontSize: '4em', fontWeight: 'bold' }}
-      />
+        />
         <Card.Group itemsPerRow={3}>
         <Card>
         <Card.Content>
@@ -275,11 +271,11 @@ class Event extends Component {
         </Card>
         <Card>
         <Card.Content>
-        <MyMapComponent
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
-          isMarkerShown={true}
-          onMarkerClick={this.handleMarkerClick}
-        />
+          <MyMapComponent
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9PiSbLBtc_elQvDoxHFs-MeFceId1abo&v=3.exp&libraries=geometry,drawing,places"
+            isMarkerShown={true}
+            onMarkerClick={this.handleMarkerClick}
+          />
         </Card.Content>
         </Card>
           <Card>
@@ -318,7 +314,7 @@ class Event extends Component {
                   {dishesList}
                     </Card.Content>
                   </Card>
-            </Grid.Column>
+              </Grid.Column>
             <Grid.Column>
               <Card>
                 <Card.Content>
