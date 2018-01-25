@@ -31,7 +31,8 @@ class EditEvent extends Component {
       profileId: "",
       lat: "",
       lng: "",
-      deleteInvites: ""
+      deleteInvites: "",
+      time: ""
       }
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeCourses = this.handleChangeCourses.bind(this);
@@ -101,15 +102,12 @@ class EditEvent extends Component {
     event.preventDefault();
     axios.delete('/api/events/' + this.state.id + '?access_token=' + localStorage.getItem("feastAT"))
       .then((response) => {
-        console.log(response)
 
         axios.get('/api/invites?filter[where][eventId][like]=' + this.state.id + '&access_token=' + localStorage.getItem("feastAT")) 
         .then((response) => {
-          console.log(response.data[0].id)
          for (var i = 0; i < response.data.length; i++) {
             axios.delete('/api/invites/' + response.data[i].id + '?access_token=' + localStorage.getItem("feastAT")) 
               .then((response) => {
-                console.log(response)
               })
               .catch((error) => {
                 console.log(error);
@@ -220,7 +218,8 @@ class EditEvent extends Component {
           profileId: response.data.profileId,
           lat: response.data.lat,
           lng: response.data.lng,
-          allergies: response.data.allergies          
+          allergies: response.data.allergies,
+          time: response.data.time          
         })
         axios.get('/api/friends?filter[where][profileId][like]=' + response.data.profileListId)
         .then((response) => {

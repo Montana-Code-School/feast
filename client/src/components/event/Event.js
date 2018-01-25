@@ -52,7 +52,8 @@ class Event extends Component {
       invites: [],
       photoId: "",
       profileId: "",
-      profileListId: this.props.match.params.id}
+      profileListId: this.props.match.params.id},
+
       };
     }
   componentDidMount() {
@@ -75,10 +76,17 @@ class Event extends Component {
     this.setState({ isMarkerShown: false })
     this.delayedShowMarker()
   }
+
+  editEventButton(){
+    if (this.state.profileId === this.props.match.params.pid) {
+      return <Link to={"/event/edit/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
+    }
+  }  
+  
+  
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      console.log(response)
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -95,6 +103,7 @@ class Event extends Component {
         lng: response.data.lng,
         photoId: response.data.photoId,
       })
+      
       if (localStorage.getItem("feastAT") !== null) {
         axios.get('/api/profileLists/' + response.data.profileId +'?access_token=' + localStorage.getItem("feastAT"))
           .then((response) => {
@@ -120,17 +129,7 @@ class Event extends Component {
             }
           });
       }
-      // geocodeByAddress(response.data.street + response.data.city + response.data.state)
-      // .then((results) => {
-      //   console.log(results)
-      //   this.setState({
-      //     lat: (results[0].geometry.viewport.f.f + results[0].geometry.viewport.f.b)/2,
-      //     lng: (results[0].geometry.viewport.b.b + results[0].geometry.viewport.b.f)/2,
-      //     place: results[0].place_id,
-      //     location: results[0].geometry.location
-      //   })
-      // })
-      // .catch(error => console.error('Error', error))
+
     })
     .catch((error) => {
       console.log(error);
@@ -167,7 +166,6 @@ class Event extends Component {
     return peoplelist;
   }
   render() {
-    console.log(this.state)
     var accept = this.invitedPeople('accepted').map((invite) => {
       return(
         <div key={invite}>
@@ -359,7 +357,7 @@ class Event extends Component {
           </Grid.Row>
         </Grid>
         <br/>
-        <Link to={"/event/edit/" + this.props.match.params.eid + "/" + this.props.match.params.pid}><Button color='black' fluid>Click Here To Edit Your Event</Button></Link>
+        {this.editEventButton()}
         <br/>
       </div>
       </div>
