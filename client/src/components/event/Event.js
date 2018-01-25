@@ -53,7 +53,6 @@ class Event extends Component {
       photoId: "",
       profileId: "",
       profileListId: this.props.match.params.id},
-      john: ""
 
       };
     }
@@ -88,7 +87,6 @@ class Event extends Component {
   componentWillMount() {
     axios.get('/api/events/' + this.props.match.params.eid)
     .then((response) => {
-      console.log(response)
       this.setState({
         host: response.data.host,
         profileId: response.data.profileId,
@@ -168,7 +166,6 @@ class Event extends Component {
     return peoplelist;
   }
   render() {
-    console.log(this.state)
     var accept = this.invitedPeople('accepted').map((invite) => {
       return(
         <div key={invite}>
