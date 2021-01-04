@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3000",
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "google-maps": "^3.2.1",
     "loopback-connector-mongodb": "^3.3.0",
     "react": "^16.1.1",
